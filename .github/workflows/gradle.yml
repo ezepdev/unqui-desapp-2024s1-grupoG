@@ -44,7 +44,7 @@ jobs:
     # - name: Build with Gradle 8.5
     #   run: gradle build
     - name: Run test reporter
-    - uses: dorny/test-reporter@v1
+      uses: dorny/test-reporter@v1
 
 
   dependency-submission:
