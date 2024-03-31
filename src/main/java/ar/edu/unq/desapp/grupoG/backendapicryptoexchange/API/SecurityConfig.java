@@ -1,9 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -22,9 +20,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.ArrayList;
+
 @Configuration
-@EnableMethodSecurity /* enable security attributes in controllers */
 @EnableWebSecurity
+@EnableMethodSecurity /* enable security attributes in controllers */
 public class SecurityConfig {
 
     @Bean
@@ -33,16 +33,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                /*.authorizeHttpRequests(http -> {
-                        // PUBLIC ENDPOINTS
-                        http.requestMatchers(HttpMethod.GET,"/auth/register").permitAll();
-                        // PRIVATE ENDPOINTS
-                        http.requestMatchers(HttpMethod.GET,"/all").hasAuthority("READ");
-                        // DENY REST ENDPOINTS
-                        http.anyRequest().denyAll();                                            }
-                )*/
                 .build();
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
         return authConfiguration.getAuthenticationManager();
@@ -51,19 +44,26 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(null);
-        provider.setUserDetailsService(null);
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setUserDetailsService(userDetailsService());
         return provider;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-          return NoOpPasswordEncoder.getInstance();
+        return NoOpPasswordEncoder.getInstance();
     }
 
-    @Bean                                                                                
+    @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withUsername("eze").password("1234").roles("ADMIN").authorities("READ","CREATE").build();
-        return new InMemoryUserDetailsManager(userDetails);
+        ArrayList<UserDetails> registredUsers = new ArrayList<>();
+
+
+        UserDetails user_1 = User.withUsername("eze").password("1234").roles("ADMIN").authorities("READ", "CREATE").build();
+        UserDetails user_2 = User.withUsername("pepe").password("1234").roles("ADMIN").authorities("READ").build();
+
+        registredUsers.add(user_1);
+        registredUsers.add(user_2);
+        return new InMemoryUserDetailsManager(registredUsers);
     }
 }
