@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API;
+package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -57,7 +57,6 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         ArrayList<UserDetails> registredUsers = new ArrayList<>();
-
 
         UserDetails user_1 = User.withUsername("eze").password("1234").roles("ADMIN").authorities("READ", "CREATE").build();
         UserDetails user_2 = User.withUsername("pepe").password("1234").roles("ADMIN").authorities("READ").build();
