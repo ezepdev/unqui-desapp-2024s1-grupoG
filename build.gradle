@@ -1,8 +1,10 @@
 plugins {
-	id 'java'
-	id 'war'
-	id 'org.springframework.boot' version '3.2.4'
-	id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.2.4'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id('org.springdoc.openapi-gradle-plugin') version '1.8.0'
+    id "org.sonarqube" version "4.4.1.3373"
 }
 
 group = 'ar.edu.unq.desapp.grupoG'
@@ -29,4 +31,12 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "ezepdev_unqui-desapp-2024s1-grupoG"
+        property "sonar.organization", "ezepdev"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
