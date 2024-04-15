@@ -1,8 +1,8 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.services;
+package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service;
 
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.persistence.entities.User;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.persistence.repositories.AllUsers;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.AllUsers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
