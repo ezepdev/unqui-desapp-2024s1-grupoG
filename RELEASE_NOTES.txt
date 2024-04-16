@@ -1,0 +1,23 @@
+====== TAG ==========
+Si hacen mas de un TAG de la entrega X, sumen 1 al último digito.
+Para ña entrega 2 reemplacen ENTREGA 1 por ENTREGA 2 y el contador arranca de nuevo en  1.0 por cada entrega
+
+====== RELEASE NOTE  ==========
+---------------------------------------------------------------------
+TAG v1.0
+---------------------------------------------------------------------
+NEW FEATURES (lo que están entregando y está funcionando):
+* registro y logueo de usuarios
+
+NOTES (ej: funcionalidad que falta, alguna consideración especial):
+- No tenemos la aplicacion deployada en un hosting. 
+- No tenemos implementados los test de unidad.
+
+KNOWN ISSUES (ej: funcionalidad que saben que están funcionando diferente, algún error conocido en la funcionalidad terminada, etc) :
+* La funcionalidad de registro y logueo
+	a) No tiene un correcto manejo de errores 
+ 	b) Las validaciones no tienen un optimo feedback para el usuario.
+
+Ejemplos típicos: 
+https://db.apache.org/ojb/release-notes.txt 
+https://www.apache.org/dist/commons/net/RELEASE-NOTES.txt
