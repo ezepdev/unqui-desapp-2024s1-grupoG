@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.security;
 
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.AllUsers;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.AuthService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -58,11 +60,8 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         ArrayList<UserDetails> registredUsers = new ArrayList<>();
 
-        UserDetails user_1 = User.withUsername("eze").password("1234").roles("ADMIN").authorities("READ", "CREATE").build();
-        UserDetails user_2 = User.withUsername("pepe").password("1234").roles("ADMIN").authorities("READ").build();
-
-        registredUsers.add(user_1);
-        registredUsers.add(user_2);
         return new InMemoryUserDetailsManager(registredUsers);
     }
+
+
 }

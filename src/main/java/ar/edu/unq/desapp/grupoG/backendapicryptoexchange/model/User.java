@@ -1,28 +1,35 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.math.BigInteger;
 import java.util.Collection;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@Entity
-//@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Entity
+@Table(name = "users")
 public class User {
-    Integer id;
+
     String name;
     String surname;
-    String username;
     String password;
+    @Id
+    @Column(nullable = false, unique=true)
     String email;
-    Integer cvu;
-    Integer wallet_direction;
+    String address;
+    @Column(nullable = false,unique = true)
+    BigInteger cvu;
+    @Column(nullable = false,unique = true)
+    Integer wallet_address;
+
+    public String username() {
+        return name + surname;
+    }
 }

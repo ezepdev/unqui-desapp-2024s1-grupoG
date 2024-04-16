@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,11 +25,11 @@ public class RegisterRequest{
         private String address;
         @Digits(integer=22,fraction = 0,message ="El campo cvu debe tener exactamente 22 digitos")
         @NotNull
-        private int cvu;
+        private BigInteger cvu;
         @Digits(integer=8,fraction = 0, message ="El campo direccion de billetera debe tener exactamente 8 digitos")
         @NotNull
         private int wallet_address;
         @NotEmpty
-        @Pattern(regexp = "^(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&()-_=+|\\[{\\]};:'\",<.>/?]).{6,}$")
+        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$")
         private String password;
 }

@@ -1,10 +1,17 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginResponse;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.AuthService;
+
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterResponse;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,12 +19,46 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    // AuthService authService;
+    private final AuthService authService;
 
     @PostMapping("/register")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<RegisterResponse> registerUser(@Valid @RequestBody RegisterRequest request) {
-        // RegisterResult result = authService.registerUser(request.username(), request.password());
+        User user_registered = authService.registerUser(request);
 
-        return ResponseEntity.ok(new RegisterResponse("eze", "Bearer token"));
+        return ResponseEntity.ok(
+                new RegisterResponse(
+                        user_registered.getName(),
+                        user_registered.getSurname(),
+                        user_registered.getEmail(),
+                        user_registered.getAddress(),
+                        user_registered.getCvu(),
+                        user_registered.getWallet_address(),
+                        user_registered.getPassword()
+                )
+        );
+    }
+
+    @PostMapping("/login")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginRequest request) {
+        User user = authService.loginUser(request);
+
+        if (user != null) {
+            return ResponseEntity.ok(
+                    LoginResponse.builder()
+                            .name(user.getName())
+                            .email(user.getEmail())
+                            .address(user.getAddress())
+                            .surname(user.getSurname())
+                            .wallet_address(user.getWallet_address())
+                            .cvu(user.getCvu())
+                            .build()
+            );
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 }
