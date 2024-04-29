@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -14,4 +16,5 @@ import lombok.NoArgsConstructor;
 public class CryptoCurrency {
     String name;
     Float price;
+    Date price_date;
 }

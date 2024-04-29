@@ -17,6 +17,7 @@ public class AuthService {
     private final AllUsers users;
 
     public User registerUser(RegisterRequest request) {
+        
         User user = User.builder()
                 .name(request.getName())
                 .surname(request.getSurname())
@@ -30,7 +31,6 @@ public class AuthService {
         users.save(user);
 
         System.out.println(users.findAll());
-
         return user;
         
     }
@@ -49,6 +49,5 @@ public class AuthService {
         else {
             throw new Error(" Usuario no encontrado");
         }
-
     }
 }
