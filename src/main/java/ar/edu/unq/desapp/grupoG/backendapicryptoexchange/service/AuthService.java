@@ -4,7 +4,11 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.BadRegisterException;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.EmailAlreadyInUseError;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidDataException;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.AllUsers;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,26 +32,28 @@ public class AuthService {
                 .address(request.getAddress())
                 .build();
 
-        users.save(user);
+        if (users.findByEmail(request.getEmail()).isPresent()) {
+            throw new EmailAlreadyInUseError();
+        }
 
-        System.out.println(users.findAll());
+        users.save(user);
         return user;
         
     }
 
     public User loginUser(LoginRequest request) {
-        Optional<User> response = users.findByEmail(request.email());
+        Optional<User> response = users.findByEmail(request.getEmail());
 
         if (response.isPresent()) {
-            if (Objects.equals(response.get().getPassword(), request.password())) {
+            if (Objects.equals(response.get().getPassword(), request.getPassword())) {
                 return response.get();
             }
             else {
-                throw new Error("Password incorrecto");
+                throw new InvalidDataException();
             }
         }
         else {
-            throw new Error(" Usuario no encontrado");
+            throw new InvalidDataException();
         }
     }
 }

@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginResponse;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.BadRegisterException;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.AuthService;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
@@ -23,7 +24,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<RegisterResponse> registerUser(@Valid @RequestBody RegisterRequest request) {
+    public ResponseEntity<RegisterResponse> registerUser(@Valid @RequestBody RegisterRequest request) throws BadRegisterException {
         User user_registered = authService.registerUser(request);
 
         return ResponseEntity.ok(

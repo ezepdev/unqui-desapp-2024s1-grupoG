@@ -9,7 +9,6 @@ import java.math.BigInteger;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class RegisterResponse{
     private String name;
     private String surname;

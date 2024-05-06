@@ -9,7 +9,6 @@ import java.math.BigInteger;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class RegisterRequest{
         @Size(min = 3,max = 30, message = "El campo nombre debe contener entre 3 y 30 caracteres")
         @NotEmpty
