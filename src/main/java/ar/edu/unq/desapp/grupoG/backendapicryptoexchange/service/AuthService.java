@@ -4,11 +4,9 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.BadRegisterException;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.EmailAlreadyInUseError;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidDataException;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.AllUsers;
-import jakarta.validation.constraints.Email;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class AuthService {
-    private final AllUsers users;
+    private final UserRepository users;
 
     public User registerUser(RegisterRequest request) {
         

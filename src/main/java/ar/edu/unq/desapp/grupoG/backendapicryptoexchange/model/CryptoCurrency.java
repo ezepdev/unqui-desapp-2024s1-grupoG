@@ -1,6 +1,8 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +15,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 
+@Entity
 public class CryptoCurrency {
-    String name;
+    @Id
+    String symbol;
     Float price;
     Date price_date;
 }
