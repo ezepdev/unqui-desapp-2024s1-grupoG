@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service;
+package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.Optional;
+// TODO: SEE TRANSACTIONABLE IMPLEMENTATION
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +26,7 @@ public class AuthService {
                 .surname(request.getSurname())
                 .password(request.getPassword())
                 .email(request.getEmail())
-                .wallet_address(request.getWallet_address())
+                .walletAddress(request.getWallet_address())
                 .cvu(request.getCvu())
                 .address(request.getAddress())
                 .build();

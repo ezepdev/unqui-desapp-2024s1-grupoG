@@ -3,7 +3,8 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.BadRegisterException;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.AuthService;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IAuthService;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.AuthService;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterResponse;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final AuthService authService;
+    private final IAuthService authService;
 
     @PostMapping("/register")
     @PreAuthorize("permitAll()")
@@ -34,7 +35,7 @@ public class AuthenticationController {
                         user_registered.getEmail(),
                         user_registered.getAddress(),
                         user_registered.getCvu(),
-                        user_registered.getWallet_address(),
+                        user_registered.getWalletAddress(),
                         user_registered.getPassword()
                 )
         );
@@ -52,7 +53,7 @@ public class AuthenticationController {
                             .email(user.getEmail())
                             .address(user.getAddress())
                             .surname(user.getSurname())
-                            .wallet_address(user.getWallet_address())
+                            .wallet_address(user.getWalletAddress())
                             .cvu(user.getCvu())
                             .build()
             );

@@ -1,10 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +20,10 @@ import java.math.BigInteger;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique=true)
+    private Integer id;
+
     @Column(nullable = false, unique=true)
     String email;
 
@@ -41,28 +42,28 @@ public class User {
     BigInteger cvu;
 
     @Column(nullable = false,unique = true)
-    Integer wallet_address;
+    Integer walletAddress;
 
     @Builder.Default
-    Integer operations_amount = 0;
+    Integer operationsAmount = 0;
 
     @Builder.Default
-    Integer reputation_points = 0;
+    Integer reputationPoints = 0;
 
     public String username() {
         return name + surname;
     }
     public void addPoints(Integer points) {
-        reputation_points += points;
+        reputationPoints += points;
     }
 
     public void addOperation() {
-        operations_amount++;
+        operationsAmount++;
     }
 
     public Double get_reputation() {
-        if (operations_amount == 0) return 0.0; // TODO: CHECK THIS
-        return (double)reputation_points / operations_amount;
+        if (operationsAmount == 0) return 0.0; // TODO: CHECK THIS
+        return (double)reputationPoints / operationsAmount;
     }
 
 }

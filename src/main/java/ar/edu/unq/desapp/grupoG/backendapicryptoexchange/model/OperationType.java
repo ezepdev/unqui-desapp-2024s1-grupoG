@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
-public enum TransactionIntentionType {
+
+public enum OperationType {
     COMPRA,VENTA
 }

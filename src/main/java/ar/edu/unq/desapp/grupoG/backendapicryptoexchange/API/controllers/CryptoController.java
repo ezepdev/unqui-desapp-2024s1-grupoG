@@ -1,9 +1,8 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.CryptoResponse;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.CryptoCurrency;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.CryptoService;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.CryptoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CryptoController {
 
-    private final CryptoService cryptoService;
+    private final ICryptoService cryptoService;
 
     @GetMapping
     @PreAuthorize("permitAll()")
