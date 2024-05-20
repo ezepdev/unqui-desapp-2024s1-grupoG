@@ -22,9 +22,8 @@ public class RegisterRequest{
         @Size(min=10,max=30, message ="El campo direccion debe contener entre 10 y 30 caracteres")
         @NotEmpty
         private String address;
-        @Digits(integer=22,fraction = 0,message ="El campo cvu debe tener exactamente 22 digitos")
-        @NotNull
-        private BigInteger cvu;
+        // todo : add cvu constraint
+        private String cvu;
         @Digits(integer=8,fraction = 0, message ="El campo direccion de billetera debe tener exactamente 8 digitos")
         @NotNull
         private int wallet_address;

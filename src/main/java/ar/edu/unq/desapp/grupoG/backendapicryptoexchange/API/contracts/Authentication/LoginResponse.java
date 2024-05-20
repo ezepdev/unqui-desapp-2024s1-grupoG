@@ -15,6 +15,6 @@ public class LoginResponse{
     private String surname;
     private String email;
     private String address;
-    private BigInteger cvu;
+    private String cvu;
     private int wallet_address;
 }

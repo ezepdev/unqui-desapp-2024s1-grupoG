@@ -16,11 +16,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionsController {
 
     ITransactionService transactionService;
-
-    @PostMapping
-    @RequestMapping("/execute/{Id}")
-    public ResponseEntity<Transaction> executeTransaction(int Id,TransactionIntentionRequest request) {
-        var createdTransaction = transactionService.executeTransactionOffer(Id,request);
-        return ResponseEntity.ok(createdTransaction);
-    }
 }

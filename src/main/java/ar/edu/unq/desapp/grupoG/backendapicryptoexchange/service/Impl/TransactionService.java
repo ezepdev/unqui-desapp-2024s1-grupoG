@@ -4,23 +4,24 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transacti
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.TransactionOfferNotFound;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.TransactionOfferRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.TransactionIntentionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.TransactionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.UserRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 // TODO: SEE TRANSACTIONABLE IMPLEMENTATION
 
 @Service
 @RequiredArgsConstructor
-public class TransactionService {
+public class TransactionService implements ITransactionService {
 
     private final TransactionRepository transactionRepository;
-    private final TransactionOfferRepository transactionOfferRepository;
+    private final TransactionIntentionRepository transactionIntentionRepository;
     private final UserRepository userRepository;
 
     public Transaction executeTransactionOffer(Integer transactionOfferId,TransactionIntentionRequest request){
-        var transactionOffer = transactionOfferRepository.findById(transactionOfferId);
+        var transactionOffer = transactionIntentionRepository.findById(transactionOfferId);
         if (transactionOffer.isEmpty()) throw new TransactionOfferNotFound();
         var userOwner = userRepository.findById(transactionOffer.get().getCreator().getId());
         var userClient = userRepository.findById(request.getClientTransactionId());
@@ -33,4 +34,5 @@ public class TransactionService {
                         offer(transactionOffer.get()).
                         build());
     }
+
 }

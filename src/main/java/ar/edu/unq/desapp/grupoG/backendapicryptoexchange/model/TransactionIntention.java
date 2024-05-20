@@ -8,19 +8,20 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "transaction_offers")
+
 @Entity
-public class TransactionOffer {
+@Table(name = "transaction_offers")
+public class TransactionIntention {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique=true)
-    private Integer id;
+    private Long id;
     @Enumerated(EnumType.STRING)
     @Column(name = "operation_type",nullable = false)
     private OperationType type;
@@ -28,15 +29,13 @@ public class TransactionOffer {
     @Column(name = "crypto_symbol",nullable = false)
     private CryptoCurrencySymbol cryptoSymbol;
     @Column(nullable = false, unique=true)
-    private Float cryptoPrice;
+    private Double cryptoPrice;
     @Column(nullable = false, unique=true)
-    private Float cryptoAmount;
-    @Column(nullable = false, unique=true)
-    private Float finalPrice;
-    @ManyToOne(fetch = FetchType.LAZY)
+    private Double cryptoAmount;
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User creator;
     @Column(nullable = false, unique=true)
-    private Date creationDate;
+    private LocalDate creationDate;
 }

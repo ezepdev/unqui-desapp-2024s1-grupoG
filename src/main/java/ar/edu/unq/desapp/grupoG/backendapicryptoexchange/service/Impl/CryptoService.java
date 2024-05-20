@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.CryptoRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 // TODO: SEE TRANSACTIONABLE IMPLEMENTATION
 @Service
 @NoArgsConstructor
-public class CryptoService {
+public class CryptoService implements ICryptoService {
     @Autowired
     private CryptoRepository cryptorepository;
     @Autowired

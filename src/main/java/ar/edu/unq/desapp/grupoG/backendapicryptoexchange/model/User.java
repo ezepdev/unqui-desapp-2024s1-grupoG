@@ -20,35 +20,36 @@ import java.math.BigInteger;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, unique=true)
     private Integer id;
 
     @Column(nullable = false, unique=true)
-    String email;
+    private String email;
 
     @Column(nullable = false, unique=true)
-    String name;
+    private String name;
 
     @Column(nullable = false, unique=true)
-    String surname;
+    private String surname;
 
     @Column(nullable = false, unique=true)
-    String password;
+    private String password;
 
-    String address;
+    @Column(nullable = false, unique=true)
+    private String address;
 
     @Column(nullable = false,unique = true)
-    BigInteger cvu;
+    private String cvu;
 
     @Column(nullable = false,unique = true)
-    Integer walletAddress;
+    private Integer walletAddress;
 
     @Builder.Default
-    Integer operationsAmount = 0;
+    private Integer operationsAmount = 0;
 
     @Builder.Default
-    Integer reputationPoints = 0;
+    private Integer reputationPoints = 0;
 
     public String username() {
         return name + surname;

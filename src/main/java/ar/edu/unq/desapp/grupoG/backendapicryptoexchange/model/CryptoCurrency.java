@@ -2,6 +2,8 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,10 +25,10 @@ import java.util.Date;
 @Entity
 public class CryptoCurrency {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     String symbol;
     Float price;
-    // TODO: CHECK THIS: Date priceDate = Date.from(Instant.now());
-    // LAST UPDATED DATE?
+
     @Builder.Default
     private LocalDateTime priceDate = LocalDateTime.now();
 

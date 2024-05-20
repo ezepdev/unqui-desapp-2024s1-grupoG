@@ -7,16 +7,16 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.EmailAlreadyInUseError;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidDataException;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.UserRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.Optional;
 // TODO: SEE TRANSACTIONABLE IMPLEMENTATION
-
-@RequiredArgsConstructor
 @Service
-public class AuthService {
+@RequiredArgsConstructor
+public class AuthService implements IAuthService {
     private final UserRepository users;
 
     public User registerUser(RegisterRequest request) {

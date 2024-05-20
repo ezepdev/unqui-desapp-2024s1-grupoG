@@ -4,6 +4,7 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authenti
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -11,5 +12,5 @@ import java.util.Date;
 public class CryptoResponse {
     private String symbol;
     private Float price;
-    private Date date;
+    private LocalDateTime date;
 }

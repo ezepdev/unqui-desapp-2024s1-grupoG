@@ -4,5 +4,5 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transacti
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
 
 public interface ITransactionService {
-    Transaction executeTransactionOffer(int Id,TransactionIntentionRequest request);
+    Transaction executeTransactionOffer(Integer Id,TransactionIntentionRequest request);
 }
