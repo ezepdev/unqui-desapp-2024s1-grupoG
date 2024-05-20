@@ -5,19 +5,18 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentic
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.EmailAlreadyInUseError;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidDataException;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.UserRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.Optional;
 // TODO: SEE TRANSACTIONABLE IMPLEMENTATION
 @Service
 @RequiredArgsConstructor
 public class AuthService implements IAuthService {
-    private final UserRepository users;
+    private final IUserRepository userRepository;
 
     public User registerUser(RegisterRequest request) {
         
@@ -31,28 +30,18 @@ public class AuthService implements IAuthService {
                 .address(request.getAddress())
                 .build();
 
-        if (users.findByEmail(request.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new EmailAlreadyInUseError();
         }
 
-        users.save(user);
+        userRepository.save(user);
         return user;
         
     }
 
     public User loginUser(LoginRequest request) {
-        Optional<User> response = users.findByEmail(request.getEmail());
-
-        if (response.isPresent()) {
-            if (Objects.equals(response.get().getPassword(), request.getPassword())) {
-                return response.get();
-            }
-            else {
-                throw new InvalidDataException();
-            }
-        }
-        else {
-            throw new InvalidDataException();
-        }
+        Optional<User> user_result = userRepository.findByEmail(request.getEmail());
+        if (user_result.isEmpty()) throw new UserNotFound();
+        return user_result.get();
     }
 }

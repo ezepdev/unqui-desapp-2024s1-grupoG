@@ -21,7 +21,7 @@ public class TransactionIntention {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique=true)
-    private Long id;
+    private Integer id;
     @Enumerated(EnumType.STRING)
     @Column(name = "operation_type",nullable = false)
     private OperationType type;

@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication;
+package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatusCode;
 @Data
 @AllArgsConstructor
 public class ErrorResponse {
-
     private HttpStatusCode code;
     private String Description;
 }

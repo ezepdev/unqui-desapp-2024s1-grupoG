@@ -1,6 +1,8 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionOffer.CreateTransactionIntentionRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.UserResponse;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.CreateTransactionIntentionRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.CreateTransactionIntentionResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.TransactionIntention;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionIntentionService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +22,20 @@ public class TransactionIntentionController {
     ITransactionIntentionService transactionService;
 
     @PostMapping
-    public ResponseEntity<TransactionIntention> createTransactionIntention(@RequestBody CreateTransactionIntentionRequest request) {
+    public ResponseEntity<CreateTransactionIntentionResponse> createTransactionIntention(@RequestBody CreateTransactionIntentionRequest request) {
+
         TransactionIntention transactionIntention = transactionService.createTransactionIntention(request);
-        return ResponseEntity.ok(transactionIntention);
+
+        CreateTransactionIntentionResponse createTransactionIntentionResponse = CreateTransactionIntentionResponse.builder()
+                .transaction_intention_id(transactionIntention.getId())
+                .operation_type(transactionIntention.getType().name())
+                .crypto_symbol(transactionIntention.getCryptoSymbol().name())
+                .price(transactionIntention.getCryptoPrice())
+                .amount(transactionIntention.getCryptoAmount())
+                .final_price(transactionIntention.getCryptoPrice())
+                .creator_id(transactionIntention.getCreator().getId())
+                .build();
+
+        return ResponseEntity.ok(createTransactionIntentionResponse);
     }
 }

@@ -5,13 +5,13 @@ import lombok.Data;
 
 @AllArgsConstructor
 public class UserNotFound extends Error {
-    public String getMessage(){
+    public final String getMessage(){
         return "User not found";
     }
-    public String getDescription(){
+    public final String getDescription(){
         return "The user does not exist. Please check the user id";
     }
-    public String getCode(){
+    public final String getCode(){
         return "USER_NOT_FOUND";
     }
 }

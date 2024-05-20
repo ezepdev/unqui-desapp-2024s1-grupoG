@@ -1,20 +1,17 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication;
 
-import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.math.BigInteger;
 
 @Data
+@Builder
 @AllArgsConstructor
-public class RegisterResponse{
-    private String name;
-    private String surname;
+public class UserResponse {
+    private int id;
+    private String full_name;
     private String email;
     private String address;
     private String cvu;
     private int wallet_address;
-    private String password;
 }

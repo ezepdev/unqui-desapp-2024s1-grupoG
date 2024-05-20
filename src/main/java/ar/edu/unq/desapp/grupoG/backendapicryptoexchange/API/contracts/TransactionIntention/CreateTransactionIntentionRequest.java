@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionOffer;
+package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention;
 
 
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.Data;
 public class CreateTransactionIntentionRequest {
     private String operation_type;
     private String crypto_symbol;
-    private Double crypto_price;
-    private Double crypto_amount;
+    private Double price;
+    private Double amount;
     private Integer creator_transaction_id;
 }

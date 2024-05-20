@@ -1,9 +1,8 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.UserRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IUserService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import java.util.stream.StreamSupport;
 @RequiredArgsConstructor
 public class UserService implements IUserService {
 
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
 
     @Override
     public List<User> getAllUsers() {

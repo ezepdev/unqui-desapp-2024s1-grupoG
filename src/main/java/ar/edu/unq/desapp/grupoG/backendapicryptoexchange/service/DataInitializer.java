@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.UserRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class DataInitializer implements CommandLineRunner {
 
     @Autowired
-    UserRepository user_repository;
+    IUserRepository user_repository;
 
     @Override
     public void run(String... args) throws Exception {

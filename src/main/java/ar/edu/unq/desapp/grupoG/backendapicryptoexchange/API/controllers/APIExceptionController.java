@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.ErrorResponse;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.ErrorResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.BadRegisterException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
