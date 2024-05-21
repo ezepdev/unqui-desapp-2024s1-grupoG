@@ -1,10 +1,8 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.ErrorResponse;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.BadRegisterException;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.EmailAlreadyInUseError;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.Error;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +37,11 @@ public class APIExceptionController extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFound ex) {
             return new ResponseEntity(new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(),ex.getDescription()), HttpStatus.NOT_FOUND);
 
+    }
+
+    @ExceptionHandler(PriceVariationMarginConflict.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorResponse> handlePriceVariationMarginConflict(PriceVariationMarginConflict ex) {
+        return new ResponseEntity(new ErrorResponse(HttpStatus.CONFLICT, ex.getMessage(),ex.getDescription()), HttpStatus.CONFLICT);
     }
 }

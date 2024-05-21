@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.CryptoCurrency;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -21,4 +22,5 @@ public interface CryptoRepository extends JpaRepository<CryptoCurrency,String> {
             "AND cc.updated_at = latest.updated_at",
             nativeQuery = true)
     List<CryptoCurrency> retrieveLatestCryptoPrices();
+    CryptoCurrency findBySymbol(CryptoCurrencySymbol symbol);
 }

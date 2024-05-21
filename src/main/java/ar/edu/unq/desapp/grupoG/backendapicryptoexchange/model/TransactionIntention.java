@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "transaction_offers")
+@Table(name = "transaction_intentions")
 public class TransactionIntention {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +33,16 @@ public class TransactionIntention {
     private Double cryptoPrice;
     @Column(nullable = false)
     private Double cryptoAmount;
+    @Column(nullable = false)
+    private Integer final_price;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User creator;
     @Column(nullable = false, unique=true)
     private LocalDateTime creationDate;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "state",nullable = false)
+    @Builder.Default
+    private TransactionIntentionState state = TransactionIntentionState.ACTIVE;
 }

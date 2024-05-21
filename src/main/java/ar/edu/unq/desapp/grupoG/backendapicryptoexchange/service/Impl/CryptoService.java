@@ -32,4 +32,10 @@ public class CryptoService implements ICryptoService {
         return allCryptos;
     }
 
+    @Override
+    public CryptoCurrency getCurrencyBySymbol(CryptoCurrencySymbol symbol) {
+        return cryptorepository.findBySymbol(symbol);
+    }
+
+
 }

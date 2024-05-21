@@ -1,16 +1,16 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
 @Builder
-public class CreateTransactionIntentionResponse {
+public class TransactionIntentionResponse {
     private Integer transaction_intention_id;
     private String operation_type;
     private String crypto_symbol;
@@ -18,10 +18,6 @@ public class CreateTransactionIntentionResponse {
     private Double amount;
     private Currency final_price;
     private Integer creator_id;
+    private Integer creator_operations_amount;
     private LocalDateTime creation_date;
-    private String transaction_state;
 }
-
-
-
-

@@ -25,8 +25,9 @@ public class CryptoCurrency {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
-    @Column(nullable = false, unique=false)
-    String symbol;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "crypto_symbol",nullable = false)
+    CryptoCurrencySymbol symbol;
     @Column(nullable = false)
     Float price;
 

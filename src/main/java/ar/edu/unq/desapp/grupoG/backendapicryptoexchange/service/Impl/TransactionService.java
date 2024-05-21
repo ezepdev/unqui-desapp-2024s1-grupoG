@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.TransactionIntentionRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.ExecuteTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.TransactionOfferNotFound;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
@@ -20,11 +20,11 @@ public class TransactionService implements ITransactionService {
     private final ITransactionIntentionRepository transactionIntentionRepository;
     private final IUserRepository userRepository;
 
-    public Transaction executeTransactionOffer(Integer transactionOfferId,TransactionIntentionRequest request){
+    public Transaction executeTransactionOffer(Integer transactionOfferId, ExecuteTransactionIntentionRequest request){
         var transactionOffer = transactionIntentionRepository.findById(transactionOfferId);
         if (transactionOffer.isEmpty()) throw new TransactionOfferNotFound();
         var userOwner = userRepository.findById(transactionOffer.get().getCreator().getId());
-        var userClient = userRepository.findById(request.getClientTransactionId());
+        var userClient = userRepository.findById(request.getClient_transaction_id());
         if (userOwner.isEmpty() || userClient.isEmpty()) throw new UserNotFound();
 
         return transactionRepository.save(
