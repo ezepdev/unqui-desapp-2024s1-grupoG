@@ -1,10 +1,12 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 public class TransactionResponse {
     private Integer transaction_id;
     private String operation_type;

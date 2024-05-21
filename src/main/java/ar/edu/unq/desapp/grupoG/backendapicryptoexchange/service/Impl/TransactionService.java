@@ -59,7 +59,7 @@ public class TransactionService implements ITransactionService {
         if (user_updater.isEmpty()) throw new UserNotFound();
         if (transaction.isEmpty()) throw new TransactionIntentionNotFound();
         user_updater.get().execute(TransactionAction.valueOf(request.getAction()),transaction.get());
-
+        userRepository.save(user_updater.get());
         return transactionRepository.save(transaction.get());
 
     }

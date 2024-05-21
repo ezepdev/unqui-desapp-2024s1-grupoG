@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 // LOMBOK ANNOTATIONS
 @Data
 @Builder
+
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -64,7 +64,7 @@ public class User {
     }
 
     public Double get_reputation() {
-        if (operationsAmount == 0) return 0.0; // TODO: CHECK THIS
+        if (operationsAmount == 0) return 0.0;
         return (double)reputationPoints / operationsAmount;
     }
 
@@ -72,17 +72,37 @@ public class User {
         switch (action) {
             case CONFIRM_TRANSFER:
                 if (this.isBuyer(transaction))
-                    transaction.setState(TransactionStatus.TRANSFER_SUCCESS);
+                    transaction.confirmTransfer();
                 break;
             case CONFIRM_RECEIPT:
                 if (this.isSeller(transaction))
-                    transaction.setState(TransactionStatus.SUCCESS);
+                    transaction.confirmReceipt();
+                    updateReputation(transaction);
                 break;
             case CANCEL:
-                transaction.setState(TransactionStatus.CANCELED);
+                transaction.cancel();
+                removePoints(20);
                 break;
         }
 
+    }
+
+    private void updateReputation(Transaction transaction) {
+        if (LocalDateTime.now().isBefore(transaction.getCreated_at().plusMinutes(30))) {
+            transaction.getUserClient().addPoints(10);
+            transaction.getUserOwner().addPoints(10);
+        }
+        else {
+            transaction.getUserClient().addPoints(5);
+            transaction.getUserOwner().addPoints(5);
+        }
+        transaction.getUserClient().addOperation();
+        operationsAmount++;
+
+    }
+
+    private void removePoints(int points) {
+        reputationPoints -= points;
     }
 
     private boolean isBuyer (Transaction transaction){

@@ -4,6 +4,7 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transacti
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.StartTransactionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.StartTransactionResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.TransactionResponse;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,10 @@ public class TransactionsController {
     }
 
     @PatchMapping("/{transaction_id}")
-    public ResponseEntity<TransactionResponse> updateTransactionStatus(@PathVariable Integer transaction_id, @RequestBody UpdateTransactionRequest request) {
+    public ResponseEntity<Transaction> updateTransactionStatus(@PathVariable Integer transaction_id, @RequestBody UpdateTransactionRequest request) {
         var transaction = transactionService.updateTransactionStatus(transaction_id,request);
 
-        return ResponseEntity.ok().body(new TransactionResponse());
+        return ResponseEntity.ok().body
+                (transaction);
     }
 }

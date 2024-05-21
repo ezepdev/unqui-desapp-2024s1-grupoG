@@ -11,6 +11,7 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IExchangeService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionIntentionService;
 import lombok.AllArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class TransactionIntentionService implements ITransactionIntentionService
     private final ITransactionRepository ITransactionRepository;
     private ICryptoService cryptoService;
     private IUserRepository userRepository;
+    private final Double price_variation_margin = 0.05;
 
     public TransactionIntention createTransactionIntention(CreateTransactionIntentionRequest request) {
         Optional<User> userResult = userRepository.findById(request.getCreator_transaction_id());
@@ -57,7 +59,7 @@ public class TransactionIntentionService implements ITransactionIntentionService
 
     private void verifyPriceVariationMargin(CryptoCurrencySymbol cryptoCurrencySymbol, Double price) {
         var currency = cryptoService.getCurrencyBySymbol(cryptoCurrencySymbol);
-        var price_variation = currency.getPrice() * 0.05;
+        var price_variation = currency.getPrice() * price_variation_margin;
         var min_price_variation = currency.getPrice() - price_variation;
         var max_price_variation = currency.getPrice() + price_variation;
 

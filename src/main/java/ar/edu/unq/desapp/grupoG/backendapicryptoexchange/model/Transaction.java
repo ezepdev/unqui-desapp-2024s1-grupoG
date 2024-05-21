@@ -1,8 +1,11 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidTransactionOperation;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +13,8 @@ import java.time.LocalDateTime;
 @Table(name = "transactions")
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Transaction {
 
    @Id
@@ -34,5 +39,22 @@ public class Transaction {
    @Builder.Default
    private TransactionStatus state = TransactionStatus.PENDING;
 
+   public void confirmTransfer() {
+      if (state != TransactionStatus.PENDING) throw InvalidTransactionOperation.builder().message("Transaction cannot be confirmed as it is not in the pending").build();
+      state = TransactionStatus.TRANSFER_SUCCESS;
+   }
+
+   public void confirmReceipt() {
+      if (state != TransactionStatus.TRANSFER_SUCCESS) throw InvalidTransactionOperation.builder().message("Transaction cannot be confirmed as it is not in the transfer success").build();
+      // handle confirm receipt
+      state = TransactionStatus.SUCCESS;
+
+
+   }
+
+   public void cancel() {
+      if (state == TransactionStatus.SUCCESS) throw InvalidTransactionOperation.builder().message("Transaction cannot be canceled as it is already in the success state").build();
+      state = TransactionStatus.CANCELED;
+   }
 }
 
