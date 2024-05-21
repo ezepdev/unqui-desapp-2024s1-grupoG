@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @Builder
@@ -17,6 +20,7 @@ public class CreateTransactionIntentionResponse {
     private Double amount;
     private Double final_price;
     private Integer creator_id;
+    private LocalDateTime creation_date;
 }
 
 

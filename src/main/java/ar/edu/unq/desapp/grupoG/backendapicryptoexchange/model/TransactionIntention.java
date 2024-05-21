@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -28,14 +29,14 @@ public class TransactionIntention {
     @Enumerated(EnumType.STRING)
     @Column(name = "crypto_symbol",nullable = false)
     private CryptoCurrencySymbol cryptoSymbol;
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false)
     private Double cryptoPrice;
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false)
     private Double cryptoAmount;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User creator;
     @Column(nullable = false, unique=true)
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 }

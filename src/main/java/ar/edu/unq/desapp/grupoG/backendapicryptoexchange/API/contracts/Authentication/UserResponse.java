@@ -13,5 +13,5 @@ public class UserResponse {
     private String email;
     private String address;
     private String cvu;
-    private int wallet_address;
+    private String wallet_address;
 }

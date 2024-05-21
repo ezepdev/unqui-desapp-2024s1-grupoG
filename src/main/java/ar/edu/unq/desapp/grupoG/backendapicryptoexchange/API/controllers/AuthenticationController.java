@@ -29,10 +29,11 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(
                 UserResponse.builder()
+                        .id(user_registered.getId())
                         .full_name(user_registered.getName() + " " + user_registered.getSurname())
                         .email(user_registered.getEmail())
                         .address(user_registered.getAddress())
-                        .wallet_address(user_registered.getWalletAddress())
+                        .wallet_address(String.valueOf(user_registered.getWalletAddress()))
                         .cvu(user_registered.getCvu())
                         .build()
         );

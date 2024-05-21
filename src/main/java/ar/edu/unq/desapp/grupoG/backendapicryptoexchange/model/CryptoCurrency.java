@@ -1,10 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,17 +20,22 @@ import java.util.Date;
 @AllArgsConstructor
 
 @Entity
+@Table(name = "crypto_currency")
 public class CryptoCurrency {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
+    @Column(nullable = false, unique=false)
     String symbol;
+    @Column(nullable = false)
     Float price;
 
     @Builder.Default
-    private LocalDateTime priceDate = LocalDateTime.now();
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime updated_at = LocalDateTime.now();
 
     public String getPriceDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mm a");
-        return priceDate.format(formatter);
+        return updated_at.format(formatter);
     }
 }

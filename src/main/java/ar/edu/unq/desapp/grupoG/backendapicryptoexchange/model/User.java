@@ -27,23 +27,23 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false)
     private String surname;
 
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false)
     private String address;
 
     @Column(nullable = false,unique = true)
     private String cvu;
 
     @Column(nullable = false,unique = true)
-    private Integer walletAddress;
+    private String walletAddress;
 
     @Builder.Default
     private Integer operationsAmount = 0;

@@ -34,8 +34,7 @@ public class AuthService implements IAuthService {
             throw new EmailAlreadyInUseError();
         }
 
-        userRepository.save(user);
-        return user;
+        return userRepository.save(user);
         
     }
 

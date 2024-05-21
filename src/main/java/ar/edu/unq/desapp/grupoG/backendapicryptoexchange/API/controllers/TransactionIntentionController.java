@@ -34,6 +34,7 @@ public class TransactionIntentionController {
                 .amount(transactionIntention.getCryptoAmount())
                 .final_price(transactionIntention.getCryptoPrice())
                 .creator_id(transactionIntention.getCreator().getId())
+                .creation_date(transactionIntention.getCreationDate())
                 .build();
 
         return ResponseEntity.ok(createTransactionIntentionResponse);

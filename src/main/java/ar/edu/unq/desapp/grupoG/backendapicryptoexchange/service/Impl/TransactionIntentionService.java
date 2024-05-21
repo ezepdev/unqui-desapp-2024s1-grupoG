@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -28,7 +29,7 @@ public class TransactionIntentionService implements ITransactionIntentionService
         TransactionIntention transactionIntention =
                 TransactionIntention.builder()
                         .type(OperationType.valueOf(request.getOperation_type()))
-                        .creationDate(LocalDate.now())
+                        .creationDate(LocalDateTime.now())
                         .creator(userResult.get())
                         .cryptoSymbol(CryptoCurrencySymbol.valueOf((request.getCrypto_symbol())))
                         .cryptoPrice(request.getPrice())
