@@ -26,10 +26,9 @@ public class UserModelTest {
     @Test
     void testAnyUserCanAddReputationPoint() {
         Integer points = 30;
-        Integer started_points = any_user.getReputation_points();
+        Integer started_points = any_user.getReputationPoints();
         any_user.addPoints(points);
-        assertEquals( started_points + 30,any_user.getReputation_points());
+        assertEquals( started_points + 30,any_user.getReputationPoints());
     }
-
 
 }
