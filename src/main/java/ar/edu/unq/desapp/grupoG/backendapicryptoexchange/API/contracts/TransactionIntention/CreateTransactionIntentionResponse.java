@@ -19,7 +19,7 @@ public class CreateTransactionIntentionResponse {
     private Currency final_price;
     private Integer creator_id;
     private LocalDateTime creation_date;
-    private String transaction_state;
+    private String transaction_intention_state;
 }
 
 

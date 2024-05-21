@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 
 // LOMBOK ANNOTATIONS
 @Data
@@ -67,4 +68,29 @@ public class User {
         return (double)reputationPoints / operationsAmount;
     }
 
+    public void execute(TransactionAction action, Transaction transaction) {
+        switch (action) {
+            case CONFIRM_TRANSFER:
+                if (this.isBuyer(transaction))
+                    transaction.setState(TransactionStatus.TRANSFER_SUCCESS);
+                break;
+            case CONFIRM_RECEIPT:
+                if (this.isSeller(transaction))
+                    transaction.setState(TransactionStatus.SUCCESS);
+                break;
+            case CANCEL:
+                transaction.setState(TransactionStatus.CANCELED);
+                break;
+        }
+
+    }
+
+    private boolean isBuyer (Transaction transaction){
+        return transaction.getIntention().getType() == OperationType.COMPRA && transaction.getUserOwner().getId().equals(id) || transaction.getIntention().getType() == OperationType.VENTA && transaction.getUserClient().getId().equals(id);
+
+    }
+
+    private boolean isSeller (Transaction transaction){
+        return transaction.getIntention().getType() == OperationType.COMPRA && transaction.getUserClient().getId().equals(id) || transaction.getIntention().getType() == OperationType.VENTA && transaction.getUserOwner().getId().equals(id);
+    }
 }

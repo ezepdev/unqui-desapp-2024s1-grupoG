@@ -1,18 +1,12 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.ExecuteTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.TransactionIntention;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.TransactionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionIntentionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,9 +16,6 @@ import java.util.stream.Collectors;
 public class TransactionIntentionController {
 
     private final ITransactionIntentionService transactionService;
-
-
-
 
     @GetMapping
     public ResponseEntity<List<TransactionIntentionResponse>> getAllTransactionIntentions() {
@@ -42,7 +33,7 @@ public class TransactionIntentionController {
                                         .final_price(Currency.builder().value(transactionIntention.getFinal_price()).currency_symbol("ARS").build())
                                         .creator_id(transactionIntention.getCreator().getId())
                                         .creation_date(transactionIntention.getCreationDate())
-                                        .creator_operations_amount(transactionIntention.getCreator().getOperationsAmount())
+                                        .reputation(transactionIntention.getCreator().get_reputation())
                                         .build())
                         .collect(Collectors.toList()));
     }
@@ -62,15 +53,11 @@ public class TransactionIntentionController {
                 .final_price(Currency.builder().value(transactionIntention.getFinal_price()).currency_symbol("ARS").build())
                 .creator_id(transactionIntention.getCreator().getId())
                 .creation_date(transactionIntention.getCreationDate())
-                .transaction_state(transactionIntention.getState().name())
+                .transaction_intention_state(transactionIntention.getState().name())
                 .build();
 
         return ResponseEntity.ok(createTransactionIntentionResponse);
     }
 
-    @PostMapping("{id}")
-    public ResponseEntity<ExecuteTransactionIntentionResponse> executeTransactionIntention(Integer id, @RequestBody ExecuteTransactionIntentionRequest request) {
-        var created_transaction_id = transactionService.executeTransactionIntention(id,request);
-        return ResponseEntity.created(URI.create("/transactions/" + created_transaction_id)).build();
-    }
+
 }

@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.CryptoRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ICryptoRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,7 +15,7 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     BinanceService binanceService;
     @Autowired
-    CryptoRepository cryptoRepository;
+    ICryptoRepository ICryptoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -28,7 +28,7 @@ public class DataInitializer implements CommandLineRunner {
                 .password("PASSWORD")
                 .cvu("123456789123456789123")
                 .build();
-        cryptoRepository.saveAll(binanceService.getUpdatedCryptoPrices());
+        ICryptoRepository.saveAll(binanceService.getUpdatedCryptoPrices());
         user_repository.save(user);
     }
 }

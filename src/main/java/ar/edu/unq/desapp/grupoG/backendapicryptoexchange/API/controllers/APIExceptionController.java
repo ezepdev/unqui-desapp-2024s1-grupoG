@@ -32,16 +32,24 @@ public class APIExceptionController extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
+    @ExceptionHandler(InvalidTransaction.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorResponse> handleInvalidTransaction(InvalidTransaction ex) {
+        ErrorResponse errorResponse = ErrorResponse.builder().code(HttpStatus.CONFLICT).description(ex.getDescription()
+        ).message(ex.getMessage()).build();
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
     @ExceptionHandler(UserNotFound.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFound ex) {
-            return new ResponseEntity(new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(),ex.getDescription()), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(),ex.getDescription()), HttpStatus.NOT_FOUND);
 
     }
 
     @ExceptionHandler(PriceVariationMarginConflict.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ErrorResponse> handlePriceVariationMarginConflict(PriceVariationMarginConflict ex) {
-        return new ResponseEntity(new ErrorResponse(HttpStatus.CONFLICT, ex.getMessage(),ex.getDescription()), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(new ErrorResponse(HttpStatus.CONFLICT, ex.getMessage(),ex.getDescription()), HttpStatus.CONFLICT);
     }
 }

@@ -18,6 +18,6 @@ public class TransactionIntentionResponse {
     private Double amount;
     private Currency final_price;
     private Integer creator_id;
-    private Integer creator_operations_amount;
+    private Double reputation;
     private LocalDateTime creation_date;
 }

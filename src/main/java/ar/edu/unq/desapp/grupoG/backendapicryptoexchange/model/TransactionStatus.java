@@ -1,8 +1,10 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
-public enum TransactionState {
+public enum TransactionStatus {
     PENDING,
-    ACCEPTED,
+    TRANSFER_SUCCESS,
+    SUCCESS,
+    CANCELED,
     REJECTED
 }
 

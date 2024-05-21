@@ -1,14 +1,12 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.ExecuteTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.CreateTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.PriceVariationMarginConflict;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.TransactionOfferNotFound;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.TransactionRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IExchangeService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionIntentionService;
@@ -27,7 +25,7 @@ public class TransactionIntentionService implements ITransactionIntentionService
 
     private ITransactionIntentionRepository transactionIntentionRepository;
     private IExchangeService exchangeService;
-    private final TransactionRepository transactionRepository;
+    private final ITransactionRepository ITransactionRepository;
     private ICryptoService cryptoService;
     private IUserRepository userRepository;
 
@@ -55,24 +53,6 @@ public class TransactionIntentionService implements ITransactionIntentionService
         var transationIntetionsIterable = transactionIntentionRepository.findAll();
         return  StreamSupport.stream(transationIntetionsIterable.spliterator(), false)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public Integer executeTransactionIntention(Integer transactionIntentionId, ExecuteTransactionIntentionRequest request) {
-        var transactionIntention = transactionIntentionRepository.findById(transactionIntentionId);
-        if (transactionIntention.isEmpty()) throw new TransactionOfferNotFound();
-        var userOwner = userRepository.findById(transactionIntention.get().getCreator().getId());
-        var userClient = userRepository.findById(request.getClient_transaction_id());
-        if (userOwner.isEmpty() || userClient.isEmpty()) throw new UserNotFound();
-
-        transactionRepository.save(
-                Transaction.builder().
-                        userOwner(userOwner.get()).
-                        userClient(userClient.get()).
-                        offer(transactionIntention.get()).
-                        build());
-
-        return 0;
     }
 
     private void verifyPriceVariationMargin(CryptoCurrencySymbol cryptoCurrencySymbol, Double price) {

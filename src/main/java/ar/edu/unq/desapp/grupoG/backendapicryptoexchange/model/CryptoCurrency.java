@@ -35,7 +35,7 @@ public class CryptoCurrency {
     @Column(nullable = false, updatable = false)
     private LocalDateTime updated_at = LocalDateTime.now();
 
-    public String getPriceDate() {
+    public String getUpdated_at() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mm a");
         return updated_at.format(formatter);
     }
