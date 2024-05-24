@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ITransactionIntentionService {
     public TransactionIntention createTransactionIntention(CreateTransactionIntentionRequest request);
-    public List<TransactionIntention> getAllTransactionIntentions();
+    public List<TransactionIntention> getActiveIntentions();
 }

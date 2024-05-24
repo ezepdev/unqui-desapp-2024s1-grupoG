@@ -7,20 +7,17 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-@Builder
-public class CreateTransactionIntentionResponse {
-    private Integer transaction_intention_id;
-    private String operation_type;
-    private String crypto_symbol;
-    private Double price;
-    private Double amount;
-    private Currency final_price;
-    private Integer creator_id;
-    private LocalDateTime creation_date;
-    private String transaction_intention_state;
-}
+public record CreateTransactionIntentionResponse (
+    Integer transaction_intention_id,
+    String operation_type,
+    String crypto_symbol,
+    Double crypto_price,
+    Integer crypto_amount,
+    Currency final_price,
+    Long creator_id,
+    LocalDateTime creation_date,
+    String state
+){}
 
 
 

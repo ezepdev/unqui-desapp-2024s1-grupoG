@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 // LOMBOK ANNOTATIONS
@@ -23,7 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, unique=true)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -32,7 +31,7 @@ public class User {
     private String name;
 
     @Column(nullable = false)
-    private String surname;
+    private String lastname;
 
     @Column(nullable = false)
     private String password;
@@ -40,10 +39,10 @@ public class User {
     @Column(nullable = false)
     private String address;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String cvu;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String walletAddress;
 
     @Builder.Default
@@ -53,7 +52,7 @@ public class User {
     private Integer reputationPoints = 0;
 
     public String username() {
-        return name + surname;
+        return name + lastname;
     }
     public void addPoints(Integer points) {
         reputationPoints += points;
@@ -112,5 +111,9 @@ public class User {
 
     private boolean isSeller (Transaction transaction){
         return transaction.getIntention().getType() == OperationType.COMPRA && transaction.getUserClient().getId().equals(id) || transaction.getIntention().getType() == OperationType.VENTA && transaction.getUserOwner().getId().equals(id);
+    }
+
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
     }
 }

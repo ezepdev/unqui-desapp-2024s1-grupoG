@@ -9,7 +9,7 @@ public class UserNotFound extends Error {
         return "User not found";
     }
     public final String getDescription(){
-        return "The user does not exist. Please check the user id";
+        return "The user does not exist. Please check the user identifier";
     }
     public final String getCode(){
         return "USER_NOT_FOUND";

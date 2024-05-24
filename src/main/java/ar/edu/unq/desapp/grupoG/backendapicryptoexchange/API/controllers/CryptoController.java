@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.CryptoMapper;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Crypto.CryptoResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.CryptoService;
@@ -20,8 +22,10 @@ public class CryptoController {
     private final ICryptoService cryptoService;
 
     @GetMapping
-    @PreAuthorize("permitAll()")
-    public ResponseEntity<List<CryptoCurrency>> getAllCryptos() {
-        return ResponseEntity.ok(cryptoService.allCurrencies());
+    public ResponseEntity<List<CryptoResponse>> getAllCryptos() {
+
+        List<CryptoCurrency> cryptos = cryptoService.allCurrencies();
+
+        return ResponseEntity.ok(new CryptoMapper().mapToCryptoResponses(cryptos));
     }
 }

@@ -11,5 +11,5 @@ public class UpdateTransactionRequest {
     @NotBlank
     @NotNull
     private String action;
-    private Integer user_id;
+    private Long user_id;
 }

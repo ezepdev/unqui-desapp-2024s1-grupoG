@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Spliterator;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -18,6 +19,9 @@ public class UserService implements IUserService {
 
     @Override
     public List<User> getAllUsers() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
+        Spliterator<User> allUsers = userRepository.findAll().spliterator();
+        return StreamSupport.stream(allUsers, false).collect(Collectors.toList());
     }
+
+
 }

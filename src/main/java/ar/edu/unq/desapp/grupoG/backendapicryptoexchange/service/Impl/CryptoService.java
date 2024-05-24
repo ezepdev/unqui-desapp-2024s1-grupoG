@@ -22,9 +22,7 @@ public class CryptoService implements ICryptoService {
 
 
     public List<CryptoCurrency> allCurrencies() {
-        System.out.println(cryptorepository.findAll());
-        List<CryptoCurrency> allCryptos = cryptorepository.retrieveLatestCryptoPrices();
-        return allCryptos;
+        return cryptorepository.retrieveLatestCryptoPrices();
     }
 
     @Override

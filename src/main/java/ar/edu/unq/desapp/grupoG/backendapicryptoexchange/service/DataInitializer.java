@@ -22,7 +22,7 @@ public class DataInitializer implements CommandLineRunner {
         var user = User.builder()
                 .name("Jose")
                 .email("JOSE.EMAIL@GMAIL.COM")
-                .surname("AMALFITANI")
+                .lastname("AMALFITANI")
                 .walletAddress("12345678")
                 .address("ADDRESS")
                 .password("PASSWORD")

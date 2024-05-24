@@ -5,11 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.http.HttpStatusCode;
 
-@Builder
-@Data
-@AllArgsConstructor
-public class ErrorResponse {
-    private HttpStatusCode code;
-    private String message;
-    private String description;
-}
+
+public record ErrorResponse (
+    String code,
+    String message,
+    String description
+){};

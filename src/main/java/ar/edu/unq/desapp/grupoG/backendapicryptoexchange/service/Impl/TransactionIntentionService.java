@@ -1,68 +1,68 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.Mapper;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.Mappers;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.CreateTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.PriceVariationMarginConflict;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IExchangeService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionIntentionService;
-import lombok.AllArgsConstructor;
-import lombok.val;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TransactionIntentionService implements ITransactionIntentionService {
 
-    private ITransactionIntentionRepository transactionIntentionRepository;
-    private IExchangeService exchangeService;
-    private final ITransactionRepository ITransactionRepository;
-    private ICryptoService cryptoService;
-    private IUserRepository userRepository;
-    private final Double price_variation_margin = 0.05;
+    private final ITransactionIntentionRepository transactionIntentionRepository;
+    private final IExchangeService exchangeService;
+    private final ICryptoService cryptoService;
+    private final IUserRepository userRepository;
+    @Setter(AccessLevel.PRIVATE)
+    private static Double price_variation_margin = 0.05;
+
 
     public TransactionIntention createTransactionIntention(CreateTransactionIntentionRequest request) {
-        Optional<User> userResult = userRepository.findById(request.getCreator_transaction_id());
+
+        //* Verify user exists
+        Optional<User> userResult = userRepository.findById(request.intention_creator_id());
         if (userResult.isEmpty()) throw new UserNotFound();
 
-        verifyPriceVariationMargin(CryptoCurrencySymbol.valueOf(request.getCrypto_symbol()), request.getPrice());
+        //* Verify price is within the variation margin
+        verifyPriceVariationMargin(CryptoCurrencySymbol.valueOf(request.crypto_symbol()), request.crypto_price());
+        Mapper<CreateTransactionIntentionRequest, TransactionIntention> mapper = new Mapper<>();
+
+        //* Create transaction intention
         TransactionIntention transactionIntention =
-                TransactionIntention.builder()
-                        .type(OperationType.valueOf(request.getOperation_type()))
-                        .creationDate(LocalDateTime.now())
-                        .creator(userResult.get())
-                        .cryptoSymbol(CryptoCurrencySymbol.valueOf((request.getCrypto_symbol())))
-                        .cryptoPrice(request.getPrice())
-                        .final_price(exchangeService.convertToArs(request.getPrice()* request.getAmount()))
-                        .cryptoAmount(request.getAmount())
-                        .build();
+                mapper.mapTo(request, Mappers::mapToTransactionIntention);
+        transactionIntention.setCreator(userResult.get());
+        transactionIntention.setFinalPrice(exchangeService.convertToArs(request.finalPrice()));
 
         return transactionIntentionRepository.save(transactionIntention);
     }
 
     @Override
-    public List<TransactionIntention> getAllTransactionIntentions() {
-        var transationIntetionsIterable = transactionIntentionRepository.findAll();
-        return  StreamSupport.stream(transationIntetionsIterable.spliterator(), false)
-                .collect(Collectors.toList());
+    public List<TransactionIntention> getActiveIntentions() {
+        return transactionIntentionRepository.findByState(TransactionIntentionState.ACTIVE);
     }
 
-    private void verifyPriceVariationMargin(CryptoCurrencySymbol cryptoCurrencySymbol, Double price) {
+    private void verifyPriceVariationMargin(CryptoCurrencySymbol cryptoCurrencySymbol, Double priceToVerify) {
         var currency = cryptoService.getCurrencyBySymbol(cryptoCurrencySymbol);
         var price_variation = currency.getPrice() * price_variation_margin;
-        var min_price_variation = currency.getPrice() - price_variation;
-        var max_price_variation = currency.getPrice() + price_variation;
+        var minPriceVariation = currency.getPrice() - price_variation;
+        var maxPriceVariation = currency.getPrice() + price_variation;
 
-        if (price < min_price_variation || price > max_price_variation ) throw new PriceVariationMarginConflict();
+        if (priceToVerify < minPriceVariation || priceToVerify > maxPriceVariation ) throw new PriceVariationMarginConflict();
     }
 }

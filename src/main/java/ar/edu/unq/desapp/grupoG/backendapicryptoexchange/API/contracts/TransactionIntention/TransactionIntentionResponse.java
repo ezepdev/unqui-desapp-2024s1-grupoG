@@ -1,23 +1,16 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-
 import java.time.LocalDateTime;
-import java.util.Optional;
 
-@Data
-@AllArgsConstructor
-@Builder
-public class TransactionIntentionResponse {
-    private Integer transaction_intention_id;
-    private String operation_type;
-    private String crypto_symbol;
-    private Double price;
-    private Double amount;
-    private Currency final_price;
-    private Integer creator_id;
-    private Double reputation;
-    private LocalDateTime creation_date;
-}
+public record TransactionIntentionResponse (
+    Integer transaction_intention_id,
+    String operation_type,
+    String crypto_symbol,
+    Double crypto_price,
+    Integer crypto_amount,
+    Currency final_price,
+    Long creator_id,
+    Double reputation,
+    LocalDateTime creation_date,
+    String state
+){}

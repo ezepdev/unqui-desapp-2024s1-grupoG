@@ -29,7 +29,7 @@ public class CryptoCurrency {
     @Column(name = "crypto_symbol",nullable = false)
     CryptoCurrencySymbol symbol;
     @Column(nullable = false)
-    Float price;
+    Double price;
 
     @Builder.Default
     @Column(nullable = false, updatable = false)

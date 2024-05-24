@@ -2,10 +2,7 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.UpdateTransactionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.StartTransactionRequest;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.TransactionAction;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.TransactionStatus;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidTransaction;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.TransactionIntentionNotFound;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
@@ -30,25 +27,27 @@ public class TransactionService implements ITransactionService {
     @Override
     public Transaction startTransaction(StartTransactionRequest request) {
 
-        var transactionIntention = transactionIntentionRepository.findById(request.getTransaction_intention_id());
-        if (transactionIntention.isEmpty()) throw new TransactionIntentionNotFound();
-        var user_owner_id = transactionIntention.get().getCreator().getId();
+        //* Verify transaction intention exists and is active
+        Optional<TransactionIntention> transactionIntention = transactionIntentionRepository.findById(request.transaction_intention_id());
+        if (transactionIntention.isEmpty() || transactionIntention.get().getState().equals(TransactionIntentionState.INACTIVE)) throw new TransactionIntentionNotFound();
 
-        if (user_owner_id == request.getClient_transaction_id()) throw InvalidTransaction.builder().description("Transaction cannot be executed by the user who created it").build();
-        var userOwner = userRepository.findById(user_owner_id);
-        var userClient = userRepository.findById(request.getClient_transaction_id());
+        //* Verify that the user who initiated the transaction and the user who created the intention exists
+        Long transactionIntentionCreatorId = transactionIntention.get().getCreator().getId();
+        var userOwner = userRepository.findById(transactionIntentionCreatorId);
+        var userClient = userRepository.findById(request.transaction_starter_user_id());
         if (userOwner.isEmpty() || userClient.isEmpty()) throw new UserNotFound();
 
-        var result = transactionRepository.save(
+        //* Verify that the user who created the intention and the user who initiated the transaction are not the same
+        checkUserIsNotTheSame(transactionIntentionCreatorId, request.transaction_starter_user_id());
+
+        //* Create transaction
+        return transactionRepository.save(
                 Transaction.builder().
                         userOwner(userOwner.get()).
                         userClient(userClient.get()).
                         intention(transactionIntention.get()).
                         build());
-
-        return result;
     }
-
 
     @Override
     public Transaction updateTransactionStatus(Integer transactionId, UpdateTransactionRequest request) {
@@ -62,6 +61,11 @@ public class TransactionService implements ITransactionService {
         userRepository.save(user_updater.get());
         return transactionRepository.save(transaction.get());
 
+    }
+
+    //* PRIVATE METHODS
+    private void checkUserIsNotTheSame(Long transactionIntentionCreatorId, Long aLong) {
+        if (transactionIntentionCreatorId.equals(aLong)) throw InvalidTransaction.builder().description("Transaction cannot be started by the user who created it").build();
     }
 
 }

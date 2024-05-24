@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.UserMapper;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.BadRegisterException;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IAuthService;
@@ -23,33 +24,20 @@ public class AuthenticationController {
     private final IAuthService authService;
 
     @PostMapping("/register")
-    @PreAuthorize("permitAll()")
-    public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody RegisterRequest request) throws BadRegisterException {
+    public ResponseEntity<UserResponse> registerUser(@Valid @RequestBody RegisterRequest request) {
         User user_registered = authService.registerUser(request);
 
         return ResponseEntity.ok(
-                UserResponse.builder()
-                        .id(user_registered.getId())
-                        .full_name(user_registered.getName() + " " + user_registered.getSurname())
-                        .email(user_registered.getEmail())
-                        .address(user_registered.getAddress())
-                        .wallet_address(String.valueOf(user_registered.getWalletAddress()))
-                        .cvu(user_registered.getCvu())
-                        .build()
+                UserMapper.mapToUserResponse(user_registered)
         );
     }
 
     @PostMapping("/login")
-    @PreAuthorize("permitAll()")
     public ResponseEntity<UserResponse> loginUser(@Valid @RequestBody LoginRequest request) {
-        User user = authService.loginUser(request);
+        User user_logged = authService.loginUser(request);
 
-        return ResponseEntity.ok(UserResponse.builder()
-                            .full_name(user.getName() + " " + user.getSurname())
-                            .email(user.getEmail())
-                            .address(user.getAddress())
-                            .wallet_address(user.getWalletAddress())
-                            .cvu(user.getCvu())
-                            .build());
+        return ResponseEntity.ok(
+                UserMapper.mapToUserResponse(user_logged)
+        );
     }
 }

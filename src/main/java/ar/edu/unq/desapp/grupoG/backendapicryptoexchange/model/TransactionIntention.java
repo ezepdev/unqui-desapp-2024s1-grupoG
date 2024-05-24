@@ -1,10 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -13,8 +10,6 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 
 @Entity
 @Table(name = "transaction_intentions")
@@ -23,24 +18,35 @@ public class TransactionIntention {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique=true)
     private Integer id;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "operation_type",nullable = false)
     private OperationType type;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "crypto_symbol",nullable = false)
     private CryptoCurrencySymbol cryptoSymbol;
+
     @Column(nullable = false)
     private Double cryptoPrice;
+
     @Column(nullable = false)
-    private Double cryptoAmount;
+    @Setter(AccessLevel.NONE)
+    @Builder.ObtainVia(method="setCryptoAmount")
+
+    private Integer cryptoAmount;
+
     @Column(nullable = false)
-    private Integer final_price;
+    private Integer finalPrice;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User creator;
+
     @Column(nullable = false, unique=true)
     private LocalDateTime creationDate;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "state",nullable = false)
     @Builder.Default

@@ -4,15 +4,15 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.EmailAlreadyInUseError;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.DuplicateEmail;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidCredentials;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-// TODO: SEE TRANSACTIONABLE IMPLEMENTATION
+
 @Service
 @RequiredArgsConstructor
 public class AuthService implements IAuthService {
@@ -22,7 +22,7 @@ public class AuthService implements IAuthService {
         
         User user = User.builder()
                 .name(request.getName())
-                .surname(request.getSurname())
+                .lastname(request.getSurname())
                 .password(request.getPassword())
                 .email(request.getEmail())
                 .walletAddress(request.getWallet_address())
@@ -30,9 +30,7 @@ public class AuthService implements IAuthService {
                 .address(request.getAddress())
                 .build();
 
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new EmailAlreadyInUseError();
-        }
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) throw new DuplicateEmail();
 
         return userRepository.save(user);
         
@@ -40,7 +38,7 @@ public class AuthService implements IAuthService {
 
     public User loginUser(LoginRequest request) {
         Optional<User> user_result = userRepository.findByEmail(request.getEmail());
-        if (user_result.isEmpty()) throw new UserNotFound();
+        if (user_result.isEmpty() || !user_result.get().checkPassword(request.getPassword())) throw new InvalidCredentials();
         return user_result.get();
     }
 }
