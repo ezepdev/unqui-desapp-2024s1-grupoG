@@ -31,6 +31,6 @@ public class RegisterRequest{
         @NotNull
         private final String wallet_address;
         @NotBlank
-        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$")
+        @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$", message = "El campo contraseña debe tener al menos 6 caracteres y debe contener letras, números y caracteres especiales")
         private final String password;
 }
