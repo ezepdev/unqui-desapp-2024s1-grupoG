@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
 
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UpdateActionNotAllowed;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -72,16 +73,24 @@ public class User {
             case CONFIRM_TRANSFER:
                 if (this.isBuyer(transaction))
                     transaction.confirmTransfer();
+                if (this.isSeller(transaction)) {
+                    throw new UpdateActionNotAllowed(action.name());
+                }
                 break;
             case CONFIRM_RECEIPT:
                 if (this.isSeller(transaction))
                     transaction.confirmReceipt();
                     updateReputation(transaction);
+                if (this.isBuyer(transaction)) {
+                    throw new UpdateActionNotAllowed(action.name());
+                }
                 break;
             case CANCEL:
                 transaction.cancel();
                 removePoints(20);
                 break;
+            default:
+                throw new UpdateActionNotAllowed(action.name());
         }
 
     }
@@ -96,8 +105,7 @@ public class User {
             transaction.getUserOwner().addPoints(5);
         }
         transaction.getUserClient().addOperation();
-        operationsAmount++;
-
+        transaction.getUserOwner().addOperation();
     }
 
     private void removePoints(int points) {

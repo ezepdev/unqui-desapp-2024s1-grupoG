@@ -6,7 +6,7 @@ public class TransactionIntentionNotFound extends Error {
         return "Transaction intention not found";
     }
     public final String getDescription(){
-        return "The transaction offer does not exist. Please check the transaction intention id";
+        return "The transaction intention does not exist. Please check the transaction intention id";
     }
     public final String getCode(){
         return "TRANSACTION_INTENTION_NOT_FOUND";

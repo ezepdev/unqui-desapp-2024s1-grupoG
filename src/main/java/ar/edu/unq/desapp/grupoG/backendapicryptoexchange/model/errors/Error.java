@@ -3,7 +3,8 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors;
 
 import lombok.*;
 
-@Getter
+@EqualsAndHashCode(callSuper = true)
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Error extends RuntimeException{

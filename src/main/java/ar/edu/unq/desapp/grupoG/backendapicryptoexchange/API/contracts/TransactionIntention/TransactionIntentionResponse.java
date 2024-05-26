@@ -3,7 +3,7 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transact
 import java.time.LocalDateTime;
 
 public record TransactionIntentionResponse (
-    Integer transaction_intention_id,
+    Long transaction_intention_id,
     String operation_type,
     String crypto_symbol,
     Double crypto_price,

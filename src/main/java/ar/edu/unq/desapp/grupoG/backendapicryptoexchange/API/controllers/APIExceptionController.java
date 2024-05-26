@@ -26,6 +26,20 @@ public class APIExceptionController extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
+    @ExceptionHandler(TransactionIntentionNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorResponse> handleTransactionIntentionNotFound(TransactionIntentionNotFound ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getDescription(), ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TransactionNotFound.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorResponse> handleTransactionNotFound(TransactionNotFound ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getDescription(), ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(InvalidCredentials.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ErrorResponse> handleInvalidCredentials(InvalidCredentials ex) {
@@ -36,6 +50,13 @@ public class APIExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DuplicateEmail.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ErrorResponse> handleEmailAlreadyInUseConflict(DuplicateEmail ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getDescription(), ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(UserNotAuthorized.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorResponse> handleUserNotAuthorized(UserNotAuthorized ex) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getDescription(), ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
@@ -58,6 +79,20 @@ public class APIExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(PriceVariationMarginConflict.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<ErrorResponse> handlePriceVariationMarginConflict(PriceVariationMarginConflict ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getDescription(), ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(UpdateActionNotAllowed.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorResponse> handleUpdateActionNotAllowed(UpdateActionNotAllowed ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getDescription(), ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(InvalidTransactionOperation.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorResponse> handleInvalidTransactionOperation(InvalidTransactionOperation ex) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getDescription(), ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }

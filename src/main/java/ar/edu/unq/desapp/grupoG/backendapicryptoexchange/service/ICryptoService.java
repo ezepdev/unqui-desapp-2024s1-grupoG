@@ -8,4 +8,5 @@ import java.util.List;
 public interface ICryptoService {
     List<CryptoCurrency> allCurrencies();
     CryptoCurrency getCurrencyBySymbol(CryptoCurrencySymbol symbol);
+    boolean isAllowedPrice(CryptoCurrencySymbol symbol , Double aPrice);
 }

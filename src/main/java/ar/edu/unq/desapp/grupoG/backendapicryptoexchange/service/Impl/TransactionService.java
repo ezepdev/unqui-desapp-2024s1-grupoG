@@ -3,12 +3,11 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.UpdateTransactionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.StartTransactionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.*;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidTransaction;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.TransactionIntentionNotFound;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class TransactionService implements ITransactionService {
     private final ITransactionRepository transactionRepository;
     private final ITransactionIntentionRepository transactionIntentionRepository;
     private final IUserRepository userRepository;
-
+    private final ICryptoService cryptoService;
     @Override
     public Transaction startTransaction(StartTransactionRequest request) {
 
@@ -52,14 +51,25 @@ public class TransactionService implements ITransactionService {
     @Override
     public Transaction updateTransactionStatus(Integer transactionId, UpdateTransactionRequest request) {
 
-        var transaction = transactionRepository.findById(transactionId);
-        Optional<User> user_updater = userRepository.findById(request.getUser_id());
+        //* Verify transaction exists
+        Optional<Transaction> maybe_transaction = transactionRepository.findById(transactionId);
+        if (maybe_transaction.isEmpty()) throw new TransactionNotFound();
+        Transaction transaction = maybe_transaction.get();
 
-        if (user_updater.isEmpty()) throw new UserNotFound();
-        if (transaction.isEmpty()) throw new TransactionIntentionNotFound();
-        user_updater.get().execute(TransactionAction.valueOf(request.getAction()),transaction.get());
-        userRepository.save(user_updater.get());
-        return transactionRepository.save(transaction.get());
+        //* Verify that the user who try to update the transaction exists
+        Optional<User> maybe_user_updater = userRepository.findById(request.user_id());
+        if (maybe_user_updater.isEmpty()) throw new UserNotFound();
+        //* Verify that the use who try to update the transaction is implicated in the transaction
+        User user_updater = maybe_user_updater.get();
+        if (!transaction.IsUserImplicated(user_updater)) throw new UserNotAuthorized();
+        //* Verify price is within the variation margin
+        if (!cryptoService.isAllowedPrice(transaction.getIntention().getCryptoSymbol(),transaction.getIntention().getCryptoPrice())) throw new PriceVariationMarginConflict();
+
+        //* Try to update the transaction
+        user_updater.execute(
+                TransactionAction.valueOf(request.action()),transaction);
+
+        return transactionRepository.save(transaction);
 
     }
 
@@ -67,5 +77,4 @@ public class TransactionService implements ITransactionService {
     private void checkUserIsNotTheSame(Long transactionIntentionCreatorId, Long aLong) {
         if (transactionIntentionCreatorId.equals(aLong)) throw InvalidTransaction.builder().description("Transaction cannot be started by the user who created it").build();
     }
-
 }

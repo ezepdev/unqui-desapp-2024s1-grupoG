@@ -40,7 +40,7 @@ public class TransactionIntentionService implements ITransactionIntentionService
         if (userResult.isEmpty()) throw new UserNotFound();
 
         //* Verify price is within the variation margin
-        verifyPriceVariationMargin(CryptoCurrencySymbol.valueOf(request.crypto_symbol()), request.crypto_price());
+        if (!cryptoService.isAllowedPrice(CryptoCurrencySymbol.valueOf(request.crypto_symbol()),request.crypto_price())) throw new PriceVariationMarginConflict();
         Mapper<CreateTransactionIntentionRequest, TransactionIntention> mapper = new Mapper<>();
 
         //* Create transaction intention
@@ -57,12 +57,4 @@ public class TransactionIntentionService implements ITransactionIntentionService
         return transactionIntentionRepository.findByState(TransactionIntentionState.ACTIVE);
     }
 
-    private void verifyPriceVariationMargin(CryptoCurrencySymbol cryptoCurrencySymbol, Double priceToVerify) {
-        var currency = cryptoService.getCurrencyBySymbol(cryptoCurrencySymbol);
-        var price_variation = currency.getPrice() * price_variation_margin;
-        var minPriceVariation = currency.getPrice() - price_variation;
-        var maxPriceVariation = currency.getPrice() + price_variation;
-
-        if (priceToVerify < minPriceVariation || priceToVerify > maxPriceVariation ) throw new PriceVariationMarginConflict();
-    }
 }

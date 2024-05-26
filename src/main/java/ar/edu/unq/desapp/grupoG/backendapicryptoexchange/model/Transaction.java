@@ -19,7 +19,7 @@ public class Transaction {
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-   private Integer id;
+   private Long id;
 
    @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "user_owner_id",nullable = false)
@@ -40,21 +40,23 @@ public class Transaction {
    private TransactionStatus state = TransactionStatus.PENDING;
 
    public void confirmTransfer() {
-      if (state != TransactionStatus.PENDING) throw InvalidTransactionOperation.builder().message("Transaction cannot be confirmed as it is not in the pending").build();
+      if (state != TransactionStatus.PENDING) throw new InvalidTransactionOperation(TransactionStatus.TRANSFER_SUCCESS);
       state = TransactionStatus.TRANSFER_SUCCESS;
    }
 
    public void confirmReceipt() {
-      if (state != TransactionStatus.TRANSFER_SUCCESS) throw InvalidTransactionOperation.builder().message("Transaction cannot be confirmed as it is not in the transfer success").build();
+      if (state != TransactionStatus.TRANSFER_SUCCESS) throw new InvalidTransactionOperation(TransactionStatus.SUCCESS);
       // handle confirm receipt
       state = TransactionStatus.SUCCESS;
-
-
    }
 
    public void cancel() {
-      if (state == TransactionStatus.SUCCESS) throw InvalidTransactionOperation.builder().message("Transaction cannot be canceled as it is already in the success state").build();
+      if (state == TransactionStatus.SUCCESS) throw new InvalidTransactionOperation(TransactionStatus.CANCELED);
       state = TransactionStatus.CANCELED;
+   }
+
+   public boolean IsUserImplicated(User user) {
+      return userOwner.getId().equals(user.getId()) || userClient.getId().equals(user.getId());
    }
 }
 

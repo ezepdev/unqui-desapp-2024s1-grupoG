@@ -28,7 +28,19 @@ public class DataInitializer implements CommandLineRunner {
                 .password("PASSWORD")
                 .cvu("123456789123456789123")
                 .build();
+        var another_user = User.builder()
+                .name("Juan")
+                .email("JUAN.EMAIL@GMAIL.COM")
+                .lastname("TORRES")
+                .walletAddress("12345679")
+                .address("ADDRESS")
+                .password("PaSSwORD$123")
+                .cvu("123456789123456789125")
+                .build();
         ICryptoRepository.saveAll(binanceService.getUpdatedCryptoPrices());
+
         user_repository.save(user);
+        user_repository.save(another_user);
+
     }
 }

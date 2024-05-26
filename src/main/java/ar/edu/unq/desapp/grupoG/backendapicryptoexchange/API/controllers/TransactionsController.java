@@ -1,9 +1,11 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.Mapper;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.TransactionMapper;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.TransactionResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.UpdateTransactionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.StartTransactionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.StartTransactionResponse;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.TransactionResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionService;
 import lombok.RequiredArgsConstructor;
@@ -27,16 +29,17 @@ public class TransactionsController {
         var uri_created_transaction = URI.create("/transactions/" + created_transaction.getId());
         return ResponseEntity.created(uri_created_transaction)
                 .body(
-                        StartTransactionResponse.builder()
-                                .created_transaction_id(created_transaction.getId())
-                                .URI(uri_created_transaction.toString()).build());
+                        new StartTransactionResponse(
+                                created_transaction.getId(),
+                                "Transaction started successfully",
+                                uri_created_transaction.toString())
+                );
     }
 
     @PatchMapping("/{transaction_id}")
-    public ResponseEntity<Transaction> updateTransactionStatus(@PathVariable Integer transaction_id, @RequestBody UpdateTransactionRequest request) {
+    public ResponseEntity<TransactionResponse> updateTransactionStatus(@PathVariable Integer transaction_id, @RequestBody UpdateTransactionRequest request) {
         var transaction = transactionService.updateTransactionStatus(transaction_id,request);
-
-        return ResponseEntity.ok().body
-                (transaction);
+        TransactionResponse response = new Mapper<Transaction, TransactionResponse>().mapTo(transaction, TransactionMapper::mapToTransactionResponse);
+        return ResponseEntity.ok(response);
     }
 }

@@ -19,7 +19,7 @@ public class TransactionIntentionController {
     private final ITransactionIntentionService transactionService;
 
     @GetMapping
-    public ResponseEntity<List<TransactionIntentionResponse>> getAllTransactionIntentions() {
+    public ResponseEntity<List<TransactionIntentionResponse>> getActiveTransactionIntentions(){
         List<TransactionIntention> transactionIntentions = transactionService.getActiveIntentions();
 
         return ResponseEntity.ok(

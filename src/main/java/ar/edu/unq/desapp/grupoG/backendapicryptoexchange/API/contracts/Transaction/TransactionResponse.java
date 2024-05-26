@@ -5,18 +5,17 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder
-public class TransactionResponse {
-    private Integer transaction_id;
-    private String operation_type;
-    private String crypto_symbol;
-    private Double price;
-    private Double amount;
-    private Double final_price;
-    private Integer creator_id;
-    private Integer client_id;
-    private String state;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
-}
+
+public record TransactionResponse (
+     Long transaction_id,
+     String operation_type,
+     String crypto_symbol,
+     Double price,
+     Integer amount,
+     Integer final_price,
+     Long creator_id,
+     Long client_id,
+     String state,
+     LocalDateTime created_at,
+     LocalDateTime updated_at
+){}

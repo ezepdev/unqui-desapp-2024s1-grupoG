@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+
 
 @Entity
 @Table(name = "transaction_intentions")
@@ -17,7 +20,7 @@ public class TransactionIntention {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique=true)
-    private Integer id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "operation_type",nullable = false)

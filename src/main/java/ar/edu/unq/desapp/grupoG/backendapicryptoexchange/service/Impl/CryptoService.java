@@ -18,6 +18,7 @@ import java.util.List;
 public class CryptoService implements ICryptoService {
     @Autowired
     private ICryptoRepository cryptorepository;
+    private final Double price_variation_margin = 0.05;
 
 
 
@@ -28,6 +29,14 @@ public class CryptoService implements ICryptoService {
     @Override
     public CryptoCurrency getCurrencyBySymbol(CryptoCurrencySymbol symbol) {
         return cryptorepository.findBySymbol(symbol);
+    }
+
+    public boolean isAllowedPrice(CryptoCurrencySymbol symbol , Double aPrice) {
+        var currentCurrency = cryptorepository.findBySymbol(symbol);
+        var priceVariation = currentCurrency.getPrice() * price_variation_margin;
+        var minPriceVariation = currentCurrency.getPrice() - priceVariation;
+        var maxPriceVariation = currentCurrency.getPrice() + priceVariation;
+        return aPrice > minPriceVariation && aPrice < maxPriceVariation;
     }
 
 

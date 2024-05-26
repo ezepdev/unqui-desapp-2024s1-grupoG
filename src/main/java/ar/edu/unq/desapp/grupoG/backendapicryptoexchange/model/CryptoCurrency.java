@@ -39,4 +39,5 @@ public class CryptoCurrency {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mm a");
         return updated_at.format(formatter);
     }
+
 }
