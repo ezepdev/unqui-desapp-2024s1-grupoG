@@ -36,23 +36,25 @@ public class Transaction {
    @Builder.Default
    private LocalDateTime created_at = LocalDateTime.now();
 
+   @Enumerated(EnumType.STRING)
+   @Column(name = "transaction_status",nullable = false)
    @Builder.Default
-   private TransactionStatus state = TransactionStatus.PENDING;
+   private TransactionStatus status = TransactionStatus.PENDING;
 
    public void confirmTransfer() {
-      if (state != TransactionStatus.PENDING) throw new InvalidTransactionOperation(TransactionStatus.TRANSFER_SUCCESS);
-      state = TransactionStatus.TRANSFER_SUCCESS;
+      if (status != TransactionStatus.PENDING) throw new InvalidTransactionOperation(TransactionStatus.TRANSFER_SUCCESS);
+      status = TransactionStatus.TRANSFER_SUCCESS;
    }
 
    public void confirmReceipt() {
-      if (state != TransactionStatus.TRANSFER_SUCCESS) throw new InvalidTransactionOperation(TransactionStatus.SUCCESS);
+      if (status != TransactionStatus.TRANSFER_SUCCESS) throw new InvalidTransactionOperation(TransactionStatus.SUCCESS);
       // handle confirm receipt
-      state = TransactionStatus.SUCCESS;
+      status = TransactionStatus.SUCCESS;
    }
 
    public void cancel() {
-      if (state == TransactionStatus.SUCCESS) throw new InvalidTransactionOperation(TransactionStatus.CANCELED);
-      state = TransactionStatus.CANCELED;
+      if (status == TransactionStatus.SUCCESS) throw new InvalidTransactionOperation(TransactionStatus.CANCELED);
+      status = TransactionStatus.CANCELED;
    }
 
    public boolean IsUserImplicated(User user) {

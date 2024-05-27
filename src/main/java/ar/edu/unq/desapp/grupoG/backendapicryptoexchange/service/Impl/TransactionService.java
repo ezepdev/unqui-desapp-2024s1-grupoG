@@ -12,6 +12,8 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionSer
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 // TODO: SEE TRANSACTIONABLE IMPLEMENTATION
 
@@ -71,6 +73,11 @@ public class TransactionService implements ITransactionService {
 
         return transactionRepository.save(transaction);
 
+    }
+
+    @Override
+    public List<Transaction> getTransactionsByUserBetweenDates(Long id, LocalDate fromDate, LocalDate toDate) {
+        return transactionRepository.findByUserIdAndCreatedAtBetween(id, fromDate, toDate);
     }
 
     //* PRIVATE METHODS
