@@ -7,15 +7,22 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidTra
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest
 public class TransactionModelTest {
+    @Autowired
     static Transaction any_transaction;
+    @Autowired
     static User any_user;
+    @Autowired
     static User any_user2;
 
     @BeforeEach
@@ -57,8 +64,8 @@ public class TransactionModelTest {
         any_user2.setId(2L);
         any_transaction.setUserOwner(any_user);
         boolean result = any_transaction.IsUserImplicated(any_user);
-        assertEquals(true, any_transaction.IsUserImplicated(any_user));
+        assertTrue(any_transaction.IsUserImplicated(any_user));
         any_transaction.setUserClient(any_user2);
-        assertEquals(true, any_transaction.IsUserImplicated(any_user2));
+        assertTrue(any_transaction.IsUserImplicated(any_user2));
     }
 }

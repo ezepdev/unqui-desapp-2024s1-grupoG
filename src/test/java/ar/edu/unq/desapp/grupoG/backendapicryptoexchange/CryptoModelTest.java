@@ -4,6 +4,7 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.CryptoCurrency;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class CryptoModelTest {
 
+    @Autowired
         static CryptoCurrency any_currency;
 
         @BeforeEach

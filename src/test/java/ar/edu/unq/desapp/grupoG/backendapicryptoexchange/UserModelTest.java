@@ -16,11 +16,14 @@ import static org.mockito.Mockito.*;
 public class UserModelTest {
     @Autowired
     static User user;
+    @Autowired
+    static User user2;
     @MockBean
     private Transaction transaction;
     @BeforeAll
     static void setUp() {
         user = User.builder().build();
+        user2 = User.builder().build();
     }
 
     @AfterEach
@@ -57,21 +60,22 @@ public class UserModelTest {
         assertEquals(1L, user.getId());
     }
 
-//    @Test
-//    public void testExecute_ConfirmTransferActionAsBuyer_ShouldCallConfirmTransfer() {
-//        user.setId(1L);
-//        TransactionIntention intention = TransactionIntention.builder().type(OperationType.VENTA).build();
-//        when(transaction.getIntention()).thenReturn(intention);
-//        when(transaction.getUserClient()).thenReturn(user);
-//
-//
-//        // Act
-//        user.execute(TransactionAction.CONFIRM_TRANSFER, transaction);
-//
-//        // Assert
-//        verify(transaction, times(1)).confirmTransfer();
-//        verify(transaction, times(1)).getIntention();
-//    }
+    @Test
+    public void testExecute_ConfirmTransferActionAsBuyer_ShouldCallConfirmTransfer() {
+        user.setId(1L);
+        user2.setId(2L);
+        TransactionIntention intention = TransactionIntention.builder().type(OperationType.VENTA).build();
+        when(transaction.getIntention()).thenReturn(intention);
+        when(transaction.getUserClient()).thenReturn(user);
+        when(transaction.getUserOwner()).thenReturn(user2);
+
+
+        // Act
+        user.execute(TransactionAction.CONFIRM_TRANSFER, transaction);
+
+        // Assert
+        verify(transaction, times(1)).confirmTransfer();
+    }
 //
 //    @Test
 //    public void testExecute_ConfirmTransferActionAsSeller_ShouldThrowUpdateActionNotAllowedException() {
