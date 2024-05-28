@@ -8,6 +8,7 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IAuthService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.UserResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Authentication", description = "Authentication APIs")
 public class AuthenticationController {
 
     @Autowired

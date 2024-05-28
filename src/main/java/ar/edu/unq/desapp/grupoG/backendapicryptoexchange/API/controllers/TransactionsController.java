@@ -3,9 +3,16 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.Mapper;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.TransactionMapper;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.*;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.CreateTransactionIntentionResponse;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.TradedVolume;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +25,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/transactions")
 @RequiredArgsConstructor
+@Tag(name = "Transactions", description = "Transactions APIs")
+
 public class TransactionsController {
 
     @Autowired
     ITransactionService transactionService;
 
+    @Operation(
+            summary = "get traded volume for a user",
+            description = "Get traded volume for a user. The traded volume is the sum of all transactions of a user",
+            tags = { "transactions", "get" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = TradedVolume.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping()
     public ResponseEntity<List<TradedVolume>> getTransactionsByUser(@RequestBody TransactionsByUserRequest request, @RequestParam LocalDate from_date, @RequestParam LocalDate to_date) {
         {
@@ -32,6 +49,14 @@ public class TransactionsController {
 
     }
 
+    @Operation(
+            summary = "start a transaction",
+            description = "Start a transaction. The transaction is a transfer of cryptos from the user who initiated the transaction to the user who created the intention",
+            tags = { "transactions", "get" })
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = StartTransactionResponse.class), mediaType = "application/json") }),
+            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping
     public ResponseEntity<StartTransactionResponse> startTransaction(@RequestBody StartTransactionRequest request) {
         var created_transaction = transactionService.startTransaction(request);

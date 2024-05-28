@@ -9,6 +9,7 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IUserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/users")
+@Tag(name = "Users", description = "Users APIs")
+
 public class UserController {
 
     @Autowired
