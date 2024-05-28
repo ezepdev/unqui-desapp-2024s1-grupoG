@@ -3,10 +3,7 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UpdateActionNotAllowed;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -94,6 +91,7 @@ public class User {
         }
 
     }
+
 
     private void updateReputation(Transaction transaction) {
         if (LocalDateTime.now().isBefore(transaction.getCreated_at().plusMinutes(30))) {
