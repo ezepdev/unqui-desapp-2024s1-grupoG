@@ -1,23 +1,18 @@
-====== TAG ==========
-Si hacen mas de un TAG de la entrega X, sumen 1 al último digito.
-Para ña entrega 2 reemplacen ENTREGA 1 por ENTREGA 2 y el contador arranca de nuevo en  1.0 por cada entrega
-
-====== RELEASE NOTE  ==========
 ---------------------------------------------------------------------
-TAG v1.0
+TAG 2.1
 ---------------------------------------------------------------------
 NEW FEATURES (lo que están entregando y está funcionando):
-* registro y logueo de usuarios
+* registro y login de usuario.
+* listar cryptomonedas y sus precios actuales.
+* listar usuarios del sistema .
+* listar todas las intenciones de transaccion activas.
+* permitir a un usuario publicar su intencion de transaccion.
+* permitir a un usuario empezar una transaccion.
+* permitir a usuarios implicados en la transaccion interactuar con la transaccion con el fin de que se cierre la misma. 
+* ver el volumen operado de criptomonedas para un cierto usuario.
 
 NOTES (ej: funcionalidad que falta, alguna consideración especial):
-- No tenemos la aplicacion deployada en un hosting. 
-- No tenemos implementados los test de unidad.
+* A nivel codigo nos falta cubrir la mayor parte del mismo. Por el mismo las actions en github nos dan por rechazado el build y por consiguiente tambien sonarcloud. 
 
 KNOWN ISSUES (ej: funcionalidad que saben que están funcionando diferente, algún error conocido en la funcionalidad terminada, etc) :
-* La funcionalidad de registro y logueo
-	a) No tiene un correcto manejo de errores 
- 	b) Las validaciones no tienen un optimo feedback para el usuario.
-
-Ejemplos típicos: 
-https://db.apache.org/ojb/release-notes.txt 
-https://www.apache.org/dist/commons/net/RELEASE-NOTES.txt
+* falta mejorar la forma de respuesta en la funcionalidad "ver el volumen operado entre 2 fechas para un usuario" y considerar posibles errores de la misma 
