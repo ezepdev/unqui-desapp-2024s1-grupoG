@@ -30,7 +30,7 @@ public class Transaction {
    private User userClient;
 
    @OneToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name = "transaction_intention_id",nullable = false)
+   @JoinColumn(nullable = false)
    private TransactionIntention intention;
 
    @Builder.Default

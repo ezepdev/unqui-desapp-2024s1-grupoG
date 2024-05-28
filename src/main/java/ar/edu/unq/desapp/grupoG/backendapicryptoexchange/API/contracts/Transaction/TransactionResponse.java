@@ -12,7 +12,7 @@ public record TransactionResponse (
      String crypto_symbol,
      Double price,
      Integer amount,
-     Integer final_price,
+     Long final_price,
      Long creator_id,
      Long client_id,
      String state,

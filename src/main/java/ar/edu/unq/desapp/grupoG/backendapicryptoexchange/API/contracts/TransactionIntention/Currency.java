@@ -2,7 +2,7 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transact
 
 
 public record Currency (
-     Integer price,
+     Long price,
      String currency_symbol
 ){}
 
