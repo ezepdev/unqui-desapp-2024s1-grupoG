@@ -29,7 +29,7 @@ public class Transaction {
    @JoinColumn(name = "user_client_id",nullable = false)
    private User userClient;
 
-   @OneToOne(fetch = FetchType.EAGER)
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(nullable = false)
    private TransactionIntention intention;
 
