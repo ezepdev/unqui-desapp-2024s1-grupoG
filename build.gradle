@@ -55,23 +55,14 @@ tasks.jacocoTestReport {
 
 tasks.test {
     useJUnitPlatform()
-    jvmArgs '-XX:+EnableDynamicAgentLoading'
     finalizedBy tasks.jacocoTestReport
 }
 
-tasks.withType(JavaCompile) {
-    options.compilerArgs << "-Xlint:unchecked"
-}
 sonar {
     properties {
         property "sonar.projectKey", "ezepdev_unqui-desapp-2024s1-grupoG"
         property "sonar.organization", "ezepdev"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
-        property "sonar.gradle.skipCompile", "true"
     }
-}
-
-tasks.named('sonarqube').configure {
-    dependsOn(tasks.named('test'))
 }
