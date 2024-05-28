@@ -55,10 +55,10 @@ public class AuthControllerTest {
         registerRequest = new RegisterRequest("Jose", "AMALFITANI", "JOSE.EMAIL@GMAIL.COM", "ADDRESS", "123456789123456789123", "12345678", "Pepe1234!");
         loginRequest = new LoginRequest("JOSE.EMAIL@GMAIL.COM", "Pepe1234!");
         user = User.builder()
-                .id(1)
+                .id(1L)
                 .name("Jose")
                 .email("JOSE.EMAIL@GMAIL.COM")
-                .surname("AMALFITANI")
+                .lastname("AMALFITANI")
                 .walletAddress("12345678")
                 .address("ADDRESS")
                 .password("Pepe1234!")

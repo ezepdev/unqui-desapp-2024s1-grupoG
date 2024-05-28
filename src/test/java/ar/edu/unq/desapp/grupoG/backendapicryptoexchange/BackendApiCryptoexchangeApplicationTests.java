@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 class BackendApiCryptoexchangeApplicationTests {
 
-/*	@Test
+	@Test
 	void contextLoads() {
 		assertTrue(true);
 	}
@@ -18,5 +18,5 @@ class BackendApiCryptoexchangeApplicationTests {
 	void OneIsEqualToOne() {
 		assertEquals(1,1);
 	}
-*/
+
 }
