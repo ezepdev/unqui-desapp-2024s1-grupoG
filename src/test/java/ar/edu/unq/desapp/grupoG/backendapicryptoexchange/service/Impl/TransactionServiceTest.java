@@ -52,6 +52,7 @@ public class TransactionServiceTest {
     @MockBean
     private ICryptoService cryptoService;
     @Test
+    @SuppressWarnings("unchecked")
     public void testStartTransaction_WithValidData_ShouldReturnTransaction() {
         StartTransactionRequest request = new StartTransactionRequest(1, 2L);
         TransactionIntention intention = TransactionIntention.builder().build();
@@ -61,6 +62,7 @@ public class TransactionServiceTest {
         client.setId(2L);
         intention.setCreator(owner);
         when(transactionIntentionRepository.findById(any())).thenReturn(Optional.of(intention));
+
         when(userRepository.findById(any())).thenReturn(Optional.of(owner), Optional.of(client));
         when(transactionRepository.save(any())).thenReturn(new Transaction());
 
