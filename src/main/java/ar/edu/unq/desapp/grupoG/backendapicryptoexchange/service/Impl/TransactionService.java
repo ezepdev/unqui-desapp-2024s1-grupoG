@@ -80,10 +80,10 @@ public class TransactionService implements ITransactionService {
 
     @Override
     public List<TradedVolume> getTransactionsByUserBetweenDates(Long id, LocalDate fromDate, LocalDate toDate) {
-        var transactions = transactionRepository.tradedVolumeCryptosBetweenDates(id, fromDate, toDate);
-        transactions.forEach(t -> t.setCurrent_price(cryptoService.getCurrencyBySymbol(t.getSymbol()).getPrice()));
-        transactions.forEach(t -> t.setFinal_price(exchangeService.convertToArs(t.getCurrent_price() * t.getVolume())));
-        return transactions;
+        var tradedVolumes = transactionRepository.tradedVolumeCryptosBetweenDates(id, fromDate, toDate);
+        tradedVolumes.forEach(t -> t.setCurrent_price(cryptoService.getCurrencyBySymbol(t.getSymbol()).getPrice()));
+        tradedVolumes.forEach(t -> t.setFinal_price(exchangeService.convertToArs(t.getCurrent_price() * t.getVolume())));
+        return tradedVolumes;
     }
 
     //* PRIVATE METHODS
