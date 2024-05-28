@@ -40,7 +40,7 @@ public class TransactionIntention {
     private Integer cryptoAmount;
 
     @Column(nullable = false)
-    private Integer finalPrice;
+    private Long finalPrice;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",nullable = false)

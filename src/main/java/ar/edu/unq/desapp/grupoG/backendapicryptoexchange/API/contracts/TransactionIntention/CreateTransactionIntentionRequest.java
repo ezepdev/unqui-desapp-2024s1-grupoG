@@ -7,7 +7,7 @@ public record CreateTransactionIntentionRequest (
     Integer crypto_amount,
     Long intention_creator_id
 ){
-    public Double finalPrice() {
-        return crypto_price * crypto_amount;
+    public Long finalPrice() {
+        return (long) (crypto_price * crypto_amount);
     }
 }

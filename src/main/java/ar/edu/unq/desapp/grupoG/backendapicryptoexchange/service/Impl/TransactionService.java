@@ -7,7 +7,9 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.TradedVolume;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IExchangeService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class TransactionService implements ITransactionService {
     private final ITransactionIntentionRepository transactionIntentionRepository;
     private final IUserRepository userRepository;
     private final ICryptoService cryptoService;
+    private final IExchangeService exchangeService;
     @Override
     public Transaction startTransaction(StartTransactionRequest request) {
 
@@ -76,8 +79,11 @@ public class TransactionService implements ITransactionService {
     }
 
     @Override
-    public List<Transaction> getTransactionsByUserBetweenDates(Long id, LocalDate fromDate, LocalDate toDate) {
-        return transactionRepository.findByUserIdAndCreatedAtBetween(id, fromDate, toDate);
+    public List<TradedVolume> getTransactionsByUserBetweenDates(Long id, LocalDate fromDate, LocalDate toDate) {
+        var transactions = transactionRepository.tradedVolumeCryptosBetweenDates(id, fromDate, toDate);
+        transactions.forEach(t -> t.setCurrent_price(cryptoService.getCurrencyBySymbol(t.getSymbol()).getPrice()));
+        transactions.forEach(t -> t.setFinal_price(exchangeService.convertToArs(t.getCurrent_price() * t.getVolume())));
+        return transactions;
     }
 
     //* PRIVATE METHODS

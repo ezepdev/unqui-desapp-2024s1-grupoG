@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.EmailAlreadyInUseError;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.AuthService;

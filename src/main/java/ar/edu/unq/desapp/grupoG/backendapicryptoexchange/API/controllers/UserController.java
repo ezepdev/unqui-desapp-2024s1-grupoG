@@ -24,21 +24,10 @@ public class UserController {
 
     @Autowired
     IUserService userService;
-    ITransactionService transactionService;
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(new UserMapper().mapToUserResponses(users));
     }
-
-    @GetMapping("/{id}/transactions")
-    public ResponseEntity<List<TransactionResponse>> getTransactionsByUser(@PathVariable Long id, @RequestParam LocalDate from_date, @RequestParam LocalDate to_date) {
-        {
-            List<Transaction> transactions = transactionService.getTransactionsByUserBetweenDates(id, from_date, to_date);
-
-            return ResponseEntity.ok(new Mapper<Transaction, TransactionResponse>().mapTo(transactions, TransactionMapper::mapToTransactionResponse));
-        }
-
-        }
-    }
+}

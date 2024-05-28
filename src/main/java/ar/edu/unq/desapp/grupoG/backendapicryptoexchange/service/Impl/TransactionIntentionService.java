@@ -47,7 +47,7 @@ public class TransactionIntentionService implements ITransactionIntentionService
         TransactionIntention transactionIntention =
                 mapper.mapTo(request, Mappers::mapToTransactionIntention);
         transactionIntention.setCreator(userResult.get());
-        transactionIntention.setFinalPrice(exchangeService.convertToArs(request.finalPrice()));
+        transactionIntention.setFinalPrice(exchangeService.convertToArs(request.finalPrice().doubleValue()));
 
         return transactionIntentionRepository.save(transactionIntention);
     }

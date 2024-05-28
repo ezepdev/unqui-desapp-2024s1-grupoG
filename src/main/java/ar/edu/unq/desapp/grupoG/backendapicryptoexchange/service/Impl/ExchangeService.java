@@ -20,7 +20,7 @@ public class ExchangeService implements IExchangeService {
     private final RestTemplate restTemplate;
 
     @Override
-    public Integer convertToArs(Double price_in_dollars) {
+    public Long convertToArs(Double price_in_dollars) {
         HttpHeaders headers = new HttpHeaders();
         var token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDc3OTcxNDYsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJlZGpwaW5oZWlyb0BnbWFpbC5jb20ifQ.Eqw-301_zMdHpKyeKTPJzeMlgiPkcuEtyFR7ATFB0n_KsUmc8kC5l6opFLCGflsi96jo23pNh4pnuIUyPKFR4w";
         headers.set("Authorization", "Bearer " + token);  // Añadir el token al encabezado de autorización
@@ -31,6 +31,6 @@ public class ExchangeService implements IExchangeService {
         // Enviar la solicitud GET
         var response = restTemplate.exchange("https://api.estadisticasbcra.com/usd", HttpMethod.GET, entity, List.class);
         LinkedHashMap<String,Integer> last_dollar_record = (LinkedHashMap<String, Integer>) response.getBody().getLast();
-        return (last_dollar_record.get("v") * price_in_dollars.intValue());
+        return (last_dollar_record.get("v") * price_in_dollars.longValue());
     }
 }
