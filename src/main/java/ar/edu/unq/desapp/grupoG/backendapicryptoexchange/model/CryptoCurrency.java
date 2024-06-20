@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -21,7 +22,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "crypto_currency")
-public class CryptoCurrency {
+public class CryptoCurrency implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;

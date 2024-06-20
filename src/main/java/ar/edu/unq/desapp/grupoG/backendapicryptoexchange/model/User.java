@@ -4,8 +4,12 @@ package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UpdateActionNotAllowed;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 // LOMBOK ANNOTATIONS
 @Data
@@ -15,7 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,9 +53,6 @@ public class User {
     @Builder.Default
     private Integer reputationPoints = 0;
 
-    public String username() {
-        return name + lastname;
-    }
     public void addPoints(Integer points) {
         reputationPoints += points;
     }
@@ -121,5 +122,36 @@ public class User {
 
     public boolean checkPassword(String password) {
         return this.password.equals(password);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

@@ -9,6 +9,7 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFou
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.AuthService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.UserService;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.common.AuthenticationResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class UserServiceTest {
         when(userRepository.save(any(User.class))).thenReturn(user);
 
 
-        User result = authService.registerUser(request);
+        AuthenticationResult result = authService.registerUser(request);
 
 
         assertEquals(user, result);
@@ -100,7 +101,7 @@ public class UserServiceTest {
         when(userRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(user));
 
 
-        User result = authService.loginUser(request);
+        AuthenticationResult result = authService.loginUser(request);
 
 
         assertEquals(user, result);

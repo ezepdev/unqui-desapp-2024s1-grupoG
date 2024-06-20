@@ -7,6 +7,7 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +21,7 @@ public class CryptoService implements ICryptoService {
     private ICryptoRepository cryptorepository;
     private final Double price_variation_margin = 0.05;
 
-
-
+    @Cacheable(value = "crypto")
     public List<CryptoCurrency> allCurrencies() {
         return cryptorepository.retrieveLatestCryptoPrices();
     }

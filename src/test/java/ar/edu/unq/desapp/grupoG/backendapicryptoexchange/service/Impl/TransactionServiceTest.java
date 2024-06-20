@@ -52,7 +52,7 @@ public class TransactionServiceTest {
     @MockBean
     private ICryptoService cryptoService;
     @Test
-    @SuppressWarnings("unchecked")
+
     public void testStartTransaction_WithValidData_ShouldReturnTransaction() {
         StartTransactionRequest request = new StartTransactionRequest(1, 2L);
         TransactionIntention intention = TransactionIntention.builder().build();

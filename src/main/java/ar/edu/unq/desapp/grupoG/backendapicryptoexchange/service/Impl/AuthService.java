@@ -8,7 +8,12 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.DuplicateE
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidCredentials;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IAuthService;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.JWTService;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.common.AuthenticationResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,28 +22,38 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthService implements IAuthService {
     private final IUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JWTService jwtService;
+    private final AuthenticationManager authManager;
 
-    public User registerUser(RegisterRequest request) {
-        
+    @Override
+    public AuthenticationResult registerUser(RegisterRequest request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) throw new DuplicateEmail();
+
         User user = User.builder()
                 .name(request.getName())
                 .lastname(request.getSurname())
-                .password(request.getPassword())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
                 .walletAddress(request.getWallet_address())
                 .cvu(request.getCvu())
                 .address(request.getAddress())
                 .build();
 
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) throw new DuplicateEmail();
-
-        return userRepository.save(user);
+        String token = jwtService.generateToken(user);
+        userRepository.save(user);
+        return new AuthenticationResult(token,user.getName() + " " + user.getLastname(),user.getEmail());
         
     }
 
-    public User loginUser(LoginRequest request) {
-        Optional<User> user_result = userRepository.findByEmail(request.getEmail());
-        if (user_result.isEmpty() || !user_result.get().checkPassword(request.getPassword())) throw new InvalidCredentials();
-        return user_result.get();
+    @Override
+    public AuthenticationResult loginUser(LoginRequest request) {
+        authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        Optional<User> userResult = userRepository.findByEmail(request.getEmail());
+        if (userResult.isEmpty()) throw new InvalidCredentials();
+        String token = jwtService.generateToken(userResult.get());
+
+        return new AuthenticationResult(token,userResult.get().getName() + " " + userResult.get().getLastname(),userResult.get().getEmail());
     }
 }

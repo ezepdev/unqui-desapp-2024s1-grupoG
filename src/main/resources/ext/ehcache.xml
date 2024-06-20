@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+        xmlns="http://www.ehcache.org/v3"
+        xsi:schemaLocation="
+      http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.6.xsd
+      http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.6.xsd">
+
+    <service>
+        <jsr107:defaults enable-management="true" enable-statistics="true"/>
+    </service>
+
+    <persistence directory="./cache"/>
+    <cache alias="crypto">
+        <expiry>
+            <ttl unit="seconds">1</ttl>
+        </expiry>
+        <listeners>
+            <listener>
+                <class>ar.edu.unq.desapp.grupoG.backendapicryptoexchange.CacheEventLogger</class>
+                <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
+                <event-ordering-mode>UNORDERED</event-ordering-mode>
+                <events-to-fire-on>CREATED</events-to-fire-on>
+                <events-to-fire-on>EXPIRED</events-to-fire-on>
+            </listener>
+
+        </listeners>
+        <resources>
+            <heap>1000</heap>
+        </resources>
+    </cache>
+
+    <!-- Cache Templates-->
+    <cache-template name="generic-cache">
+        <expiry>
+            <ttl unit="minutes">1</ttl>
+        </expiry>
+        <resources>
+            <heap >1000</heap>
+        </resources>
+    </cache-template>
+</config>
