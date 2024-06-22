@@ -15,7 +15,7 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     BinanceService binanceService;
     @Autowired
-    ICryptoRepository ICryptoRepository;
+    ICryptoRepository cryptoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -37,8 +37,6 @@ public class DataInitializer implements CommandLineRunner {
                 .password("PaSSwORD$123")
                 .cvu("123456789123456789125")
                 .build();
-        ICryptoRepository.saveAll(binanceService.getUpdatedCryptoPrices());
-
         user_repository.save(user);
         user_repository.save(another_user);
 

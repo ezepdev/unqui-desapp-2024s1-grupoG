@@ -21,5 +21,12 @@ public interface ICryptoRepository extends JpaRepository<CryptoCurrency,String> 
             "AND cc.updated_at = latest.updated_at",
             nativeQuery = true)
     List<CryptoCurrency> retrieveLatestCryptoPrices();
+    @Query(value = "SELECT cc.* " +
+            "FROM crypto_currency cc " +
+            "WHERE cc.crypto_symbol = :symbol " +
+            "ORDER BY cc.updated_at DESC " +
+            "LIMIT 24",
+            nativeQuery = true)
+    List<CryptoCurrency> findBySymbolAndLastTwentyFourHours(String symbol);
     CryptoCurrency findBySymbol(CryptoCurrencySymbol symbol);
 }

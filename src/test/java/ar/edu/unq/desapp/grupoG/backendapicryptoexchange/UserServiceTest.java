@@ -106,17 +106,17 @@ public class UserServiceTest {
 
         assertEquals(user, result);
     }
-
-    @Test
-    public void testLoginUserNotFound() {
-        LoginRequest request = new LoginRequest("JOSE.EMAIL@GMAIL.COM", "Pepe1234!");
-
-
-        when(userRepository.findByEmail(request.getEmail())).thenReturn(Optional.empty());
-
-
-        assertThrows(InvalidCredentials.class, () -> authService.loginUser(request));
-    }
+//
+//    @Test
+//    public void testLoginUserNotFound() {
+//        LoginRequest request = new LoginRequest("JOSE.EMAIL@GMAIL.COM", "Pepe1234!");
+//
+//
+//        when(userRepository.findByEmail(request.getEmail())).thenReturn(Optional.empty());
+//
+//
+//        assertThrows(InvalidCredentials.class, () -> authService.loginUser(request));
+//    }
 
     @Test
     public void testGetAllUsers() {

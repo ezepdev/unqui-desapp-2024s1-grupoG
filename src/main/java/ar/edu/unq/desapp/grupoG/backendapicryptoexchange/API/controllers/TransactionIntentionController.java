@@ -27,12 +27,11 @@ public class TransactionIntentionController {
     private final ITransactionIntentionService transactionService;
     @Operation(
             summary = "Retrieve all active intentions",
-            description = "Get all active intentions  with status ACTIVE",
-            tags = { "transaction_intentions", "get" })
+            description = "Get all active intentions  with status ACTIVE")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = TransactionIntentionResponse.class), mediaType = "application/json") }),
-            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+            @ApiResponse(responseCode = "404",description = "Transaction intention not found", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", description = "Internal server error", content = { @Content(schema = @Schema()) }) })
     @GetMapping
     public ResponseEntity<List<TransactionIntentionResponse>> getActiveTransactionIntentions(){
         List<TransactionIntention> transactionIntentions = transactionService.getActiveIntentions();
@@ -44,12 +43,12 @@ public class TransactionIntentionController {
 
     @Operation(
             summary = "Create a new transaction intention",
-            description = "Create a new transaction intention",
-            tags = { "transaction_intentions", "post" })
+            description = "Create a new transaction intention"
+            )
     @ApiResponses({
             @ApiResponse(responseCode = "201", content = { @Content(schema = @Schema(implementation = CreateTransactionIntentionResponse.class), mediaType = "application/json") }),
-            @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-            @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+            @ApiResponse(responseCode = "400", description = "Invalid data",content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", description = "Internal server error",content = { @Content(schema = @Schema()) }) })
     @PostMapping
     public ResponseEntity<CreateTransactionIntentionResponse> createTransactionIntention(@RequestBody CreateTransactionIntentionRequest request) {
 

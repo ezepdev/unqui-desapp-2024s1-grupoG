@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange;
+package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.config;
 
 
 import org.springframework.cache.annotation.EnableCaching;

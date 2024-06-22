@@ -5,6 +5,7 @@ import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentic
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.controllers.AuthenticationController;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IAuthService;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.common.AuthenticationResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -68,7 +69,7 @@ public class AuthControllerTest {
 
     @Test
     void whenValidRegisterRequest_thenReturnsUserResponse() throws Exception {
-        when(authService.registerUser(any(RegisterRequest.class))).thenReturn(user);
+        when(authService.registerUser(any(RegisterRequest.class))) .thenReturn(new AuthenticationResult("token", "full_name", "email"));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
                 .content("{ \"name\": \"test\", \"surname\": \"test\", \"email\": \"test@test.com\", \"password\": \"Password123!\", \"address\": \"addressssssssssss\", \"wallet_address\": \"12345678\", \"cvu\": \"1234567891234567891232\" }")

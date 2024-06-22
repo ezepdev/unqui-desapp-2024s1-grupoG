@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange;
+package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.ehcache.event.CacheEvent;
@@ -14,5 +14,6 @@ public class CacheEventLogger implements CacheEventListener<Object, Object> {
     @Override
     public void onEvent(CacheEvent<?, ?> cacheEvent) {
         log.info("Cache event: {}", cacheEvent.getKey(), cacheEvent.getOldValue(), cacheEvent.getNewValue());
+        log.info("Cache event: {}",cacheEvent.getNewValue());
     }
 }

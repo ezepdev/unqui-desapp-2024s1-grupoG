@@ -132,7 +132,7 @@ public class UserModelTest {
     public void testUsername() {
         client.setName("John");
         client.setLastname("Doe");
-        assertEquals("JohnDoe", client.username());
+        assertEquals("JohnDoe", client.getUsername());
     }
 
     @Test
