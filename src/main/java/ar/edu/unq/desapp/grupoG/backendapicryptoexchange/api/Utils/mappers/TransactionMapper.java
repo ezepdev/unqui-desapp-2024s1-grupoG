@@ -1,7 +1,7 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.utils.mappers;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.Transaction.TransactionResponse;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Transaction.TransactionResponse;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.Transaction;
 
 import java.time.LocalDateTime;
 

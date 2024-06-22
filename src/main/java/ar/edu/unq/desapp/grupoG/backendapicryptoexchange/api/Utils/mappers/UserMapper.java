@@ -1,7 +1,7 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.utils.mappers;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.Authentication.UserResponse;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Authentication.UserResponse;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 
 import java.util.List;
 

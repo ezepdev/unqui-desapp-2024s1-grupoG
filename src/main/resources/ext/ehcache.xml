@@ -14,7 +14,7 @@
     <cache alias="crypto" uses-template="generic-cache">
         <listeners>
             <listener>
-                <class>ar.edu.unq.desapp.grupoG.backendapicryptoexchange.config.CacheEventLogger</class>
+                <class>ar.edu.unq.desapp.grupog.backendapicryptoexchange.config.CacheEventLogger</class>
                 <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
                 <event-ordering-mode>UNORDERED</event-ordering-mode>
                 <events-to-fire-on>CREATED</events-to-fire-on>

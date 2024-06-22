@@ -8,7 +8,7 @@ plugins {
     id 'jacoco'
 }
 
-group = 'ar.edu.unq.desapp.grupoG'
+group = 'ar.edu.unq.desapp.grupog'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -88,7 +88,7 @@ tasks.withType(JavaCompile) {
 }
 sonar {
     properties {
-        property "sonar.projectKey", "ezepdev_unqui-desapp-2024s1-grupoG"
+        property "sonar.projectKey", "ezepdev_unqui-desapp-2024s1-grupog"
         property "sonar.organization", "ezepdev"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"

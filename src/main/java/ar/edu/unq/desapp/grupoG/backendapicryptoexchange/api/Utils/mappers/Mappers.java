@@ -1,12 +1,12 @@
-package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.utils.mappers;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.TransactionIntention.CreateTransactionIntentionRequest;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.TransactionIntention.CreateTransactionIntentionResponse;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.TransactionIntention.Currency;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.TransactionIntention.TransactionIntentionResponse;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.CryptoCurrencySymbol;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.OperationType;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.TransactionIntention;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.TransactionIntention.CreateTransactionIntentionRequest;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.TransactionIntention.CreateTransactionIntentionResponse;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.TransactionIntention.Currency;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.TransactionIntention.TransactionIntentionResponse;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.OperationType;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntention;
 
 import java.time.LocalDateTime;
 
