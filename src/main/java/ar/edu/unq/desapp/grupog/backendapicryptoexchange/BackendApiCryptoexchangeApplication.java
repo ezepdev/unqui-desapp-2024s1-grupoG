@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Slf4j
 public class BackendApiCryptoexchangeApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BackendApiCryptoexchangeApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BackendApiCryptoexchangeApplication.class, args);
+    }
 
 }

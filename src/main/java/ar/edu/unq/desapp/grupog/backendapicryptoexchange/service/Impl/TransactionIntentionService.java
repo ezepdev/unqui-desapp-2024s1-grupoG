@@ -1,9 +1,12 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.Impl;
 
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.TransactionIntention.CreateTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.Mapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.Mappers;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.TransactionIntention.CreateTransactionIntentionRequest;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.*;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntention;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntentionState;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.PriceVariationMarginConflict;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.UserNotFound;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
