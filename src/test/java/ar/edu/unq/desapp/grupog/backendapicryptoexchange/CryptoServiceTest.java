@@ -3,7 +3,7 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.ICryptoRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.Impl.CryptoService;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.CryptoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

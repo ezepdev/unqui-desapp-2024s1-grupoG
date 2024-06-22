@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.Impl;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
 
 import org.junit.jupiter.api.Test;

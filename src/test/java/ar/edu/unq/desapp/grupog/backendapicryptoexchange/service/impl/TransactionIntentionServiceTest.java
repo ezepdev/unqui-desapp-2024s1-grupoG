@@ -1,6 +1,6 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.Impl;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionIntention.CreateTransactionIntentionRequest;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntention;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntentionState;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
