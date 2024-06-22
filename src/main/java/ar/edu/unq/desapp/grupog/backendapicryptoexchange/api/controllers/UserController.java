@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.controllers;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.UserResponse;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.UserMapper;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappersa.UserMapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IUserService;
 import io.swagger.v3.oas.annotations.Operation;

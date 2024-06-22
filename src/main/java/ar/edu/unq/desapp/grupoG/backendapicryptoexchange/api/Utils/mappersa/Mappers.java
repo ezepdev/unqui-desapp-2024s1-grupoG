@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappersa;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionResponse;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.Currency;

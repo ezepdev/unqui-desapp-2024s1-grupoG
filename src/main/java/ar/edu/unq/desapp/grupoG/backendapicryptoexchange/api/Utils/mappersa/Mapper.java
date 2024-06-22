@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappersa;
 
 import java.util.List;
 import java.util.function.Function;
