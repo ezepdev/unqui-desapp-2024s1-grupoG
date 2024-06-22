@@ -59,9 +59,9 @@ public class TransactionModelTest {
         any_user.setId(1L);
         any_user2.setId(2L);
         any_transaction.setUserOwner(any_user);
-        boolean result = any_transaction.IsUserImplicated(any_user);
-        assertTrue(any_transaction.IsUserImplicated(any_user));
+        boolean result = any_transaction.isUserImplicated(any_user);
+        assertTrue(any_transaction.isUserImplicated(any_user));
         any_transaction.setUserClient(any_user2);
-        assertTrue(any_transaction.IsUserImplicated(any_user2));
+        assertTrue(any_transaction.isUserImplicated(any_user2));
     }
 }

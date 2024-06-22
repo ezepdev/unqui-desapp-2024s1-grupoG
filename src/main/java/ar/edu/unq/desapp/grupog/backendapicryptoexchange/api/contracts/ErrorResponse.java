@@ -5,4 +5,4 @@ public record ErrorResponse (
     String code,
     String message,
     String description
-){};
+){}

@@ -31,7 +31,7 @@ public class TransactionIntentionService implements ITransactionIntentionService
     private final ICryptoService cryptoService;
     private final IUserRepository userRepository;
     @Setter(AccessLevel.PRIVATE)
-    private static Double price_variation_margin = 0.05;
+    private static Double priceVariationMargin = 0.05;
 
 
     public TransactionIntention createTransactionIntention(CreateTransactionIntentionRequest request) {

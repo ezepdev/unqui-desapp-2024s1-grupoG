@@ -14,6 +14,6 @@ import lombok.RequiredArgsConstructor;
 public class TradedVolume {
     private final CryptoCurrencySymbol symbol;
     private final Long volume;
-    private Double current_price;
-    private Long final_price;
+    private Double currentPrice;
+    private Long finalPrice;
 }

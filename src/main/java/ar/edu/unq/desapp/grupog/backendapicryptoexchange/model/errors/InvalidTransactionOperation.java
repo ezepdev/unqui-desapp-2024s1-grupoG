@@ -21,7 +21,7 @@ public class InvalidTransactionOperation extends Error {
             super.setMessage(message);
             super.setCode("INVALID_TRANSACTION_OPERATION");
             super.setDescription("The transaction status is not valid");
-        };
+        }
 
     }
 

@@ -39,9 +39,9 @@ public class TransactionsController {
             @ApiResponse(responseCode = "404", description = "User not found", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping()
-    public ResponseEntity<List<TradedVolume>> getTransactionsByUser(@RequestBody TransactionsByUserRequest request, @RequestParam LocalDate from_date, @RequestParam LocalDate to_date) {
+    public ResponseEntity<List<TradedVolume>> getTransactionsByUser(@RequestBody TransactionsByUserRequest request, @RequestParam LocalDate fromDate, @RequestParam LocalDate toDate) {
         {
-            List<TradedVolume> transactions = transactionService.getTransactionsByUserBetweenDates(request.user_id(), from_date, to_date);
+            List<TradedVolume> transactions = transactionService.getTransactionsByUserBetweenDates(request.user_id(), fromDate, toDate);
             return ResponseEntity.ok(transactions);
         }
 
@@ -57,12 +57,12 @@ public class TransactionsController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PostMapping
     public ResponseEntity<StartTransactionResponse> startTransaction(@RequestBody StartTransactionRequest request) {
-        var created_transaction = transactionService.startTransaction(request);
-        var uri_created_transaction = URI.create("/transactions/" + created_transaction.getId());
+        var createdTransaction = transactionService.startTransaction(request);
+        var uri_created_transaction = URI.create("/transactions/" + createdTransaction.getId());
         return ResponseEntity.created(uri_created_transaction)
                 .body(
                         new StartTransactionResponse(
-                                created_transaction.getId(),
+                                createdTransaction.getId(),
                                 "Transaction started successfully",
                                 uri_created_transaction.toString())
                 );
@@ -77,8 +77,8 @@ public class TransactionsController {
             @ApiResponse(responseCode = "400", description = "Invalid data", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @PatchMapping("/{transaction_id}")
-    public ResponseEntity<TransactionResponse> updateTransactionStatus(@PathVariable Integer transaction_id, @RequestBody UpdateTransactionRequest request) {
-        var transaction = transactionService.updateTransactionStatus(transaction_id,request);
+    public ResponseEntity<TransactionResponse> updateTransactionStatus(@PathVariable Integer transactionId, @RequestBody UpdateTransactionRequest request) {
+        var transaction = transactionService.updateTransactionStatus(transactionId,request);
         TransactionResponse response = new Mapper<Transaction, TransactionResponse>().mapTo(transaction, TransactionMapper::mapToTransactionResponse);
         return ResponseEntity.ok(response);
     }

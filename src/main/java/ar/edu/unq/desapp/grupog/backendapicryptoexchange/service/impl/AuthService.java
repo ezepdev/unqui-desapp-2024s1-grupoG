@@ -35,7 +35,7 @@ public class AuthService implements IAuthService {
                 .lastname(request.getSurname())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
-                .walletAddress(request.getWallet_address())
+                .walletAddress(request.getWalletAddress())
                 .cvu(request.getCvu())
                 .address(request.getAddress())
                 .build();

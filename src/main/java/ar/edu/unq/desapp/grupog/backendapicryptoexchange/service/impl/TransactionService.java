@@ -32,17 +32,17 @@ public class TransactionService implements ITransactionService {
     public Transaction startTransaction(StartTransactionRequest request) {
 
         //* Verify transaction intention exists and is active
-        Optional<TransactionIntention> transactionIntention = transactionIntentionRepository.findById(request.transaction_intention_id());
+        Optional<TransactionIntention> transactionIntention = transactionIntentionRepository.findById(request.transactionIntentionId());
         if (transactionIntention.isEmpty() || transactionIntention.get().getState().equals(TransactionIntentionState.INACTIVE)) throw new TransactionIntentionNotFound();
 
         //* Verify that the user who initiated the transaction and the user who created the intention exists
         Long transactionIntentionCreatorId = transactionIntention.get().getCreator().getId();
         var userOwner = userRepository.findById(transactionIntentionCreatorId);
-        var userClient = userRepository.findById(request.transaction_starter_user_id());
+        var userClient = userRepository.findById(request.transactionStarterUserId());
         if (userOwner.isEmpty() || userClient.isEmpty()) throw new UserNotFound();
 
         //* Verify that the user who created the intention and the user who initiated the transaction are not the same
-        checkUserIsNotTheSame(transactionIntentionCreatorId, request.transaction_starter_user_id());
+        checkUserIsNotTheSame(transactionIntentionCreatorId, request.transactionStarterUserId());
 
         //* Create transaction
         return transactionRepository.save(
@@ -57,21 +57,21 @@ public class TransactionService implements ITransactionService {
     public Transaction updateTransactionStatus(Integer transactionId, UpdateTransactionRequest request) {
 
         //* Verify transaction exists
-        Optional<Transaction> maybe_transaction = transactionRepository.findById(transactionId);
-        if (maybe_transaction.isEmpty()) throw new TransactionNotFound();
-        Transaction transaction = maybe_transaction.get();
+        Optional<Transaction> maybeTransaction = transactionRepository.findById(transactionId);
+        if (maybeTransaction.isEmpty()) throw new TransactionNotFound();
+        Transaction transaction = maybeTransaction.get();
 
         //* Verify that the user who try to update the transaction exists
-        Optional<User> maybe_user_updater = userRepository.findById(request.user_id());
-        if (maybe_user_updater.isEmpty()) throw new UserNotFound();
+        Optional<User> maybeUserUpdater = userRepository.findById(request.user_id());
+        if (maybeUserUpdater.isEmpty()) throw new UserNotFound();
         //* Verify that the use who try to update the transaction is implicated in the transaction
-        User user_updater = maybe_user_updater.get();
-        if (!transaction.IsUserImplicated(user_updater)) throw new UserNotAuthorized();
+        User userUpdater = maybeUserUpdater.get();
+        if (!transaction.isUserImplicated(userUpdater)) throw new UserNotAuthorized();
         //* Verify price is within the variation margin
         if (!cryptoService.isAllowedPrice(transaction.getIntention().getCryptoSymbol(),transaction.getIntention().getCryptoPrice())) throw new PriceVariationMarginConflict();
 
         //* Try to update the transaction
-        user_updater.execute(
+        userUpdater.execute(
                 TransactionAction.valueOf(request.action()),transaction);
 
         return transactionRepository.save(transaction);
@@ -81,8 +81,8 @@ public class TransactionService implements ITransactionService {
     @Override
     public List<TradedVolume> getTransactionsByUserBetweenDates(Long id, LocalDate fromDate, LocalDate toDate) {
         var tradedVolumes = transactionRepository.tradedVolumeCryptosBetweenDates(id, fromDate, toDate);
-        tradedVolumes.forEach(t -> t.setCurrent_price(cryptoService.getCurrencyBySymbol(t.getSymbol()).getPrice()));
-        tradedVolumes.forEach(t -> t.setFinal_price(exchangeService.convertToArs(t.getCurrent_price() * t.getVolume())));
+        tradedVolumes.forEach(t -> t.setCurrentPrice(cryptoService.getCurrencyBySymbol(t.getSymbol()).getPrice()));
+        tradedVolumes.forEach(t -> t.setFinalPrice(exchangeService.convertToArs(t.getCurrentPrice() * t.getVolume())));
         return tradedVolumes;
     }
 

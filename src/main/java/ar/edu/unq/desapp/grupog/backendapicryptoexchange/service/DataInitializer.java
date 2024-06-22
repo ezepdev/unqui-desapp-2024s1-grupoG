@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class DataInitializer implements CommandLineRunner {
 
     @Autowired
-    IUserRepository user_repository;
+    IUserRepository userRepository;
     @Autowired
     BinanceService binanceService;
     @Autowired
@@ -28,7 +28,7 @@ public class DataInitializer implements CommandLineRunner {
                 .password("PASSWORD")
                 .cvu("123456789123456789123")
                 .build();
-        var another_user = User.builder()
+        var anotherUser = User.builder()
                 .name("Juan")
                 .email("JUAN.EMAIL@GMAIL.COM")
                 .lastname("TORRES")
@@ -37,8 +37,8 @@ public class DataInitializer implements CommandLineRunner {
                 .password("PaSSwORD$123")
                 .cvu("123456789123456789125")
                 .build();
-        user_repository.save(user);
-        user_repository.save(another_user);
+        userRepository.save(user);
+        userRepository.save(anotherUser);
 
     }
 }

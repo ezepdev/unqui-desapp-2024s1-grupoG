@@ -17,7 +17,7 @@ public class TransactionMapper {
                 transaction.getUserOwner().getId(),
                 transaction.getUserClient().getId(),
                 transaction.getStatus().name(),
-                transaction.getCreated_at(),
+                transaction.getCreatedAt(),
                 LocalDateTime.now()
         );
     }

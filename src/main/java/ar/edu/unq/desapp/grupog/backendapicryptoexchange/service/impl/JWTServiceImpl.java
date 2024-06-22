@@ -21,7 +21,7 @@ import java.util.function.Function;
 public class JWTServiceImpl implements JWTService {
 
     @Value("${security.jwt.secret-key}")
-    private String SECRET_KEY;
+    private String secretKey;
 
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
@@ -84,7 +84,7 @@ public class JWTServiceImpl implements JWTService {
     }
 
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

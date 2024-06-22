@@ -21,14 +21,14 @@ public class ExchangeService implements IExchangeService {
     private final RestTemplate restTemplate;
 
     @Override
-    public Long convertToArs(Double price_in_dollars) {
+    public Long convertToArs(Double priceInDollars) {
         HttpEntity<String> entity = getStringHttpEntity();
 
         // Enviar la solicitud GET
         var response = restTemplate.exchange("https://api.estadisticasbcra.com/usd", HttpMethod.GET, entity, List.class);
         @SuppressWarnings("unchecked")
-        Map<String,Integer> last_dollar_record = (Map<String,Integer>) Objects.requireNonNull(response.getBody()).get(response.getBody().size() - 1);
-        return (last_dollar_record.get("v") * price_in_dollars.longValue());
+        Map<String,Integer> lastDollarRecord = (Map<String,Integer>) Objects.requireNonNull(response.getBody()).get(response.getBody().size() - 1);
+        return (lastDollarRecord.get("v") * priceInDollars.longValue());
     }
 
     private static HttpEntity<String> getStringHttpEntity() {

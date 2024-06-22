@@ -31,7 +31,7 @@ public class Mappers {
                 transactionIntention.getCryptoAmount(),
                 new Currency( transactionIntention.getFinalPrice(), "ARS" ),
                 transactionIntention.getCreator().getId(),
-                transactionIntention.getCreator().get_reputation(),
+                transactionIntention.getCreator().getReputation(),
                 transactionIntention.getCreationDate(),
                 transactionIntention.getState().name()
         );

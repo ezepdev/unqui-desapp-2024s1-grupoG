@@ -18,7 +18,7 @@ public class CryptoService implements ICryptoService {
 
     private final ICryptoRepository cryptoRepository;
     private final BinanceService binanceService;
-    private final Double price_variation_margin = 0.05;
+    private final Double priceVariationMargin = 0.05;
     private final int updateInterval = 60000;
 
     @Cacheable(value = "crypto")
@@ -39,7 +39,7 @@ public class CryptoService implements ICryptoService {
 
     public boolean isAllowedPrice(CryptoCurrencySymbol symbol , Double aPrice) {
         var currentCurrency = cryptoRepository.findBySymbol(symbol);
-        var priceVariation = currentCurrency.getPrice() * price_variation_margin;
+        var priceVariation = currentCurrency.getPrice() * priceVariationMargin;
         var minPriceVariation = currentCurrency.getPrice() - priceVariation;
         var maxPriceVariation = currentCurrency.getPrice() + priceVariation;
         return aPrice > minPriceVariation && aPrice < maxPriceVariation;

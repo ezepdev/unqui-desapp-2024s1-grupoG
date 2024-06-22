@@ -30,11 +30,11 @@ public class CryptoCurrency implements Serializable {
 
     @Builder.Default
     @Column(nullable = false, updatable = false)
-    private LocalDateTime updated_at = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
-    public String getUpdated_at() {
+    public String getUpdatedAt() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mm a");
-        return updated_at.format(formatter);
+        return updatedAt.format(formatter);
     }
 
 }

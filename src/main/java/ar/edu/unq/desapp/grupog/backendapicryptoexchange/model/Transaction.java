@@ -34,7 +34,7 @@ public class Transaction {
    private TransactionIntention intention;
 
    @Builder.Default
-   private LocalDateTime created_at = LocalDateTime.now();
+   private LocalDateTime createdAt = LocalDateTime.now();
 
    @Enumerated(EnumType.STRING)
    @Column(name = "transaction_status",nullable = false)
@@ -57,7 +57,7 @@ public class Transaction {
       status = TransactionStatus.CANCELED;
    }
 
-   public boolean IsUserImplicated(User user) {
+   public boolean isUserImplicated(User user) {
       return userOwner.getId().equals(user.getId()) || userClient.getId().equals(user.getId());
    }
 }

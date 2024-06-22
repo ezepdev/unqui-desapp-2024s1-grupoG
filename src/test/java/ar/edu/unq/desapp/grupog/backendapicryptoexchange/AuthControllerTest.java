@@ -63,7 +63,7 @@ public class AuthControllerTest {
         when(authService.registerUser(any(RegisterRequest.class))) .thenReturn(new AuthenticationResult("token", "full_name", "email"));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
-                .content("{ \"name\": \"test\", \"surname\": \"test\", \"email\": \"test@test.com\", \"password\": \"Password123!\", \"address\": \"addressssssssssss\", \"wallet_address\": \"12345678\", \"cvu\": \"1234567891234567891232\" }")
+                .content("{ \"name\": \"test\", \"surname\": \"test\", \"email\": \"test@test.com\", \"password\": \"Password123!\", \"address\": \"addressssssssssss\", \"walletAddress\": \"12345678\", \"cvu\": \"1234567891234567891232\" }")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 

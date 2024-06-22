@@ -29,7 +29,7 @@ public class RegisterRequest{
         @Size(min = 8, max = 8, message = "El campo Wallet address debe contener 8 caracteres")
         @Pattern(regexp = "\\d{8}", message = "El campo Wallet address debe contener solo digitos")
         @NotNull
-        private final String wallet_address;
+        private final String walletAddress;
         @NotBlank
         @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$", message = "El campo contraseña debe tener al menos 6 caracteres y debe contener letras, números y caracteres especiales")
         private final String password;

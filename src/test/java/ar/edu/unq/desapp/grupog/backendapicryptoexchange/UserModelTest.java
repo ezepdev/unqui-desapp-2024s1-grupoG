@@ -57,7 +57,7 @@ public class UserModelTest {
     public void testUpdateReputation() throws Exception {
         // Setup
         LocalDateTime now = LocalDateTime.now();
-        when(transaction.getCreated_at()).thenReturn(now);
+        when(transaction.getCreatedAt()).thenReturn(now);
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
 
@@ -151,11 +151,11 @@ public class UserModelTest {
     public void testGetReputation() {
         client.addPoints(10);
         client.addOperation();
-        assertEquals(10.0, client.get_reputation());
+        assertEquals(10.0, client.getReputation());
 
         client.addPoints(5);
         client.addOperation();
-        assertEquals(7.5, client.get_reputation());
+        assertEquals(7.5, client.getReputation());
     }
 
    /* @Test
@@ -191,7 +191,7 @@ public class UserModelTest {
     public void testExecuteConfirmReceiptAsSeller() {
         TransactionIntention intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
         when(transaction.getIntention()).thenReturn(intention);
-        when(transaction.getCreated_at()).thenReturn(LocalDateTime.now());
+        when(transaction.getCreatedAt()).thenReturn(LocalDateTime.now());
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
 

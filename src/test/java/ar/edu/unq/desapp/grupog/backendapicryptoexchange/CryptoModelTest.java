@@ -31,7 +31,7 @@ public class CryptoModelTest {
         @Test
         void testAnyCryptoCurrencyCanGiveCreationTime() {
             LocalDateTime started_at = LocalDateTime.now();
-            String created_at = any_currency.getUpdated_at();
+            String created_at = any_currency.getUpdatedAt();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mm a");
             assertEquals(created_at, started_at.format(formatter));
         }

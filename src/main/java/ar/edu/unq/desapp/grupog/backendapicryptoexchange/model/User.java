@@ -64,7 +64,7 @@ public class User implements UserDetails {
         operationsAmount++;
     }
 
-    public Double get_reputation() {
+    public Double getReputation() {
         if (operationsAmount == 0) return 0.0;
         return (double)reputationPoints / operationsAmount;
     }
@@ -98,7 +98,7 @@ public class User implements UserDetails {
 
 
     private void updateReputation(Transaction transaction) {
-        if (LocalDateTime.now().isBefore(transaction.getCreated_at().plusMinutes(30))) {
+        if (LocalDateTime.now().isBefore(transaction.getCreatedAt().plusMinutes(30))) {
             transaction.getUserClient().addPoints(10);
             transaction.getUserOwner().addPoints(10);
         }
