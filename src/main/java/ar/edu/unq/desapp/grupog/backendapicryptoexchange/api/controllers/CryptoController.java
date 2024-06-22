@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.controllers;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.crypto.CryptoResponse;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappersa.CryptoMapper;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.CryptoMapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ICryptoService;
