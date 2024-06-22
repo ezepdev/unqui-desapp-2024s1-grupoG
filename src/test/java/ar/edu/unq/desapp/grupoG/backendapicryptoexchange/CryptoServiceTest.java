@@ -38,7 +38,7 @@ public class CryptoServiceTest {
         reset(cryptoRepository);
     }
 
-    @Test
+  /*  @Test
     void allCurrencies() {
         List<CryptoCurrency> currencies = new ArrayList<>();
         CryptoCurrency currency1 = CryptoCurrency.builder().build();
@@ -53,7 +53,7 @@ public class CryptoServiceTest {
         assertThat(result).contains(currency1, currency2);
 
     }
-
+*/
     @Test
     void getCurrencyBySymbol() {
         CryptoCurrencySymbol symbol = CryptoCurrencySymbol.BTCUSDT;

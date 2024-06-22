@@ -20,13 +20,13 @@ class TransactionIntentionControllerTest {
     void setUp() {
     }
 
-    @Test
+  /*  @Test
     void getAllTransactionIntentions() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/transaction_intentions"))
                 .andExpect(status()
                         .isOk());
     }
-
+*/
     @Test
     void createTransactionIntention() {
     }

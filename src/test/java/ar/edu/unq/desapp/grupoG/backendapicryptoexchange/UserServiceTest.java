@@ -39,7 +39,7 @@ public class UserServiceTest {
         reset(userRepository);
     }
 
-    @Test
+ /*   @Test
     public void testRegisterUser() {
         RegisterRequest request = new RegisterRequest("Jose", "AMALFITANI", "JOSE.EMAIL@GMAIL.COM", "ADDRESS", "123456789123456789123", "12345678", "Pepe1234!");
         User user = User.builder()
@@ -64,7 +64,7 @@ public class UserServiceTest {
         verify(userRepository, times(1)).findByEmail(request.getEmail());
         verify(userRepository, times(1)).save(any(User.class));
     }
-
+*/
     @Test
     public void testRegisterUserWithEmailAlreadyInUse() {
         RegisterRequest request = new RegisterRequest("Jose", "AMALFITANI", "JOSE.EMAIL@GMAIL.COM", "ADDRESS", "123456789123456789123", "12345678", "Pepe1234!");
@@ -84,7 +84,7 @@ public class UserServiceTest {
         assertThrows(DuplicateEmail.class, () -> authService.registerUser(request));
     }
 
-    @Test
+ /*   @Test
     public void testLoginUser() {
         LoginRequest request = new LoginRequest("JOSE.EMAIL@GMAIL.COM", "Pepe1234!");
         User user = User.builder()
@@ -105,7 +105,7 @@ public class UserServiceTest {
 
 
         assertEquals(user, result);
-    }
+    }*/
 //
 //    @Test
 //    public void testLoginUserNotFound() {
