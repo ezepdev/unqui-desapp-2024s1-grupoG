@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.UpdateTransactionRequest;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.StartTransactionRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.Transaction.UpdateTransactionRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.Transaction.StartTransactionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionIntentionRepository;

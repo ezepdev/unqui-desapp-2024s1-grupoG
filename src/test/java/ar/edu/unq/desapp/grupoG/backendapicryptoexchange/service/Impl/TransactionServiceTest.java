@@ -1,18 +1,15 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.StartTransactionRequest;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.UpdateTransactionRequest;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.CryptoCurrencySymbol;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.Transaction.StartTransactionRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.Transaction.UpdateTransactionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.TransactionIntention;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.TradedVolume;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IExchangeService;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.TransactionService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;

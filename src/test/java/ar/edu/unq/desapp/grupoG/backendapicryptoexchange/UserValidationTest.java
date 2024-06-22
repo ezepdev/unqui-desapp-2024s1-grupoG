@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.Authentication.LoginRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.Authentication.RegisterRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

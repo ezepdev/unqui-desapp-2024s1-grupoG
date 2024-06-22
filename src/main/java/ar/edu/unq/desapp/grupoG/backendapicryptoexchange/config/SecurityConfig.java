@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.config;
 
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.filters.JWTAuthenticationFilter;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.filters.JWTAuthenticationFilter;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

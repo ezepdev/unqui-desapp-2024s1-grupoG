@@ -1,15 +1,11 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.LoginRequest;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Authentication.RegisterRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.Authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.DuplicateEmail;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.InvalidCredentials;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.AuthService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl.UserService;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.common.AuthenticationResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,8 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.Mapper;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.Mappers;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.Transaction.StartTransactionRequest;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.CreateTransactionIntentionRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.TransactionIntention.CreateTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.ITransactionRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.IExchangeService;
@@ -19,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

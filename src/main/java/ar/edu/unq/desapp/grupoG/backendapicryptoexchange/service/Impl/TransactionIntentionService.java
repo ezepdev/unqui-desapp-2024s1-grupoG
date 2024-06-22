@@ -1,8 +1,8 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.Impl;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.Mapper;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.Utils.Mappers.Mappers;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.API.contracts.TransactionIntention.CreateTransactionIntentionRequest;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.Utils.mappers.Mapper;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.Utils.mappers.Mappers;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.TransactionIntention.CreateTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.PriceVariationMarginConflict;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.errors.UserNotFound;
@@ -18,8 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
