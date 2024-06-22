@@ -1,8 +1,8 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.Impl;
 
 
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Authentication.LoginRequest;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Authentication.RegisterRequest;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.LoginRequest;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.DuplicateEmail;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.InvalidCredentials;

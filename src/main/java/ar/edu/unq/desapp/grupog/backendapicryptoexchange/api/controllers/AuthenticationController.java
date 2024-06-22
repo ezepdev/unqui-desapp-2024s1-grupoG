@@ -1,8 +1,8 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.controllers;
 
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Authentication.AuthenticationResponse;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Authentication.LoginRequest;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Authentication.RegisterRequest;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.AuthenticationResponse;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.LoginRequest;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IAuthService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.common.AuthenticationResult;
 import io.swagger.v3.oas.annotations.Operation;

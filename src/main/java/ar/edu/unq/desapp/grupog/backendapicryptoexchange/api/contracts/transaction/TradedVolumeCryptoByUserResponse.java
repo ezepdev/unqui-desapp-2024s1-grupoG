@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Transaction;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transaction;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.TransactionIntention;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionIntention;
 
 public record CreateTransactionIntentionRequest (
     String operation_type,

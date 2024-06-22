@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.controllers;
 
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Transaction.*;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transaction.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.Mapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.TransactionMapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.Transaction;

@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Transaction;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transaction;
 
 public record UpdateTransactionRequest (
      String action,

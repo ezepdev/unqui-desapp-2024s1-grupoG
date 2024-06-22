@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.Crypto;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.crypto;
 
 
 public record CryptoResponse(
