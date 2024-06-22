@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.controllers;
 
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.Utils.mappers.Mapper;
-import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.Utils.mappers.Mappers;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.utils.mappers.Mapper;
+import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.utils.mappers.Mappers;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.api.contracts.TransactionIntention.*;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.model.TransactionIntention;
 import ar.edu.unq.desapp.grupoG.backendapicryptoexchange.service.ITransactionIntentionService;
