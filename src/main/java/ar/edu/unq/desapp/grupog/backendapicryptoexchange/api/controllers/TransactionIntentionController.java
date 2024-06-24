@@ -4,7 +4,7 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transacti
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionResponse;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.TransactionIntentionResponse;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.Mapper;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.Mappers;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.Mappers;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntention;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ITransactionIntentionService;
 import io.swagger.v3.oas.annotations.Operation;
