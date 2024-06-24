@@ -28,8 +28,12 @@ dependencies {
 
 
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'com.tngtech.archunit:archunit:1.3.0'
+
 
     // Caching
     implementation 'org.springframework.boot:spring-boot-starter-cache'
