@@ -70,6 +70,23 @@ class UserModelTest {
         assertEquals(1, client.getOperationsAmount());
         assertEquals(1, owner.getOperationsAmount());
     }
+    @Test
+    public void testUpdateReputationWithMoreThan30Minutes() throws Exception {
+        LocalDateTime time = LocalDateTime.now().minusMinutes(35);
+        when(transaction.getCreatedAt()).thenReturn(time);
+        when(transaction.getUserClient()).thenReturn(client);
+        when(transaction.getUserOwner()).thenReturn(owner);
+
+        Method method = User.class.getDeclaredMethod("updateReputation", Transaction.class);
+        method.setAccessible(true);
+
+        method.invoke(client, transaction);
+
+        assertEquals(5, client.getReputationPoints());
+        assertEquals(5, owner.getReputationPoints());
+        assertEquals(1, client.getOperationsAmount());
+        assertEquals(1, owner.getOperationsAmount());
+    }
 
     @Test
     void testAnyUserCanBeBuild() {
@@ -141,6 +158,7 @@ class UserModelTest {
 
     @Test
     public void testGetReputation() {
+        assertEquals(0, client.getReputation());
         client.addPoints(10);
         client.addOperation();
         assertEquals(10.0, client.getReputation());
