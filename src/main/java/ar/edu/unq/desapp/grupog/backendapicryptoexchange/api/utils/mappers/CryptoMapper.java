@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.crypto.CryptoResponse;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrency;
@@ -14,7 +14,7 @@ public class CryptoMapper extends Mapper<CryptoCurrency, CryptoResponse> {
     public static CryptoResponse mapToCryptoResponse(CryptoCurrency crypto) {
         return new CryptoResponse(
                 crypto.getSymbol().name(),
-                crypto.getPrice().doubleValue(),
+                crypto.getPrice(),
                 crypto.getUpdatedAt()
         );
     }

@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors;
 
 public class PriceVariationMarginConflict extends Error {
+    @Override
     public final String getMessage(){
         return "Price variation margin conflict";
     }

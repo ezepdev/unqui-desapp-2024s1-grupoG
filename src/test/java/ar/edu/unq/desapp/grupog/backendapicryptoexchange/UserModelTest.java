@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 
 @SpringBootTest
-public class UserModelTest {
+class UserModelTest {
     @Autowired
     static User client;
     @Autowired
@@ -200,21 +200,23 @@ public class UserModelTest {
 
         verify(transaction, times(1)).confirmReceipt();
     }
-/*
-    @Test
-    public void testExecuteConfirmReceiptAsBuyer() {
-        when(transaction.getIntention()).thenReturn(intention);
-        when(transaction.getUserClient()).thenReturn(client);
-        when(transaction.getUserOwner()).thenReturn(owner);
+//
+//    @Test
+//    public void testExecuteConfirmReceiptAsBuyer() {
+//        when(transaction.getIntention()).thenReturn(intention);
+//        when(transaction.getUserClient()).thenReturn(owner);
+//        when(transaction.getUserOwner()).thenReturn(client);
+//        when(transaction.getIntention().getType()).thenReturn(OperationType.VENTA);
+//
+//
+//        Exception exception = assertThrows(UpdateActionNotAllowed.class, () -> {
+//            client.execute(TransactionAction.CONFIRM_RECEIPT, transaction);
+//        });
+//
+//        assertEquals("CONFIRM_RECEIPT", exception.getMessage());
+//        verify(transaction, times(0)).confirmReceipt();
+//    }
 
-        Exception exception = assertThrows(UpdateActionNotAllowed.class, () -> {
-            client.execute(TransactionAction.CONFIRM_RECEIPT, transaction);
-        });
-
-        assertEquals("CONFIRM_RECEIPT", exception.getMessage());
-        verify(transaction, times(0)).confirmReceipt();
-    }
-*/
     @Test
     public void testExecuteCancel() {
         client.execute(TransactionAction.CANCEL, transaction);

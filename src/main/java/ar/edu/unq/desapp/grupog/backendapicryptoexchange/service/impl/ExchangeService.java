@@ -2,7 +2,6 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IExchangeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,7 +16,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ExchangeService implements IExchangeService {
 
-    @Autowired
     private final RestTemplate restTemplate;
 
     @Override
@@ -26,7 +24,9 @@ public class ExchangeService implements IExchangeService {
 
         // Enviar la solicitud GET
         var response = restTemplate.exchange("https://api.estadisticasbcra.com/usd", HttpMethod.GET, entity, List.class);
-        @SuppressWarnings("unchecked")
+        if (response.getBody() == null) {
+            throw new RuntimeException("Error server: something went wrong. Please try again later");
+        }
         Map<String,Integer> lastDollarRecord = (Map<String,Integer>) Objects.requireNonNull(response.getBody()).get(response.getBody().size() - 1);
         return (lastDollarRecord.get("v") * priceInDollars.longValue());
     }

@@ -3,7 +3,6 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BinanceService {
 
-    @Autowired
     private final RestTemplate restTemplate;
 
     public List<CryptoCurrency> getUpdatedCryptoPrices() {

@@ -1,8 +1,8 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.controllers;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transaction.*;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.Mapper;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.TransactionMapper;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.Mapper;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.TransactionMapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.TradedVolume;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ITransactionService;
@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +27,7 @@ import java.util.List;
 
 public class TransactionsController {
 
-    @Autowired
-    ITransactionService transactionService;
+    private final ITransactionService transactionService;
 
     @Operation(
             summary = "get traded volume for a user",

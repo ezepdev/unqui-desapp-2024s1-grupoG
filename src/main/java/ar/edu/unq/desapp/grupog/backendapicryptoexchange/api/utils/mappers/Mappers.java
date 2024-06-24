@@ -1,4 +1,5 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers;
+
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionResponse;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.Currency;
@@ -6,9 +7,11 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transacti
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.OperationType;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntention;
+import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
 
+@UtilityClass
 public class Mappers {
 
     public static TransactionIntention mapToTransactionIntention(CreateTransactionIntentionRequest request) {
