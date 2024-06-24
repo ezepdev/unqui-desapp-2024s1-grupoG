@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionRequest;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.Mapper;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.Mapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.utils.mappers.Mappers;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntention;
@@ -32,8 +32,6 @@ public class TransactionIntentionService implements ITransactionIntentionService
     private final IUserRepository userRepository;
     @Setter(AccessLevel.PRIVATE)
     private static Double priceVariationMargin = 0.05;
-
-
     public TransactionIntention createTransactionIntention(CreateTransactionIntentionRequest request) {
 
         //* Verify user exists
@@ -54,8 +52,8 @@ public class TransactionIntentionService implements ITransactionIntentionService
     }
 
     @Override
-    public List<TransactionIntention> getActiveIntentions() {
+    public List<TransactionIntention> getActiveIntentions(){
+
         return transactionIntentionRepository.findByState(TransactionIntentionState.ACTIVE);
     }
-
 }

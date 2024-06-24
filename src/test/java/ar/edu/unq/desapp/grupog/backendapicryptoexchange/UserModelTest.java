@@ -55,20 +55,16 @@ public class UserModelTest {
     }
     @Test
     public void testUpdateReputation() throws Exception {
-        // Setup
         LocalDateTime now = LocalDateTime.now();
         when(transaction.getCreatedAt()).thenReturn(now);
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
 
-        // Access the private method updateReputation
         Method method = User.class.getDeclaredMethod("updateReputation", Transaction.class);
         method.setAccessible(true);
 
-        // Invoke the private method
         method.invoke(client, transaction);
 
-        // Verify the results
         assertEquals(10, client.getReputationPoints());
         assertEquals(10, owner.getReputationPoints());
         assertEquals(1, client.getOperationsAmount());
@@ -105,11 +101,8 @@ public class UserModelTest {
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
 
-
-        // Act
         client.execute(TransactionAction.CONFIRM_TRANSFER, transaction);
 
-        // Assert
         verify(transaction, times(1)).confirmTransfer();
     }
 
@@ -124,7 +117,6 @@ public class UserModelTest {
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
 
-        // Act & Assert
         assertThrows(UpdateActionNotAllowed.class, () -> client.execute(TransactionAction.CONFIRM_TRANSFER, transaction));
     }
 

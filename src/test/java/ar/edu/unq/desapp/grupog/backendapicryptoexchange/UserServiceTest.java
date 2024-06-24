@@ -1,8 +1,10 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange;
 
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.LoginRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.DuplicateEmail;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.InvalidCredentials;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.AuthService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.UserService;
@@ -11,6 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +34,7 @@ public class UserServiceTest {
     private UserService userService;
     @MockBean
     private IUserRepository userRepository;
+
 
     @BeforeEach
     public void setUp() {
@@ -104,16 +110,27 @@ public class UserServiceTest {
         assertEquals(user, result);
     }*/
 //
-//    @Test
-//    public void testLoginUserNotFound() {
-//        LoginRequest request = new LoginRequest("JOSE.EMAIL@GMAIL.COM", "Pepe1234!");
-//
-//
-//        when(userRepository.findByEmail(request.getEmail())).thenReturn(Optional.empty());
-//
-//
-//        assertThrows(InvalidCredentials.class, () -> authService.loginUser(request));
-//    }
+    @Test
+    public void testLoginUserNotFound() {
+        LoginRequest request = new LoginRequest("JOSE.EMAIL@GMAIL.COM", "Pepe1234!");
+
+
+        when(userRepository.findByEmail(request.getEmail())).thenReturn(Optional.empty());
+
+
+        assertThrows(BadCredentialsException.class, () -> authService.loginUser(request));
+    }
+
+    @Test
+    public void testLoadUserByUsername() {
+        when(userRepository.findByEmail("username@username.com")).thenReturn(Optional.empty());
+
+        UserDetailsService userDetailsService = userService.userDetailsService();
+
+        assertThrows(UsernameNotFoundException.class, () -> {
+            userDetailsService.loadUserByUsername("username@username.com");
+        });
+    }
 
     @Test
     public void testGetAllUsers() {
