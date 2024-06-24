@@ -60,8 +60,8 @@ public class TransactionServiceTest {
         client.setId(2L);
         intention.setCreator(owner);
         when(transactionIntentionRepository.findById(any())).thenReturn(Optional.of(intention));
-
-        when(userRepository.findById(any())).thenReturn(Optional.of(owner), Optional.of(client));
+        when(userRepository.findById(any())).thenReturn(Optional.of(owner));
+        when(userRepository.findById(any())).thenReturn(Optional.of(client));
         when(transactionRepository.save(any())).thenReturn(new Transaction());
 
         Transaction result = transactionService.startTransaction(request);

@@ -14,7 +14,7 @@ public class CryptoMapper extends Mapper<CryptoCurrency, CryptoResponse> {
     public static CryptoResponse mapToCryptoResponse(CryptoCurrency crypto) {
         return new CryptoResponse(
                 crypto.getSymbol().name(),
-                crypto.getPrice().doubleValue(),
+                crypto.getPrice(),
                 crypto.getUpdatedAt()
         );
     }

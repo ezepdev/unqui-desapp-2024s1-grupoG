@@ -9,10 +9,12 @@ public class InvalidTransaction extends Error {
         super(message,description,code);
     }
 
+    @Override
     public final String getMessage(){
         return "Invalid transaction";
     }
 
+    @Override
     public final String getCode(){
         return "INVALID_TRANSACTION";
     }

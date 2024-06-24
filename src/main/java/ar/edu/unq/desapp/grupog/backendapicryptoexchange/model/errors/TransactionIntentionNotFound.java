@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors;
 
 
 public class TransactionIntentionNotFound extends Error {
+    @Override
     public final String getMessage(){
         return "Transaction intention not found";
     }

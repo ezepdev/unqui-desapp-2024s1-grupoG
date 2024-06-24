@@ -27,9 +27,7 @@ public class CryptoService implements ICryptoService {
     }
 
     public List<CryptoCurrency> getCotizationLastTwentyFourHours(CryptoCurrencySymbol symbol) {
-        var cryptos = cryptoRepository.findBySymbolAndLastTwentyFourHours(symbol.name());
-        System.out.println(cryptos);
-        return cryptos;
+        return cryptoRepository.findBySymbolAndLastTwentyFourHours(symbol.name());
     }
 
     @Override

@@ -1,24 +1,19 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.ICryptoRepository;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.IUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
-    @Autowired
-    IUserRepository userRepository;
-    @Autowired
-    BinanceService binanceService;
-    @Autowired
-    ICryptoRepository cryptoRepository;
+    private final IUserRepository userRepository;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         var user = User.builder()
                 .name("Jose")
                 .email("JOSE.EMAIL@GMAIL.COM")

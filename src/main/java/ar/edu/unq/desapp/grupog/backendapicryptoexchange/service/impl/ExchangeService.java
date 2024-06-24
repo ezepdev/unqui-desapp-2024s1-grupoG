@@ -2,7 +2,6 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IExchangeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -17,18 +16,21 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ExchangeService implements IExchangeService {
 
-    @Autowired
     private final RestTemplate restTemplate;
 
     @Override
     public Long convertToArs(Double priceInDollars) {
         HttpEntity<String> entity = getStringHttpEntity();
-
+        Integer currentDollarPrice = 1000;
         // Enviar la solicitud GET
         var response = restTemplate.exchange("https://api.estadisticasbcra.com/usd", HttpMethod.GET, entity, List.class);
-        @SuppressWarnings("unchecked")
-        Map<String,Integer> lastDollarRecord = (Map<String,Integer>) Objects.requireNonNull(response.getBody()).get(response.getBody().size() - 1);
-        return (lastDollarRecord.get("v") * priceInDollars.longValue());
+        if (response.hasBody()) {
+            var dollarPrices = response.getBody();
+            Map<String,Integer> lastDollarRecord = (Map<String,Integer>) Objects.requireNonNull(dollarPrices).get(dollarPrices.size() - 1);
+            currentDollarPrice = lastDollarRecord.get("v");
+        }
+        return priceInDollars.longValue() * currentDollarPrice;
+
     }
 
     private static HttpEntity<String> getStringHttpEntity() {

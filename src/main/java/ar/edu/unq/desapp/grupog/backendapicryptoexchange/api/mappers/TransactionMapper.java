@@ -2,9 +2,11 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transaction.TransactionResponse;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.Transaction;
+import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
 
+@UtilityClass
 public class TransactionMapper {
     public static TransactionResponse mapToTransactionResponse(Transaction transaction) {
         return new TransactionResponse(

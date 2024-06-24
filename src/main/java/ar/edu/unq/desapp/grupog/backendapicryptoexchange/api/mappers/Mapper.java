@@ -2,12 +2,11 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Mapper<T,U> {
 
     public List<U> mapTo(List<T> list, Function<T,U> mapperFunction) {
-        return list.stream().map(mapperFunction).collect(Collectors.toList());
+        return list.stream().map(mapperFunction).toList();
     }
 
     public U mapTo(T t, Function<T,U> mapperFunction) {
