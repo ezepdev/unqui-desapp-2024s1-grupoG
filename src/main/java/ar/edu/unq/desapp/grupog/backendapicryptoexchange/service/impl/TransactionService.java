@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-// TODO: SEE TRANSACTIONABLE IMPLEMENTATION
 
 @Service
 @RequiredArgsConstructor
@@ -88,6 +87,6 @@ public class TransactionService implements ITransactionService {
 
     //* PRIVATE METHODS
     private void checkUserIsNotTheSame(Long transactionIntentionCreatorId, Long aLong) {
-        if (transactionIntentionCreatorId.equals(aLong)) throw InvalidTransaction.builder().description("Transaction cannot be started by the user who created it").build();
+        if (transactionIntentionCreatorId.equals(aLong)) throw new InvalidTransaction("Transaction cannot be started by the user who created it");
     }
 }

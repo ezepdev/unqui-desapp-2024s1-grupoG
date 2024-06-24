@@ -1,9 +1,7 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors;
 
-public class InvalidDataException extends RuntimeException{
-
+public class InvalidDataException extends Error{
     public InvalidDataException(){
-        super("Los datos no son correctos");
-        this.setStackTrace(new StackTraceElement[0]);
+        super("Data is invalid","The data is not valid", "INVALID_DATA");
     }
 }

@@ -31,8 +31,6 @@ public class CustomTransactionRepositoryImpl implements CustomTransactionReposit
         query.setParameter("fromDate", LocalDateTime.from(fromDate.atStartOfDay()));
         query.setParameter("toDate", LocalDateTime.from(toDate.atStartOfDay()));
 
-        var result = query.getResultList();
-
-        return result;
+        return query.getResultList();
     }
 }

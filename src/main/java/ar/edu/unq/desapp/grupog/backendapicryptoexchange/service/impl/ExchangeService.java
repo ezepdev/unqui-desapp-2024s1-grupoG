@@ -26,7 +26,7 @@ public class ExchangeService implements IExchangeService {
         var response = restTemplate.exchange("https://api.estadisticasbcra.com/usd", HttpMethod.GET, entity, List.class);
         if (response.hasBody()) {
             var dollarPrices = response.getBody();
-            Map<String,Integer> lastDollarRecord = (Map<String,Integer>) Objects.requireNonNull(dollarPrices).get(dollarPrices.size() - 1);
+            Map<String,Integer> lastDollarRecord = (Map<String, Integer>) Objects.requireNonNull(dollarPrices).get(dollarPrices.size() - 1);
             currentDollarPrice = lastDollarRecord.get("v");
         }
         return priceInDollars.longValue() * currentDollarPrice;

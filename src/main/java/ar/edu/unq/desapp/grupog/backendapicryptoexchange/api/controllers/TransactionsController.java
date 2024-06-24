@@ -38,11 +38,8 @@ public class TransactionsController {
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     @GetMapping()
     public ResponseEntity<List<TradedVolume>> getTransactionsByUser(@RequestBody TransactionsByUserRequest request, @RequestParam LocalDate fromDate, @RequestParam LocalDate toDate) {
-        {
             List<TradedVolume> transactions = transactionService.getTransactionsByUserBetweenDates(request.user_id(), fromDate, toDate);
             return ResponseEntity.ok(transactions);
-        }
-
     }
 
     @Operation(
@@ -56,13 +53,13 @@ public class TransactionsController {
     @PostMapping
     public ResponseEntity<StartTransactionResponse> startTransaction(@RequestBody StartTransactionRequest request) {
         var createdTransaction = transactionService.startTransaction(request);
-        var uri_created_transaction = URI.create("/transactions/" + createdTransaction.getId());
-        return ResponseEntity.created(uri_created_transaction)
+        var uriCreatedTransaction = URI.create("/transactions/" + createdTransaction.getId());
+        return ResponseEntity.created(uriCreatedTransaction)
                 .body(
                         new StartTransactionResponse(
                                 createdTransaction.getId(),
                                 "Transaction started successfully",
-                                uri_created_transaction.toString())
+                                uriCreatedTransaction.toString())
                 );
     }
 
