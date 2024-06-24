@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -106,6 +107,7 @@ class UserModelTest {
         assertEquals("ADDRESS", user.getAddress());
         assertEquals("Pepe1234!", user.getPassword());
         assertEquals("123456789123456789123", user.getCvu());
+        assertEquals("JOSE.EMAIL@GMAIL.COM", user.getUsername());
         assertEquals(1L, user.getId());
     }
 
@@ -136,14 +138,49 @@ class UserModelTest {
 
         assertThrows(UpdateActionNotAllowed.class, () -> client.execute(TransactionAction.CONFIRM_TRANSFER, transaction));
     }
+    @Test
+    public void testExecute_ConfirmReceiptActionAsSeller_ShouldCallConfirmReceipt() {
+        client.setId(1L);
+        owner.setId(2L);
+        TransactionIntention intention = TransactionIntention.builder().creationDate(LocalDateTime.now()).type(OperationType.VENTA).build();
+        when(transaction.getIntention()).thenReturn(intention);
+        when(transaction.getUserClient()).thenReturn(client);
+        when(transaction.getUserOwner()).thenReturn(owner);
+        when(transaction.getCreatedAt()).thenReturn(LocalDateTime.now());
 
-  /*  @Test
-    public void testUsername() {
-        client.setName("John");
-        client.setLastname("Doe");
-        assertEquals("JohnDoe", client.getUsername());
+        owner.execute(TransactionAction.CONFIRM_RECEIPT, transaction);
+
+        verify(transaction, times(1)).confirmReceipt();
     }
-*/
+    @Test
+    public void testExecute_Default() {
+        client.setId(1L);
+        owner.setId(2L);
+        TransactionIntention intention = TransactionIntention.builder().creationDate(LocalDateTime.now()).type(OperationType.VENTA).build();
+        when(transaction.getIntention()).thenReturn(intention);
+        when(transaction.getUserClient()).thenReturn(client);
+        when(transaction.getUserOwner()).thenReturn(owner);
+        when(transaction.getCreatedAt()).thenReturn(LocalDateTime.now());
+
+        assertThrows(UpdateActionNotAllowed.class, () -> owner.execute(TransactionAction.INVALID_ACTION, transaction));
+    }
+
+    @Test
+    public void testExecute_ConfirmReceiptActionAsBuyer_ShouldThrowUpdateActionNotAllowedException() {
+        client.setId(1L);
+        owner.setId(2L);
+        TransactionIntention intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
+
+
+        when(transaction.getIntention()).thenReturn(intention);
+        when(transaction.getUserClient()).thenReturn(client);
+        when(transaction.getUserOwner()).thenReturn(owner);
+        when(transaction.getCreatedAt()).thenReturn(LocalDateTime.now());
+
+        assertThrows(UpdateActionNotAllowed.class, () -> owner.execute(TransactionAction.CONFIRM_RECEIPT, transaction));
+    }
+
+
     @Test
     public void testAddPoints() {
         client.addPoints(10);
@@ -168,35 +205,6 @@ class UserModelTest {
         assertEquals(7.5, client.getReputation());
     }
 
-   /* @Test
-    public void testExecuteConfirmTransferAsBuyer() {
-        client.setId(1L);
-        owner.setId(2L);
-        TransactionIntention intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
-
-
-        when(transaction.getIntention()).thenReturn(intention);
-        when(transaction.getUserClient()).thenReturn(client);
-        when(transaction.getUserOwner()).thenReturn(owner);
-        client.execute(TransactionAction.CONFIRM_TRANSFER, transaction);
-
-        verify(transaction, times(1)).confirmTransfer();
-    }
-
-    @Test
-    public void testExecuteConfirmTransferAsSeller() {
-        when(transaction.getIntention()).thenReturn(intention);
-        when(transaction.getUserClient()).thenReturn(client);
-        when(transaction.getUserOwner()).thenReturn(client);
-
-        Exception exception = assertThrows(UpdateActionNotAllowed.class, () -> {
-            client.execute(TransactionAction.CONFIRM_TRANSFER, transaction);
-        });
-
-        assertEquals("CONFIRM_TRANSFER", exception.getMessage());
-        verify(transaction, times(0)).confirmTransfer();
-    }
-*/
     @Test
     public void testExecuteConfirmReceiptAsSeller() {
         TransactionIntention intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
@@ -210,22 +218,7 @@ class UserModelTest {
 
         verify(transaction, times(1)).confirmReceipt();
     }
-//
-//    @Test
-//    public void testExecuteConfirmReceiptAsBuyer() {
-//        when(transaction.getIntention()).thenReturn(intention);
-//        when(transaction.getUserClient()).thenReturn(owner);
-//        when(transaction.getUserOwner()).thenReturn(client);
-//        when(transaction.getIntention().getType()).thenReturn(OperationType.VENTA);
-//
-//
-//        Exception exception = assertThrows(UpdateActionNotAllowed.class, () -> {
-//            client.execute(TransactionAction.CONFIRM_RECEIPT, transaction);
-//        });
-//
-//        assertEquals("CONFIRM_RECEIPT", exception.getMessage());
-//        verify(transaction, times(0)).confirmReceipt();
-//    }
+
 
     @Test
     public void testExecuteCancel() {
@@ -254,5 +247,15 @@ class UserModelTest {
         client.setPassword("password123");
         assertTrue(client.checkPassword("password123"));
         assertFalse(client.checkPassword("wrongpassword"));
+    }
+
+    @Test
+    public void testGetAuthorities() {
+        List authorities = List.of();
+        assertEquals(authorities, client.getAuthorities());
+        assertTrue(client.isAccountNonExpired());
+        assertTrue(client.isAccountNonLocked());
+        assertTrue(client.isCredentialsNonExpired());
+        assertTrue(client.isEnabled());
     }
 }
