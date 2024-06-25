@@ -34,6 +34,7 @@ class CryptoServiceTest {
         bitcoin = new CryptoCurrency();
         bitcoin.setSymbol(CryptoCurrencySymbol.BTCUSDT);
         bitcoin.setPrice(10000.0);
+        reset(cryptoRepository);
     }
     @Test
     void testAllCurrencies() {
