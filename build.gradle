@@ -81,8 +81,6 @@ tasks.jacocoTestReport {
                     "ar/edu/unq/desapp/grupog/backendapicryptoexchange/config/**",
                     "ar/edu/unq/desapp/grupog/backendapicryptoexchange/api/contracts/**",
                     "**/config/*",
-                    "ar/edu/unq/desapp/grupog/backendapicryptoexchange/BackendApiCryptoexchangeApplication.java",
-                    "ar/edu/unq/desapp/grupog/backendapicryptoexchange/ServletInitializer.java",
             ])
         }))
     }
