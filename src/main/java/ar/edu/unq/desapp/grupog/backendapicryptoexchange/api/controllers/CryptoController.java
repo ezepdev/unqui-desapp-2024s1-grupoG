@@ -48,7 +48,7 @@ public class CryptoController {
             description = "Retrieve last 24 hours cotization for a specific crypto")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = CryptoResponse.class), mediaType = "application/json") }) ,
-            @ApiResponse(responseCode = "404", description = "Crypto symbol not exist, please check this", content = { @Content(schema = @Schema())} )})
+            @ApiResponse(responseCode = "400", description = "Crypto symbol not exist, please check this", content = { @Content(schema = @Schema())} )})
     @GetMapping("/{symbol}")
     public ResponseEntity<List<CryptoResponse>> getCotizationLastTwentyFourHours(@PathVariable String symbol) {
 

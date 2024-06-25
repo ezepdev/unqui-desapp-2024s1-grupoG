@@ -46,17 +46,17 @@ class ExchangeServiceTest {
 
     @Test
     void testConvertToArs_noBody() {
-        // Mock de la respuesta sin cuerpo
+
         ResponseEntity<List> responseEntity = new ResponseEntity<>(null, HttpStatus.OK);
 
-        // Simular la llamada al restTemplate
+
         when(restTemplate.exchange(anyString(), eq(HttpMethod.GET), any(HttpEntity.class), eq(List.class)))
                 .thenReturn(responseEntity);
 
-        // Llamar al método a probar
+
         Long convertedPrice = exchangeService.convertToArs(50.0);
 
-        // Verificar los resultados (debería usar el valor por defecto 1000)
+
         assertEquals(50000, convertedPrice);
         verify(restTemplate, times(1)).exchange(anyString(), eq(HttpMethod.GET), any(HttpEntity.class), eq(List.class));
     }
