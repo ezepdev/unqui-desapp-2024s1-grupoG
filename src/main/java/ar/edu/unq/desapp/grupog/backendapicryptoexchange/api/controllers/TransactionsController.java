@@ -1,9 +1,7 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.controllers;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transaction.*;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.Mapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.TransactionMapper;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.TradedVolume;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ITransactionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -74,7 +72,7 @@ public class TransactionsController {
     @PatchMapping("/{transaction_id}")
     public ResponseEntity<TransactionResponse> updateTransactionStatus(@PathVariable Integer transactionId, @RequestBody UpdateTransactionRequest request) {
         var transaction = transactionService.updateTransactionStatus(transactionId,request);
-        TransactionResponse response = new Mapper<Transaction, TransactionResponse>().mapTo(transaction, TransactionMapper::mapToTransactionResponse);
+        TransactionResponse response = TransactionMapper.mapToTransactionResponse(transaction);
         return ResponseEntity.ok(response);
     }
 }

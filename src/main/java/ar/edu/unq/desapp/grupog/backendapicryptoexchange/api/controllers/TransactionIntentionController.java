@@ -3,8 +3,7 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.controllers;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionResponse;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.TransactionIntentionResponse;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.Mapper;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.Mappers;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.TransactionIntentionMapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntention;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ITransactionIntentionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,8 +38,7 @@ public class TransactionIntentionController {
         List<TransactionIntention> transactionIntentions = transactionService.getActiveIntentions();
 
         return ResponseEntity.ok(
-                new Mapper<TransactionIntention, TransactionIntentionResponse>()
-                        .mapTo(transactionIntentions, Mappers::mapToTransactionIntentionResponse));
+                TransactionIntentionMapper.mapToTransactionIntentionResponses(transactionIntentions));
     }
 
     @Operation(
@@ -56,7 +54,7 @@ public class TransactionIntentionController {
 
         TransactionIntention transactionIntention = transactionService.createTransactionIntention(request);
 
-        CreateTransactionIntentionResponse response = new Mapper<TransactionIntention,CreateTransactionIntentionResponse>().mapTo(transactionIntention,Mappers::mapToCreateTransactionIntentionResponse);
+        CreateTransactionIntentionResponse response = TransactionIntentionMapper.mapToCreateTransactionIntentionResponse(transactionIntention);
 
         return ResponseEntity.ok(response);
     }

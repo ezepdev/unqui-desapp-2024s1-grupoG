@@ -40,7 +40,7 @@ public class CryptoController {
 
         List<CryptoCurrency> cryptos = cryptoService.allCurrencies();
 
-        return ResponseEntity.ok(new CryptoMapper().mapToCryptoResponses(cryptos));
+        return ResponseEntity.ok(CryptoMapper.mapToCryptoResponses(cryptos));
     }
 
     @Operation(
@@ -53,6 +53,6 @@ public class CryptoController {
     public ResponseEntity<List<CryptoResponse>> getCotizationLastTwentyFourHours(@PathVariable String symbol) {
 
         List<CryptoCurrency> cryptos = cryptoService.getCotizationLastTwentyFourHours(CryptoCurrencySymbol.valueOf(symbol));
-        return ResponseEntity.ok(new CryptoMapper().mapToCryptoResponses(cryptos));
+        return ResponseEntity.ok(CryptoMapper.mapToCryptoResponses(cryptos));
     }
 }

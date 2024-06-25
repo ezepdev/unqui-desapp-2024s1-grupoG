@@ -10,9 +10,10 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntent
 import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @UtilityClass
-public class Mappers {
+public class TransactionIntentionMapper {
 
     public static TransactionIntention mapToTransactionIntention(CreateTransactionIntentionRequest request) {
         return TransactionIntention.builder()
@@ -39,6 +40,9 @@ public class Mappers {
         );
     }
 
+    public static List<TransactionIntentionResponse> mapToTransactionIntentionResponses(List<TransactionIntention> transactionIntentions) {
+        return transactionIntentions.stream().map(TransactionIntentionMapper::mapToTransactionIntentionResponse).toList();
+    }
     public static CreateTransactionIntentionResponse mapToCreateTransactionIntentionResponse(TransactionIntention transactionIntention) {
         return new CreateTransactionIntentionResponse(
                 transactionIntention.getId(),

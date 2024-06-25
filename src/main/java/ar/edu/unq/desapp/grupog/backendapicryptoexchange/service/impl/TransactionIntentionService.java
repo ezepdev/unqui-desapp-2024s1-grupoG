@@ -1,8 +1,7 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transactionintention.CreateTransactionIntentionRequest;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.Mapper;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.Mappers;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.TransactionIntentionMapper;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntention;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionIntentionState;
@@ -40,11 +39,10 @@ public class TransactionIntentionService implements ITransactionIntentionService
 
         //* Verify price is within the variation margin
         if (!cryptoService.isAllowedPrice(CryptoCurrencySymbol.valueOf(request.crypto_symbol()),request.crypto_price())) throw new PriceVariationMarginConflict();
-        Mapper<CreateTransactionIntentionRequest, TransactionIntention> mapper = new Mapper<>();
 
         //* Create transaction intention
         TransactionIntention transactionIntention =
-                mapper.mapTo(request, Mappers::mapToTransactionIntention);
+                TransactionIntentionMapper.mapToTransactionIntention(request);
         transactionIntention.setCreator(userResult.get());
         transactionIntention.setFinalPrice(exchangeService.convertToArs(request.finalPrice().doubleValue()));
 

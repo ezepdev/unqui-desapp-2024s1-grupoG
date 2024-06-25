@@ -36,7 +36,7 @@ public class CryptoService implements ICryptoService {
     }
 
     public boolean isAllowedPrice(CryptoCurrencySymbol symbol , Double aPrice) {
-        var currentCurrency = cryptoRepository.findBySymbol(symbol);
+        var currentCurrency = cryptoRepository.retrieveLatestCryptoPrices().stream().filter(c -> c.getSymbol().equals(symbol)).findFirst().orElseThrow();
         var priceVariation = currentCurrency.getPrice() * PRICE_VARIATION_MARGIN;
         var minPriceVariation = currentCurrency.getPrice() - priceVariation;
         var maxPriceVariation = currentCurrency.getPrice() + priceVariation;
