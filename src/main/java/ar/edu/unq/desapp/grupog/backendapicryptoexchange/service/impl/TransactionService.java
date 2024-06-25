@@ -78,7 +78,7 @@ public class TransactionService implements ITransactionService {
     @Override
     public List<TradedVolume> getTransactionsByUserBetweenDates(Long id, LocalDate fromDate, LocalDate toDate) {
         var tradedVolumes = transactionRepository.tradedVolumeCryptosBetweenDates(id, fromDate, toDate);
-        tradedVolumes.forEach(t -> t.setCurrentPrice(cryptoRepository.retrieveLatestCryptoPrices().stream().filter(c -> c.getSymbol().equals(t.getSymbol())).findFirst().orElseThrow().getPrice()));
+        tradedVolumes.forEach(t -> t.setCurrentPrice(cryptoRepository.retrieveCurrentPriceForCryptoWithSymbol(t.getSymbol().name()).getPrice()));
         tradedVolumes.forEach(t -> t.setFinalPrice(exchangeService.convertToArs(t.getCurrentPrice() * t.getVolume())));
         return tradedVolumes;
     }

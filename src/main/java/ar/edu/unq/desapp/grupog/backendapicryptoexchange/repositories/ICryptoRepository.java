@@ -10,6 +10,12 @@ import java.util.List;
 
 @Repository
 public interface ICryptoRepository extends JpaRepository<CryptoCurrency,String> {
+    @Query(value = "SELECT TOP 1 cc.* " +
+            "FROM crypto_currency cc " +
+            "WHERE cc.crypto_symbol = :symbol " +
+            "ORDER BY cc.updated_at DESC ",
+            nativeQuery = true)
+    CryptoCurrency retrieveCurrentPriceForCryptoWithSymbol(String symbol);
     @Query(value = "SELECT cc.* " +
             "FROM crypto_currency cc " +
             "INNER JOIN ( " +

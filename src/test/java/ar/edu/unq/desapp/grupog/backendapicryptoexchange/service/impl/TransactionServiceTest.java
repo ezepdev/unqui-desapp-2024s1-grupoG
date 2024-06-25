@@ -4,10 +4,7 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transacti
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transaction.UpdateTransactionRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.*;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.ITransactionRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.IUserRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.TradedVolume;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IExchangeService;
 import org.hibernate.sql.Update;
@@ -47,6 +44,8 @@ public class TransactionServiceTest {
     @MockBean
     private IUserRepository userRepository;
 
+    @MockBean
+    private ICryptoRepository cryptoRepository;
     @MockBean
     private ICryptoService cryptoService;
 
@@ -100,6 +99,7 @@ public class TransactionServiceTest {
         CryptoCurrency cryptoCurrency = CryptoCurrency.builder().price(20.0).build();
         List<TradedVolume> tradedVolumesFinal = List.of(tradedVolume, tradedVolume2, tradedVolume3);
 
+        when(cryptoRepository.retrieveCurrentPriceForCryptoWithSymbol(CryptoCurrencySymbol.AAVEUSDT.name())).thenReturn(cryptoCurrency);
         when(transactionRepository.tradedVolumeCryptosBetweenDates(anyLong(), any(LocalDate.class), any(LocalDate.class)))
                 .thenReturn(tradedVolumesFinal);
         when(cryptoService.getCurrencyBySymbol(any())).thenReturn(cryptoCurrency);

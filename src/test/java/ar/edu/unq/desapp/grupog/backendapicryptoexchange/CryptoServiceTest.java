@@ -75,7 +75,7 @@ public class CryptoServiceTest {
 
     @Test
     public void testIsAllowedPrice_BelowMargin() {
-        when(cryptoRepository.findBySymbol(CryptoCurrencySymbol.BTCUSDT)).thenReturn(bitcoin);
+        when(cryptoRepository.retrieveCurrentPriceForCryptoWithSymbol(CryptoCurrencySymbol.BTCUSDT.name())).thenReturn(bitcoin);
 
         boolean result = cryptoService.isAllowedPrice(CryptoCurrencySymbol.BTCUSDT, 9400.0);
 
@@ -83,7 +83,7 @@ public class CryptoServiceTest {
     }
     @Test
     public void testIsAllowedPrice() {
-        when(cryptoRepository.findBySymbol(CryptoCurrencySymbol.BTCUSDT)).thenReturn(bitcoin);
+        when(cryptoRepository.retrieveCurrentPriceForCryptoWithSymbol(CryptoCurrencySymbol.BTCUSDT.name())).thenReturn(bitcoin);
 
         boolean result = cryptoService.isAllowedPrice(CryptoCurrencySymbol.BTCUSDT, 9900.0);
 
@@ -92,7 +92,7 @@ public class CryptoServiceTest {
 
     @Test
     public void testIsAllowedPrice_AboveMargin() {
-        when(cryptoRepository.findBySymbol(CryptoCurrencySymbol.BTCUSDT)).thenReturn(bitcoin);
+        when(cryptoRepository.retrieveCurrentPriceForCryptoWithSymbol(CryptoCurrencySymbol.BTCUSDT.name())).thenReturn(bitcoin);
 
         boolean result = cryptoService.isAllowedPrice(CryptoCurrencySymbol.BTCUSDT, 10600.0);
 
