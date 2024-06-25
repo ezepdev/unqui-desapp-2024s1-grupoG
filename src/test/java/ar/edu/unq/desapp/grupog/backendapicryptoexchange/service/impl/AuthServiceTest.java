@@ -79,8 +79,6 @@ class AuthServiceTest {
                 .address("address")
                 .password("password")
                 .build();
-
-
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
         when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
         when(jwtService.generateToken(any(User.class))).thenReturn("testToken");
