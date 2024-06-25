@@ -4,7 +4,6 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionStatus;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.InvalidTransactionOperation;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.PriceVariationMarginConflict;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class TransactionModelTest {
+class TransactionModelTest {
     @Autowired
     static Transaction any_transaction;
     @Autowired
@@ -41,26 +40,26 @@ public class TransactionModelTest {
     }
 
     @Test
-    public void testConfirmTransfer() {
+    void testConfirmTransfer() {
         any_transaction.confirmTransfer();
         assertEquals(TransactionStatus.TRANSFER_SUCCESS, any_transaction.getStatus());
     }
 
     @Test
-    public void testConfirmReceipt() {
+    void testConfirmReceipt() {
         any_transaction.confirmTransfer();
         any_transaction.confirmReceipt();
         assertEquals(TransactionStatus.SUCCESS, any_transaction.getStatus());
     }
     @Test
-    public void testConfirmReceiptWithNotPendingStatus() {
+    void testConfirmReceiptWithNotPendingStatus() {
         any_transaction.setStatus(TransactionStatus.SUCCESS);
         assertThrows(InvalidTransactionOperation.class, () -> {
             any_transaction.confirmReceipt();
         });
     }
     @Test
-    public void testConfirmTransferWithNotPendingStatus() {
+    void testConfirmTransferWithNotPendingStatus() {
         any_transaction.setStatus(TransactionStatus.SUCCESS);
         assertThrows(InvalidTransactionOperation.class, () -> {
             any_transaction.confirmTransfer();
@@ -68,13 +67,13 @@ public class TransactionModelTest {
     }
 
     @Test
-    public void testCancel() {
+    void testCancel() {
         any_transaction.cancel();
         assertEquals(TransactionStatus.CANCELED, any_transaction.getStatus());
     }
 
     @Test
-    public void testSuccessTransactionCantBeCanceled() {
+    void testSuccessTransactionCantBeCanceled() {
         any_transaction.setStatus(TransactionStatus.SUCCESS);
 
         assertThrows(InvalidTransactionOperation.class, () -> {
@@ -83,7 +82,7 @@ public class TransactionModelTest {
     }
 
     @Test
-    public void testIsUserImplicated() {
+    void testIsUserImplicated() {
         any_user.setId(1L);
         any_user2.setId(2L);
         any_user3.setId(3L);

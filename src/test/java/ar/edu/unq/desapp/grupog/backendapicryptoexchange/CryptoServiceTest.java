@@ -18,7 +18,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class CryptoServiceTest {
+class CryptoServiceTest {
     @Autowired
     private CryptoService cryptoService;
 
@@ -45,8 +45,7 @@ public class CryptoServiceTest {
 
         List<CryptoCurrency> result = cryptoService.allCurrencies();
 
-        assertThat(result).hasSize(3);
-        assertThat(result).contains(currency1, currency2, bitcoin);
+        assertThat(result).hasSize(3).contains(currency1, currency2, bitcoin);
 
     }
     @Test
@@ -74,7 +73,7 @@ public class CryptoServiceTest {
     }
 
     @Test
-    public void testIsAllowedPrice_BelowMargin() {
+    void testIsAllowedPrice_BelowMargin() {
         when(cryptoRepository.retrieveCurrentPriceForCryptoWithSymbol(CryptoCurrencySymbol.BTCUSDT.name())).thenReturn(bitcoin);
 
         boolean result = cryptoService.isAllowedPrice(CryptoCurrencySymbol.BTCUSDT, 9400.0);
@@ -82,7 +81,7 @@ public class CryptoServiceTest {
         assertThat(result).isFalse();
     }
     @Test
-    public void testIsAllowedPrice() {
+    void testIsAllowedPrice() {
         when(cryptoRepository.retrieveCurrentPriceForCryptoWithSymbol(CryptoCurrencySymbol.BTCUSDT.name())).thenReturn(bitcoin);
 
         boolean result = cryptoService.isAllowedPrice(CryptoCurrencySymbol.BTCUSDT, 9900.0);
@@ -91,7 +90,7 @@ public class CryptoServiceTest {
     }
 
     @Test
-    public void testIsAllowedPrice_AboveMargin() {
+    void testIsAllowedPrice_AboveMargin() {
         when(cryptoRepository.retrieveCurrentPriceForCryptoWithSymbol(CryptoCurrencySymbol.BTCUSDT.name())).thenReturn(bitcoin);
 
         boolean result = cryptoService.isAllowedPrice(CryptoCurrencySymbol.BTCUSDT, 10600.0);

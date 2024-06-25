@@ -55,7 +55,7 @@ class UserModelTest {
         assertEquals(1, client.getOperationsAmount());
     }
     @Test
-    public void testUpdateReputation() throws Exception {
+    void testUpdateReputation() throws Exception {
         LocalDateTime now = LocalDateTime.now();
         when(transaction.getCreatedAt()).thenReturn(now);
         when(transaction.getUserClient()).thenReturn(client);
@@ -72,7 +72,7 @@ class UserModelTest {
         assertEquals(1, owner.getOperationsAmount());
     }
     @Test
-    public void testUpdateReputationWithMoreThan30Minutes() throws Exception {
+    void testUpdateReputationWithMoreThan30Minutes() throws Exception {
         LocalDateTime time = LocalDateTime.now().minusMinutes(35);
         when(transaction.getCreatedAt()).thenReturn(time);
         when(transaction.getUserClient()).thenReturn(client);
@@ -112,11 +112,11 @@ class UserModelTest {
     }
 
     @Test
-    public void testExecute_ConfirmTransferActionAsBuyer_ShouldCallConfirmTransfer() {
+    void testExecute_ConfirmTransferActionAsBuyer_ShouldCallConfirmTransfer() {
         client.setId(1L);
         owner.setId(2L);
-        TransactionIntention intention = TransactionIntention.builder().type(OperationType.VENTA).build();
-        when(transaction.getIntention()).thenReturn(intention);
+        TransactionIntention sold_intention = TransactionIntention.builder().type(OperationType.VENTA).build();
+        when(transaction.getIntention()).thenReturn(sold_intention);
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
 
@@ -126,24 +126,24 @@ class UserModelTest {
     }
 
     @Test
-    public void testExecute_ConfirmTransferActionAsSeller_ShouldThrowUpdateActionNotAllowedException() {
+    void testExecute_ConfirmTransferActionAsSeller_ShouldThrowUpdateActionNotAllowedException() {
         client.setId(1L);
         owner.setId(2L);
-        TransactionIntention intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
+        TransactionIntention sold_intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
 
 
-        when(transaction.getIntention()).thenReturn(intention);
+        when(transaction.getIntention()).thenReturn(sold_intention);
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
 
         assertThrows(UpdateActionNotAllowed.class, () -> client.execute(TransactionAction.CONFIRM_TRANSFER, transaction));
     }
     @Test
-    public void testExecute_ConfirmReceiptActionAsSeller_ShouldCallConfirmReceipt() {
+    void testExecute_ConfirmReceiptActionAsSeller_ShouldCallConfirmReceipt() {
         client.setId(1L);
         owner.setId(2L);
-        TransactionIntention intention = TransactionIntention.builder().creationDate(LocalDateTime.now()).type(OperationType.VENTA).build();
-        when(transaction.getIntention()).thenReturn(intention);
+        TransactionIntention sold_intention = TransactionIntention.builder().creationDate(LocalDateTime.now()).type(OperationType.VENTA).build();
+        when(transaction.getIntention()).thenReturn(sold_intention);
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
         when(transaction.getCreatedAt()).thenReturn(LocalDateTime.now());
@@ -153,11 +153,11 @@ class UserModelTest {
         verify(transaction, times(1)).confirmReceipt();
     }
     @Test
-    public void testExecute_Default() {
+    void testExecute_Default() {
         client.setId(1L);
         owner.setId(2L);
-        TransactionIntention intention = TransactionIntention.builder().creationDate(LocalDateTime.now()).type(OperationType.VENTA).build();
-        when(transaction.getIntention()).thenReturn(intention);
+        TransactionIntention sold_intention = TransactionIntention.builder().creationDate(LocalDateTime.now()).type(OperationType.VENTA).build();
+        when(transaction.getIntention()).thenReturn(sold_intention);
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
         when(transaction.getCreatedAt()).thenReturn(LocalDateTime.now());
@@ -166,13 +166,13 @@ class UserModelTest {
     }
 
     @Test
-    public void testExecute_ConfirmReceiptActionAsBuyer_ShouldThrowUpdateActionNotAllowedException() {
+    void testExecute_ConfirmReceiptActionAsBuyer_ShouldThrowUpdateActionNotAllowedException() {
         client.setId(1L);
         owner.setId(2L);
-        TransactionIntention intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
+        TransactionIntention sold_intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
 
 
-        when(transaction.getIntention()).thenReturn(intention);
+        when(transaction.getIntention()).thenReturn(sold_intention);
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
         when(transaction.getCreatedAt()).thenReturn(LocalDateTime.now());
@@ -182,19 +182,19 @@ class UserModelTest {
 
 
     @Test
-    public void testAddPoints() {
+    void testAddPoints() {
         client.addPoints(10);
         assertEquals(10, client.getReputationPoints());
     }
 
     @Test
-    public void testAddOperation() {
+    void testAddOperation() {
         client.addOperation();
         assertEquals(1, client.getOperationsAmount());
     }
 
     @Test
-    public void testGetReputation() {
+    void testGetReputation() {
         assertEquals(0, client.getReputation());
         client.addPoints(10);
         client.addOperation();
@@ -206,9 +206,9 @@ class UserModelTest {
     }
 
     @Test
-    public void testExecuteConfirmReceiptAsSeller() {
-        TransactionIntention intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
-        when(transaction.getIntention()).thenReturn(intention);
+    void testExecuteConfirmReceiptAsSeller() {
+        TransactionIntention sold_intention = TransactionIntention.builder().type(OperationType.COMPRA).build();
+        when(transaction.getIntention()).thenReturn(sold_intention);
         when(transaction.getCreatedAt()).thenReturn(LocalDateTime.now());
         when(transaction.getUserClient()).thenReturn(client);
         when(transaction.getUserOwner()).thenReturn(owner);
@@ -221,7 +221,7 @@ class UserModelTest {
 
 
     @Test
-    public void testExecuteCancel() {
+    void testExecuteCancel() {
         client.execute(TransactionAction.CANCEL, transaction);
 
         verify(transaction, times(1)).cancel();
@@ -230,7 +230,7 @@ class UserModelTest {
 
 
     @Test
-    public void testRemovePoints() throws Exception {
+    void testRemovePoints() throws Exception {
         client.addPoints(30);
 
         Method method = User.class.getDeclaredMethod("removePoints", int.class);
@@ -243,15 +243,15 @@ class UserModelTest {
 
 
     @Test
-    public void testCheckPassword() {
+    void testCheckPassword() {
         client.setPassword("password123");
         assertTrue(client.checkPassword("password123"));
         assertFalse(client.checkPassword("wrongpassword"));
     }
 
     @Test
-    public void testGetAuthorities() {
-        List authorities = List.of();
+    void testGetAuthorities() {
+        List<Object> authorities = List.of();
         assertEquals(authorities, client.getAuthorities());
         assertTrue(client.isAccountNonExpired());
         assertTrue(client.isAccountNonLocked());

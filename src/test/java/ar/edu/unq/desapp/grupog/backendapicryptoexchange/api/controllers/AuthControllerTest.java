@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.controllers;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.LoginRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.RegisterRequest;
@@ -14,12 +14,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -28,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @WebAppConfiguration
-public class AuthControllerTest {
+class AuthControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -63,28 +66,25 @@ public class AuthControllerTest {
         when(authService.registerUser(any(RegisterRequest.class))) .thenReturn(new AuthenticationResult("token", "full_name", "email"));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
-                .content("{ \"name\": \"test\", \"surname\": \"test\", \"email\": \"test@test.com\", \"password\": \"Password123!\", \"address\": \"addressssssssssss\", \"walletAddress\": \"12345678\", \"cvu\": \"1234567891234567891232\" }")
+                .content("{ \"name\": \"test\", \"surname\": \"test\", \"email\": \"tesT@test.com\", \"password\": \"Password$123\", \"address\": \"USERADDRESS\", \"walletAddress\": \"12345629\", \"cvu\": \"1234567831234567891232\" }")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-//        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("{\"name\": \"John\", \"surname\": \"Doe\", \"email\": \"john.doe@example.com\", \"address\": \"123 Main St\", \"walletAddress\": \"1234567890\", \"cvu\": \"0987654321\"}"));
-//        response.andExpect(MockMvcResultMatchers.status().isOk());
+        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.post("/auth/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\": \"John\", \"surname\": \"Doe\", \"email\": \"johnDoe@example.com\",\"password\": \"Password$123\",\"address\": \"123 Main St\", \"walletAddress\": \"12335629\", \"cvu\": \"1234567821234547891232\"}"));
+        response.andExpect(MockMvcResultMatchers.status().isOk());
     }
-//
-//    @Test
-//    void whenValidLoginRequest_thenReturnsUserResponse() throws Exception {
-//        when(authService.loginUser(any(LoginRequest.class))).thenReturn(user);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content("{\"email\": \"john.doe@example.com\", \"password\": \"password\"}"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.full_name").value("John Doe"))
-//                .andExpect(jsonPath("$.email").value("john.doe@example.com"))
-//                .andExpect(jsonPath("$.address").value("123 Main St"))
-//                .andExpect(jsonPath("$.wallet_address").value("1234567890"))
-//                .andExpect(jsonPath("$.cvu").value("0987654321"));
-//    }
+
+    @Test
+    void whenValidLoginRequest_thenReturnsUserResponse() throws Exception {
+        when(authService.loginUser(any(LoginRequest.class))).thenReturn(new AuthenticationResult("token", "John Doe", "john.doe@example.com"));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\": \"john.doe@example.com\", \"password\": \"password\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.full_name").value("John Doe"))
+                .andExpect(jsonPath("$.email").value("john.doe@example.com"));
+    }
 }

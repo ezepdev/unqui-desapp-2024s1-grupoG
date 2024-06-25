@@ -10,13 +10,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class ServletInitializerTest {
+class ServletInitializerTest {
 
         @Mock
         private SpringApplicationBuilder springApplicationBuilder;
 
         @Test
-        public void testIt() {
+        void testIt() {
             ServletInitializer servletInitializer = new ServletInitializer();
             when(springApplicationBuilder.sources(BackendApiCryptoexchangeApplication.class)).thenReturn(springApplicationBuilder);
 

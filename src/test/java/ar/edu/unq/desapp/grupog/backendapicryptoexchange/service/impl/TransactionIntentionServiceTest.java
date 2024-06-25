@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TransactionIntentionServiceTest {
+class TransactionIntentionServiceTest {
     @Autowired
     private ITransactionIntentionService transactionIntentionService;
 
@@ -47,7 +47,7 @@ public class TransactionIntentionServiceTest {
 
 
     @Test
-    public void testCreateTransactionIntention_WithValidData_ShouldCreateAndReturnTransactionIntention() {
+    void testCreateTransactionIntention_WithValidData_ShouldCreateAndReturnTransactionIntention() {
         CreateTransactionIntentionRequest request = new CreateTransactionIntentionRequest("COMPRA", "ALICEUSDT", 10.0, 10, 3L);
 
 
@@ -73,7 +73,7 @@ public class TransactionIntentionServiceTest {
     }
 
     @Test
-    public void testCreateTransactionIntentionWithBadUser() {
+    void testCreateTransactionIntentionWithBadUser() {
         CreateTransactionIntentionRequest request = new CreateTransactionIntentionRequest("COMPRA", "ALICEUSDT", 10.0, 10, 3L);
 
 
@@ -85,7 +85,7 @@ public class TransactionIntentionServiceTest {
         });
     }
     @Test
-    public void testCreateTransactionIntentionWithBadPrice() {
+    void testCreateTransactionIntentionWithBadPrice() {
         CreateTransactionIntentionRequest request = new CreateTransactionIntentionRequest("COMPRA", "ALICEUSDT", 10.0, 10, 3L);
         User user = User.builder().build();
         user.setId(3L);
@@ -97,7 +97,7 @@ public class TransactionIntentionServiceTest {
         });
     }
     @Test
-    public void testGetActiveIntentions() {
+    void testGetActiveIntentions() {
         CreateTransactionIntentionRequest request = new CreateTransactionIntentionRequest("COMPRA", "ALICEUSDT", 10.0, 10, 3L);
         CreateTransactionIntentionRequest request2 = new CreateTransactionIntentionRequest("COMPRA", "ALICEUSDT", 10.0, 10, 3L);
         CreateTransactionIntentionRequest request3 = new CreateTransactionIntentionRequest("COMPRA", "ALICEUSDT", 10.0, 10, 3L);

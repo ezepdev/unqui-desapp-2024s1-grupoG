@@ -6,26 +6,22 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentic
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.DuplicateEmail;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.InvalidCredentials;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.PriceVariationMarginConflict;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.JWTService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.common.AuthenticationResult;
-import com.fasterxml.jackson.annotation.JacksonInject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class AuthServiceTest {

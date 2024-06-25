@@ -15,7 +15,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class UserValidationTest {
+class UserValidationTest {
     private Validator validator;
 
     @BeforeEach
@@ -51,16 +51,6 @@ public class UserValidationTest {
         assertEquals(1, errores.size());
         assertEquals(errorText.getMessage(), expectedError );
     }
-
-//    @Test
-//    void  testUserWithInvalidWalletAddressLaunchException(){
-//        String expectedError = "El campo Wallet address debe contener solo digitos";
-//        RegisterRequest request = new RegisterRequest("validuser", "asvalidusurname", "invalid@gmail.com", "a valid address", "1234567891234578912345", "1234567810", "Pepe1234!");
-//        Set<ConstraintViolation<RegisterRequest>> errores = validator.validate(request);
-//        ConstraintViolation<RegisterRequest> errorText = errores.iterator().next();;
-//        assertEquals(2, errores.size());
-//        assertEquals(errorText.getMessage(), expectedError );
-//    }
 
     @Test
     void  testUserWithInvalidPasswordLaunchException(){

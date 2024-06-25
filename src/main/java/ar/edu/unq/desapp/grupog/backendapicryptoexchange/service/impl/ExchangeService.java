@@ -21,7 +21,7 @@ public class ExchangeService implements IExchangeService {
     private final RestTemplate restTemplate;
 
     @Value("${api.dollar.token}")
-    private String API_TOKEN;
+    private String apiToken;
     @Override
     public Long convertToArs(Double priceInDollars) {
         HttpEntity<String> entity = getStringHttpEntity();
@@ -40,7 +40,7 @@ public class ExchangeService implements IExchangeService {
     private HttpEntity<String> getStringHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
 
-        headers.set("Authorization", "Bearer " + API_TOKEN);
+        headers.set("Authorization", "Bearer " + apiToken);
 
         // Crear la entidad HTTP con los encabezados
         return new HttpEntity<>(headers);

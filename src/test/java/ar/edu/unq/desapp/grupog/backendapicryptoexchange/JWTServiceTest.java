@@ -1,17 +1,9 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.JWTServiceImpl;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,13 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class JWTServiceTest {
+class JWTServiceTest {
 
     @Autowired
     private JWTServiceImpl jwtService;
@@ -47,7 +37,7 @@ public class JWTServiceTest {
     }
 
     @Test
-    public void testGenerateToken() {
+    void testGenerateToken() {
         when(userDetails.getUsername()).thenReturn("testUser");
 
         String token = jwtService.generateToken(userDetails);
@@ -56,7 +46,7 @@ public class JWTServiceTest {
     }
 
     @Test
-    public void testIsTokenValid() {
+    void testIsTokenValid() {
         when(userDetails.getUsername()).thenReturn("testUser");
 
         String token = jwtService.generateToken(userDetails);
@@ -65,7 +55,7 @@ public class JWTServiceTest {
     }
 
     @Test
-    public void testIsTokenInvalid() {
+    void testIsTokenInvalid() {
         when(userDetails.getUsername()).thenReturn("testUser");
 
         String token = jwtService.generateToken(userDetails);
@@ -77,7 +67,7 @@ public class JWTServiceTest {
 
 
     @Test
-    public void testExtractUserName() {
+    void testExtractUserName() {
         when(userDetails.getUsername()).thenReturn("testUser");
 
         String token = jwtService.generateToken(userDetails);
@@ -88,7 +78,7 @@ public class JWTServiceTest {
     }
 
     @Test
-    public void testTokenExpiration() {
+    void testTokenExpiration() {
         when(userDetails.getUsername()).thenReturn("testUser");
 
         String token = jwtService.generateToken(userDetails);
@@ -97,7 +87,7 @@ public class JWTServiceTest {
     }
 
     @Test
-    public void testTokenExpired() throws InterruptedException {
+    void testTokenExpired() throws InterruptedException {
         when(userDetails.getUsername()).thenReturn("testUser");
 
         jwtService.jwtExpiration = 1000; // 1 second for test

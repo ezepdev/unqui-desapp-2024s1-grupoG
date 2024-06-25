@@ -27,8 +27,6 @@ public class CustomTransactionRepositoryImpl implements CustomTransactionReposit
 
         TypedQuery<TradedVolume> query = entityManager.createQuery(jpql, TradedVolume.class);
 
-        System.out.println("TradedVolume query: " + jpql);
-
         query.setParameter("id", id);
         query.setParameter("fromDate", LocalDateTime.from(fromDate.atStartOfDay()));
         query.setParameter("toDate", LocalDateTime.from(toDate.atStartOfDay()));

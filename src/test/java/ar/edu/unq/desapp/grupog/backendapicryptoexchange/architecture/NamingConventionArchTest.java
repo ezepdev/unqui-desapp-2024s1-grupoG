@@ -8,7 +8,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
-public class NamingConventionArchTest {
+class NamingConventionArchTest {
 
     private final JavaClasses classes = new ClassFileImporter().importPackages("ar.edu.unq.desapp.grupog.backendapicryptoexchange");
 

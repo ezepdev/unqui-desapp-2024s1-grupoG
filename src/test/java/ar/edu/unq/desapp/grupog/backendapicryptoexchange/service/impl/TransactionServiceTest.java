@@ -7,7 +7,6 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IExchangeService;
-import org.hibernate.sql.Update;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TransactionServiceTest {
+class TransactionServiceTest {
 
     @Autowired
     private TransactionService transactionService;
@@ -50,7 +49,7 @@ public class TransactionServiceTest {
     private ICryptoService cryptoService;
 
     @Test
-    public void testStartTransaction_WithValidData_ShouldReturnTransaction() {
+    void testStartTransaction_WithValidData_ShouldReturnTransaction() {
         StartTransactionRequest request = new StartTransactionRequest(1, 2L);
         TransactionIntention intention = TransactionIntention.builder().build();
         User owner = User.builder().build();
@@ -69,7 +68,7 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void testUpdateTransactionStatus_WithValidData_ShouldReturnUpdatedTransaction() {
+    void testUpdateTransactionStatus_WithValidData_ShouldReturnUpdatedTransaction() {
         Integer transactionId = 1;
         UpdateTransactionRequest request = new UpdateTransactionRequest("CONFIRM_TRANSFER", 1L);
         Transaction transaction = Transaction.builder().build();
@@ -111,7 +110,7 @@ public class TransactionServiceTest {
 
     }
     @Test
-    public void testUpdateTransactionStatusNotFound() {
+    void testUpdateTransactionStatusNotFound() {
         UpdateTransactionRequest request = new UpdateTransactionRequest("CONFIRM_TRANSFER", 1L);
         when(transactionRepository.findById(1)).thenReturn(Optional.empty());
 
@@ -123,7 +122,7 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void testUpdateTransactionStatusWithInvalidUser() {
+    void testUpdateTransactionStatusWithInvalidUser() {
         Integer transactionId = 1;
         UpdateTransactionRequest request = new UpdateTransactionRequest("CONFIRM_TRANSFER", 1L);
         Transaction transaction = Transaction.builder().build();
@@ -138,7 +137,7 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void testUpdateTransactionStatusWithUserNotImplicated() {
+    void testUpdateTransactionStatusWithUserNotImplicated() {
         Integer transactionId = 1;
         UpdateTransactionRequest request = new UpdateTransactionRequest("CONFIRM_TRANSFER", 2L);
         Transaction transaction = Transaction.builder().build();
@@ -164,7 +163,7 @@ public class TransactionServiceTest {
         verify(transactionRepository, times(1)).findById(1);
     }
     @Test
-    public void testUpdateTransactionStatusWithInvalidPrice() {
+    void testUpdateTransactionStatusWithInvalidPrice() {
         Integer transactionId = 1;
         UpdateTransactionRequest request = new UpdateTransactionRequest("CONFIRM_TRANSFER", 1L);
         Transaction transaction = Transaction.builder().build();
@@ -188,7 +187,7 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void testStartUserCantBeTheOwner() {
+    void testStartUserCantBeTheOwner() {
         StartTransactionRequest request = new StartTransactionRequest(1, 2L);
         TransactionIntention intention = TransactionIntention.builder().build();
         User owner = User.builder().build();
@@ -206,7 +205,7 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void testTransactionIntentionNotFound() {
+    void testTransactionIntentionNotFound() {
         StartTransactionRequest request = new StartTransactionRequest(1, 2L);
         TransactionIntention intention = TransactionIntention.builder().build();
         User owner = User.builder().build();
@@ -223,7 +222,7 @@ public class TransactionServiceTest {
     }
 
     @Test
-    public void testUserOfTransactionIntentionNotFound() {
+    void testUserOfTransactionIntentionNotFound() {
         StartTransactionRequest request = new StartTransactionRequest(1, 2L);
         TransactionIntention intention = TransactionIntention.builder().build();
         User owner = User.builder().build();

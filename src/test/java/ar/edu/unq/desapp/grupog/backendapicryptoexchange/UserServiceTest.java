@@ -4,7 +4,6 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentic
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentication.RegisterRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.DuplicateEmail;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.InvalidCredentials;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.IUserRepository;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.AuthService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.UserService;
@@ -24,12 +23,11 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class UserServiceTest {
+class UserServiceTest {
     @Autowired
     private AuthService authService;
     @Autowired
@@ -45,7 +43,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testRegisterUserWithEmailAlreadyInUse() {
+    void testRegisterUserWithEmailAlreadyInUse() {
         RegisterRequest request = new RegisterRequest("Jose", "AMALFITANI", "JOSE.EMAIL@GMAIL.COM", "ADDRESS", "123456789123456789123", "12345678", "Pepe1234!");
         User user = User.builder()
                 .name("Jose")
@@ -65,7 +63,7 @@ public class UserServiceTest {
 
 
     @Test
-    public void testLoginUserNotFound() {
+    void testLoginUserNotFound() {
         LoginRequest request = new LoginRequest("JOSE.EMAIL@GMAIL.COM", "Pepe1234!");
 
 
@@ -76,7 +74,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testLoadUserByUsernameNotFound() {
+    void testLoadUserByUsernameNotFound() {
         when(userRepository.findByEmail("username@username.com")).thenReturn(Optional.empty());
 
         UserDetailsService userDetailsService = userService.userDetailsService();
@@ -86,7 +84,7 @@ public class UserServiceTest {
         });
     }
     @Test
-    public void testLoadUserByUsername() {
+    void testLoadUserByUsername() {
         User user = User.builder()
                 .name("Jose")
                 .email("username@username.com")
@@ -104,7 +102,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testGetAllUsers() {
+    void testGetAllUsers() {
         List<User> users = new ArrayList<>();
         User user1 = User.builder().build();
         User user2 = User.builder().build();
@@ -114,8 +112,7 @@ public class UserServiceTest {
 
         List<User> result = userService.getAllUsers();
 
-        assertThat(result).hasSize(2);
-        assertThat(result).contains(user1, user2);
+        assertThat(result).hasSize(2).contains(user1, user2);
     }
 
 }

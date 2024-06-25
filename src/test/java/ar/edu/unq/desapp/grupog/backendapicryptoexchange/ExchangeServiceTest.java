@@ -19,7 +19,7 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class ExchangeServiceTest {
+class ExchangeServiceTest {
     @Autowired
     private ExchangeService exchangeService;
 
@@ -27,7 +27,7 @@ public class ExchangeServiceTest {
     private RestTemplate restTemplate;
 
     @Test
-    public void testConvertToArs() {
+    void testConvertToArs() {
         // Mock de la respuesta esperada
         List<Map<String, Integer>> mockResponse = List.of(Map.of("v", 200));
         ResponseEntity<List> responseEntity = new ResponseEntity<>(mockResponse, HttpStatus.OK);
@@ -45,7 +45,7 @@ public class ExchangeServiceTest {
     }
 
     @Test
-    public void testConvertToArs_noBody() {
+    void testConvertToArs_noBody() {
         // Mock de la respuesta sin cuerpo
         ResponseEntity<List> responseEntity = new ResponseEntity<>(null, HttpStatus.OK);
 
