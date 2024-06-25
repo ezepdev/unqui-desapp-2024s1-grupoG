@@ -4,10 +4,7 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transacti
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.transaction.UpdateTransactionRequest;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.*;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.ITransactionIntentionRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.ITransactionRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.IUserRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.TradedVolume;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ICryptoService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IExchangeService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ITransactionService;
@@ -26,6 +23,7 @@ public class TransactionService implements ITransactionService {
     private final ITransactionIntentionRepository transactionIntentionRepository;
     private final IUserRepository userRepository;
     private final ICryptoService cryptoService;
+    private final ICryptoRepository cryptoRepository;
     private final IExchangeService exchangeService;
     @Override
     public Transaction startTransaction(StartTransactionRequest request) {
@@ -80,7 +78,7 @@ public class TransactionService implements ITransactionService {
     @Override
     public List<TradedVolume> getTransactionsByUserBetweenDates(Long id, LocalDate fromDate, LocalDate toDate) {
         var tradedVolumes = transactionRepository.tradedVolumeCryptosBetweenDates(id, fromDate, toDate);
-        tradedVolumes.forEach(t -> t.setCurrentPrice(cryptoService.getCurrencyBySymbol(t.getSymbol()).getPrice()));
+        tradedVolumes.forEach(t -> t.setCurrentPrice(cryptoRepository.retrieveLatestCryptoPrices().stream().filter(c -> c.getSymbol().equals(t.getSymbol())).findFirst().orElseThrow().getPrice()));
         tradedVolumes.forEach(t -> t.setFinalPrice(exchangeService.convertToArs(t.getCurrentPrice() * t.getVolume())));
         return tradedVolumes;
     }

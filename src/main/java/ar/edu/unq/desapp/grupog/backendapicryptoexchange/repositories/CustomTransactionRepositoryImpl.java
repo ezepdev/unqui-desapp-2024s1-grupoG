@@ -22,10 +22,12 @@ public class CustomTransactionRepositoryImpl implements CustomTransactionReposit
                         "FROM Transaction t " +
                         "WHERE t.status = 'SUCCESS' " +
                         "AND t.userOwner.id = :id OR t.userClient.id = :id " +
-                        "AND t.created_at > :fromDate AND t.created_at < :toDate " +
+                        "AND t.createdAt > :fromDate AND t.createdAt < :toDate " +
                         "GROUP BY symbol";
 
         TypedQuery<TradedVolume> query = entityManager.createQuery(jpql, TradedVolume.class);
+
+        System.out.println("TradedVolume query: " + jpql);
 
         query.setParameter("id", id);
         query.setParameter("fromDate", LocalDateTime.from(fromDate.atStartOfDay()));

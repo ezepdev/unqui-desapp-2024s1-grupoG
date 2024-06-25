@@ -69,7 +69,7 @@ public class TransactionsController {
             @ApiResponse(responseCode = "200", description = "Transaction updated successfully", content = { @Content(schema = @Schema(implementation = TransactionResponse.class), mediaType = "application/json") }),
             @ApiResponse(responseCode = "400", description = "Invalid data", content = { @Content(schema = @Schema()) }),
             @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
-    @PatchMapping("/{transaction_id}")
+    @PatchMapping("/{transactionId}")
     public ResponseEntity<TransactionResponse> updateTransactionStatus(@PathVariable Integer transactionId, @RequestBody UpdateTransactionRequest request) {
         var transaction = transactionService.updateTransactionStatus(transactionId,request);
         TransactionResponse response = TransactionMapper.mapToTransactionResponse(transaction);
