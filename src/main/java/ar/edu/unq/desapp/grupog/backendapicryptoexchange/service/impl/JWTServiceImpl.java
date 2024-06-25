@@ -22,10 +22,10 @@ import java.util.function.Function;
 public class JWTServiceImpl implements JWTService {
 
     @Value("${security.jwt.secret-key}")
-    private String secretKey;
+    public String secretKey;
 
     @Value("${security.jwt.expiration-time}")
-    private long jwtExpiration;
+    public long jwtExpiration;
 
     @Override
     public String generateToken(UserDetails userDetails) {
@@ -67,7 +67,7 @@ public class JWTServiceImpl implements JWTService {
 
 
 
-    private boolean isTokenExpired(String token) {
+    public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 

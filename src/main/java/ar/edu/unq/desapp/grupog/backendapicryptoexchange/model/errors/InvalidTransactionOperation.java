@@ -12,8 +12,7 @@ public class InvalidTransactionOperation extends Error {
                     yield "Transaction cannot be successfully updated as it is not in the transfer success state";
                 case CANCELED:
                     yield "Transaction cannot be canceled as it is already in the success state";
-                case PENDING:
-                    yield "Transaction cannot be pending as it is already in the pending state";
+
                 default:
                     yield "Transaction cannot be updated the status is not valid";
             },"Invalid transaction operation","INVALID_TRANSACTION_OPERATION");
