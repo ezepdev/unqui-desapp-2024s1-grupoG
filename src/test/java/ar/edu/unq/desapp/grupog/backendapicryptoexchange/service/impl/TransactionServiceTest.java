@@ -91,7 +91,7 @@ class TransactionServiceTest {
     }
 
     @Test
-    public void testGetTransactionsByUserBetweenDates() {
+     void testGetTransactionsByUserBetweenDates() {
         TradedVolume tradedVolume = TradedVolume.builder().symbol(CryptoCurrencySymbol.AAVEUSDT).volume(1L).currentPrice(10.0).finalPrice(1L).build();
         TradedVolume tradedVolume2 = TradedVolume.builder().symbol(CryptoCurrencySymbol.AAVEUSDT).volume(1L).currentPrice(20.0).finalPrice(1L).build();
         TradedVolume tradedVolume3 = TradedVolume.builder().symbol(CryptoCurrencySymbol.AAVEUSDT).volume(1L).currentPrice(29.0).finalPrice(1L).build();
@@ -191,7 +191,6 @@ class TransactionServiceTest {
         StartTransactionRequest request = new StartTransactionRequest(1, 2L);
         TransactionIntention intention = TransactionIntention.builder().build();
         User owner = User.builder().build();
-        User client = User.builder().build();
         owner.setId(2L);
         intention.setCreator(owner);
         when(transactionIntentionRepository.findById(any())).thenReturn(Optional.of(intention));
@@ -209,7 +208,6 @@ class TransactionServiceTest {
         StartTransactionRequest request = new StartTransactionRequest(1, 2L);
         TransactionIntention intention = TransactionIntention.builder().build();
         User owner = User.builder().build();
-        User client = User.builder().build();
         owner.setId(2L);
         intention.setCreator(owner);
 

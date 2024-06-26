@@ -31,14 +31,6 @@ class TransactionModelTest {
         any_user3 = User.builder().build();
     }
 
-    @AfterEach
-    void clean() {
-        any_transaction = Transaction.builder().build();
-        any_user = User.builder().build();
-        any_user2 = User.builder().build();
-        any_user3 = User.builder().build();
-    }
-
     @Test
     void testConfirmTransfer() {
         any_transaction.confirmTransfer();

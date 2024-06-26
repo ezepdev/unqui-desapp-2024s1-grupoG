@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class BinanceServiceTest {
+class BinanceServiceTest {
     @Autowired
     private BinanceService binanceService;
     @MockBean

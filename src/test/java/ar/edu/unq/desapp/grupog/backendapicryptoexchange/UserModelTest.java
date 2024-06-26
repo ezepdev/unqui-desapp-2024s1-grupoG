@@ -34,15 +34,7 @@ class UserModelTest {
         client.setId(1L);
         owner.setId(2L);
     }
-
-    @AfterEach
-    void clean() {
-        client = User.builder().build();
-        owner = User.builder().build();
-        client.setId(1L);
-        owner.setId(2L);
-    }
-
+    
     @Test
     void testAnyUserCanAddReputationPoint() {
         Integer points = 30;
