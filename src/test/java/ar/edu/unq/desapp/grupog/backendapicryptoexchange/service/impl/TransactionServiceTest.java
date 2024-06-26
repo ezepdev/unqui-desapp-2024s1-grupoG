@@ -82,12 +82,9 @@ class TransactionServiceTest {
         when(cryptoService.isAllowedPrice(any(), any())).thenReturn(true);
         when(transactionRepository.save(any())).thenReturn(transaction);
 
-        // Act
         Transaction result = transactionService.updateTransactionStatus(transactionId, request);
 
-        // Assert
         assertNotNull(result);
-        // Add more assertions as needed
     }
 
     @Test
