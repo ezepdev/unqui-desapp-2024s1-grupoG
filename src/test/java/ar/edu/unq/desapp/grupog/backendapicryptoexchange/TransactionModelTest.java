@@ -4,7 +4,6 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.Transaction;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionStatus;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.InvalidTransactionOperation;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

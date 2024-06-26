@@ -61,13 +61,5 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(expectedJson));
     }
-//
-//    @Test
-//    void testGetAllUsers_NotFound() throws Exception {
-//
-//        when(userService.getAllUsers()).thenThrow(new RuntimeException("User not found"));
-//
-//        mockMvc.perform(get("/users"))
-//                .andExpect(status().isNotFound());
-//    }
+
 }

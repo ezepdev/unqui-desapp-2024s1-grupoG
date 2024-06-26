@@ -2,8 +2,6 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.UpdateActionNotAllowed;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
