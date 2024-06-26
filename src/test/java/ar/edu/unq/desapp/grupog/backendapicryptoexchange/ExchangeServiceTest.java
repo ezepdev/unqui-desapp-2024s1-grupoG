@@ -28,18 +28,15 @@ class ExchangeServiceTest {
 
     @Test
     void testConvertToArs() {
-        // Mock de la respuesta esperada
         List<Map<String, Integer>> mockResponse = List.of(Map.of("v", 200));
         ResponseEntity<List> responseEntity = new ResponseEntity<>(mockResponse, HttpStatus.OK);
 
-        // Simular la llamada al restTemplate
         when(restTemplate.exchange(anyString(), eq(HttpMethod.GET), any(HttpEntity.class), eq(List.class)))
                 .thenReturn(responseEntity);
 
-        // Llamar al método a probar
         Long convertedPrice = exchangeService.convertToArs(50.0);
 
-        // Verificar los resultados
+
         assertEquals(10000, convertedPrice);
         verify(restTemplate, times(1)).exchange(anyString(), eq(HttpMethod.GET), any(HttpEntity.class), eq(List.class));
     }

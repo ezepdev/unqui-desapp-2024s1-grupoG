@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class BinanceService {
+public class BinanceService implements IBinanceService {
 
     private final RestTemplate restTemplate;
 

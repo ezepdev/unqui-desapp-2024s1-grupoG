@@ -26,8 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-//@WebMvcTest(controllers = AuthenticationController.class)
-//@AutoConfigureMockMvc(addFilters = false)
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @WebAppConfiguration

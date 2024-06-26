@@ -4,13 +4,16 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.ICryptoRepository;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.BinanceService;
+import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IBinanceService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.CryptoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,27 +22,45 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class CryptoServiceTest {
+    private CryptoCurrency bitcoin;
+    private CryptoCurrency currency1;
+    private CryptoCurrency currency2;
     @Autowired
     private CryptoService cryptoService;
-
+    @MockBean
+    private IBinanceService binanceService;
     @MockBean
     private ICryptoRepository cryptoRepository;
-    @MockBean
-    private BinanceService binanceService;
-    private CryptoCurrency bitcoin;
+
 
 
     @BeforeEach
     public void setUp() {
-        bitcoin = new CryptoCurrency();
+        reset(cryptoRepository);
+        bitcoin = CryptoCurrency.builder().build();
         bitcoin.setSymbol(CryptoCurrencySymbol.BTCUSDT);
         bitcoin.setPrice(10000.0);
-        reset(cryptoRepository);
+        bitcoin.setUpdatedAt(LocalDateTime.now());
+        currency1 = CryptoCurrency.builder().build();
+        currency2 = CryptoCurrency.builder().build();
+        currency1.setUpdatedAt(LocalDateTime.now().minusHours(1));
+        currency2.setUpdatedAt(LocalDateTime.now().minusHours(2));
+
     }
+
+    @Test
+    void testGetCotizationLastTwentyFourHours() {
+        List<CryptoCurrency> currencies = List.of(bitcoin, currency1, currency2);
+        when(cryptoRepository.findBySymbolAndLastTwentyFourHours(CryptoCurrencySymbol.BTCUSDT.name())).thenReturn(currencies);
+
+        List<CryptoCurrency> result = cryptoService.getCotizationLastTwentyFourHours(CryptoCurrencySymbol.BTCUSDT);
+
+        assertThat(result).hasSize(3);
+        assertThat(result).contains(currency1, currency2, bitcoin);
+    }
+
     @Test
     void testAllCurrencies() {
-        CryptoCurrency currency1 = CryptoCurrency.builder().build();
-        CryptoCurrency currency2 = CryptoCurrency.builder().build();
         List<CryptoCurrency> currencies = List.of(bitcoin, currency1, currency2);
         when(binanceService.getUpdatedCryptoPrices()).thenReturn(currencies);
 
@@ -48,19 +69,7 @@ class CryptoServiceTest {
         assertThat(result).hasSize(3).contains(currency1, currency2, bitcoin);
 
     }
-    @Test
-    void testGetCotizationLastTwentyFourHours() {
-        CryptoCurrency currency1 = CryptoCurrency.builder().build();
-        CryptoCurrency currency2 = CryptoCurrency.builder().build();
-        List<CryptoCurrency> currencies = List.of(bitcoin, currency1, currency2);
-        when(cryptoRepository.findBySymbolAndLastTwentyFourHours(CryptoCurrencySymbol.BTCUSDT.name())).thenReturn(currencies);
 
-        List<CryptoCurrency> result = cryptoService.getCotizationLastTwentyFourHours(CryptoCurrencySymbol.BTCUSDT);
-
-        assertThat(result).hasSize(3);
-        assertThat(result).contains(currency1, currency2, bitcoin);
-
-    }
 
     @Test
     void getCurrencyBySymbol() {

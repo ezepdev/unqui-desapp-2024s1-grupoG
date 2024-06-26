@@ -50,14 +50,14 @@ public class CryptoControllerTest {
 
     @Test
     void testGetAllCryptos() throws Exception {
-        // Mock del servicio
+
         List<CryptoCurrency> mockCryptos = Arrays.asList(
                 cryptoCurrency,
                 cryptoCurrency2
         );
         when(cryptoService.allCurrencies()).thenReturn(mockCryptos);
 
-        // Esperado en JSON
+
         String expectedJson = new ObjectMapper().writeValueAsString(CryptoMapper.mapToCryptoResponses(mockCryptos));
 
         mockMvc.perform(get("/cryptos"))
@@ -67,7 +67,7 @@ public class CryptoControllerTest {
 
     @Test
     void testGetCotizationLastTwentyFourHours() throws Exception {
-        // Mock del servicio
+
         List<CryptoCurrency> mockCryptos = Arrays.asList(
                 cryptoCurrency,
                 cryptoCurrency2
@@ -75,7 +75,7 @@ public class CryptoControllerTest {
 
         when(cryptoService.getCotizationLastTwentyFourHours(CryptoCurrencySymbol.BTCUSDT)).thenReturn(mockCryptos);
 
-        // Esperado en JSON
+
         String expectedJson = new ObjectMapper().writeValueAsString(CryptoMapper.mapToCryptoResponses(mockCryptos));
 
         mockMvc.perform(get("/cryptos/BTCUSDT"))
@@ -85,7 +85,7 @@ public class CryptoControllerTest {
 
     @Test
     void testGetCotizationLastTwentyFourHours_NotFound() throws Exception {
-        // Mock del servicio para lanzar excepción
+
         when(cryptoService.getCotizationLastTwentyFourHours(any(CryptoCurrencySymbol.class)))
                 .thenThrow(new IllegalArgumentException("Crypto symbol not exist, please check this"));
 
