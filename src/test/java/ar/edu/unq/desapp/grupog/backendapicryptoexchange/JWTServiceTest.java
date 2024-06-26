@@ -11,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.Duration;
+
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -95,7 +98,7 @@ class JWTServiceTest {
         String token = jwtService.generateToken(userDetails);
 
         Thread.sleep(2000); // wait for the token to expire
-
+        await().atMost(Duration.ofSeconds(2));
         assertThrows(ExpiredJwtException.class, () -> {
             jwtService.isTokenValid(token, userDetails);
         });

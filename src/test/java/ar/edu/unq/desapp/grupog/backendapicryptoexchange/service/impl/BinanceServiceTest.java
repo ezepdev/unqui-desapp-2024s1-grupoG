@@ -46,12 +46,13 @@ public class BinanceServiceTest {
 
         List<CryptoCurrency> mockResponse = List.of(crypto1, crypto2);
 
+        ParameterizedTypeReference<List<CryptoCurrency>> typeRef = new ParameterizedTypeReference<>() {};
 
         when(restTemplate.exchange(
                 anyString(),
                 eq(HttpMethod.GET),
                 isNull(),
-                any(ParameterizedTypeReference.class)
+                eq(typeRef)
         )).thenReturn(ResponseEntity.ok(mockResponse));
 
 
@@ -68,7 +69,7 @@ public class BinanceServiceTest {
                 urlCaptor.capture(),
                 eq(HttpMethod.GET),
                 isNull(),
-                any(ParameterizedTypeReference.class)
+                eq(typeRef)
         );
 
         String expectedUrl = "https://api1.binance.com/api/v3/ticker/price?symbols=[\"ALICEUSDT\",\"MATICUSDT\",\"AXSUSDT\",\"AAVEUSDT\",\"ATOMUSDT\",\"NEOUSDT\",\"DOTUSDT\",\"ETHUSDT\",\"CAKEUSDT\",\"BTCUSDT\",\"BNBUSDT\",\"ADAUSDT\",\"TRXUSDT\",\"AUDIOUSDT\"]";

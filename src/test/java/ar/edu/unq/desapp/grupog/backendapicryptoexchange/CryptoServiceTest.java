@@ -53,8 +53,7 @@ class CryptoServiceTest {
 
         List<CryptoCurrency> result = cryptoService.getCotizationLastTwentyFourHours(CryptoCurrencySymbol.BTCUSDT);
 
-        assertThat(result).hasSize(3);
-        assertThat(result).contains(currency1, currency2, bitcoin);
+        assertThat(result).hasSize(3).contains(currency1, currency2, bitcoin);
     }
 
     @Test

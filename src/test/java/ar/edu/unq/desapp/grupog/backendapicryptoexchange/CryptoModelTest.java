@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class CryptoModelTest {
+class CryptoModelTest {
 
     @Autowired
         static CryptoCurrency any_currency;
