@@ -111,7 +111,7 @@ sonar {
             "**/ar/edu/unq/desapp/grupog/backendapicryptoexchange/config/**/*",
             "**/ar/edu/unq/desapp/grupog/backendapicryptoexchange/api/contracts/**/*",
             "**/config/*",
-            "**/ar/edu/unq/desapp/grupog/backendapicryptoexchange/api/controllers/APIExceptionController.class"
+            "**/ar/edu/unq/desapp/grupog/backendapicryptoexchange/api/controllers/APIExceptionController.java"
     )
 
     properties {
