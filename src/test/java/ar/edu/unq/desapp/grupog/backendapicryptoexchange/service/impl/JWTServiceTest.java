@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupog.backendapicryptoexchange;
+package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.JWTServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
