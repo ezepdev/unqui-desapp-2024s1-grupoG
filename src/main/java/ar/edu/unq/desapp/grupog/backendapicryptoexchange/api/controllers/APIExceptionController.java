@@ -12,12 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class APIExceptionController extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({BadRegisterException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorResponse> handleRegisterException(BadRegisterException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getDescription(), ex.getMessage());
-        return ResponseEntity.badRequest().body(errorResponse);
-    }
+
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
