@@ -13,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class UserServiceTest {
     @Autowired
     private AuthService authService;
@@ -77,9 +79,7 @@ class UserServiceTest {
 
         UserDetailsService userDetailsService = userService.userDetailsService();
 
-        assertThrows(UsernameNotFoundException.class, () -> {
-            userDetailsService.loadUserByUsername("username@username.com");
-        });
+        assertThrows(UsernameNotFoundException.class, () -> userDetailsService.loadUserByUsername("username@username.com"));
     }
     @Test
     void testLoadUserByUsername() {

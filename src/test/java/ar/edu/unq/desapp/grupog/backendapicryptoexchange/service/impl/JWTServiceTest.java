@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.Duration;
 
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class JWTServiceTest {
 
     @Autowired
@@ -96,9 +98,7 @@ class JWTServiceTest {
 
         String token = jwtService.generateToken(userDetails);
 
-        await().atMost(Duration.ofSeconds(2)); // wait for the token to expire
-        assertThrows(ExpiredJwtException.class, () -> {
-            jwtService.isTokenValid(token, userDetails);
-        });
+        await().atMost(Duration.ofSeconds(2)).untilAsserted(() -> assertThrows(ExpiredJwtException.class, () -> jwtService.isTokenValid(token, userDetails)));
+
     }
 }
