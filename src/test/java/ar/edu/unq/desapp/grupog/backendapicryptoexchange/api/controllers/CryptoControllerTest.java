@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @ActiveProfiles("test")
 
-public class CryptoControllerTest {
+class CryptoControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

@@ -96,8 +96,7 @@ class JWTServiceTest {
 
         String token = jwtService.generateToken(userDetails);
 
-        Thread.sleep(2000); // wait for the token to expire
-        await().atMost(Duration.ofSeconds(2));
+        await().atMost(Duration.ofSeconds(2)); // wait for the token to expire
         assertThrows(ExpiredJwtException.class, () -> {
             jwtService.isTokenValid(token, userDetails);
         });

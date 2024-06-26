@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @ActiveProfiles("test")
 
-public class BinanceServiceTest {
+class BinanceServiceTest {
     @Autowired
     private BinanceService binanceService;
     @MockBean
