@@ -4,6 +4,7 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.UpdateActionNotAllowed;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,14 +28,14 @@ class UserModelTest {
     private Transaction transaction;
     @MockBean
     private TransactionIntention intention;
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+     void setUp() {
         client = User.builder().build();
         owner = User.builder().build();
         client.setId(1L);
         owner.setId(2L);
     }
-    
+
     @Test
     void testAnyUserCanAddReputationPoint() {
         Integer points = 30;
