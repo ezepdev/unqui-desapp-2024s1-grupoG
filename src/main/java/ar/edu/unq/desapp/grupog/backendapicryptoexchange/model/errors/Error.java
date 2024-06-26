@@ -1,7 +1,9 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

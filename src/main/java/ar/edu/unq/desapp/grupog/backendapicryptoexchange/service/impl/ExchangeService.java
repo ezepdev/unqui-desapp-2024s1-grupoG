@@ -2,7 +2,6 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IExchangeService;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

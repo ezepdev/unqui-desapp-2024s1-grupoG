@@ -3,12 +3,10 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrency;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.CryptoCurrencySymbol;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.ICryptoRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.BinanceService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IBinanceService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.ICryptoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

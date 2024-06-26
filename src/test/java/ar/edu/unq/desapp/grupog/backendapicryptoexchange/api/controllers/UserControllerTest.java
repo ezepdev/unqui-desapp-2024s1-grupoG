@@ -1,31 +1,19 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.controllers;
 
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.mappers.UserMapper;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.config.SecurityConfig;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.IUserRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IAuthService;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.IUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.servlet.configuration.WebMvcSecurityConfiguration;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
 
 import java.util.Arrays;
 import java.util.List;
