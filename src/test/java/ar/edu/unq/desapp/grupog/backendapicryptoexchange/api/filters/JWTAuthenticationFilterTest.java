@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,20 +49,13 @@ class JWTAuthenticationFilterTest {
             chain = mock(FilterChain.class);
         }
 
-        @Test
-        void doFilterInternalNullToken() throws ServletException, IOException {
-            when(request.getHeader(AUTHORIZATION)).thenReturn(null);
-            jwtAuthenticationTokenFilter.doFilterInternal(request, response, chain);
-           verify(chain).doFilter(request, response);
-        }
-
-        @Test
-        void doFilterInternalExceptionToken() throws IOException, ServletException {
-            when(request.getHeader(AUTHORIZATION)).thenReturn("123");
+        @ParameterizedTest
+        @ValueSource(strings = { "", "123", "dasdasd" })
+        void doFilterInternalTest(String token) throws ServletException, IOException {
+            when(request.getHeader("Authorization")).thenReturn(token);
             jwtAuthenticationTokenFilter.doFilterInternal(request, response, chain);
             verify(chain).doFilter(request, response);
         }
-
         @Test
         void doFilterInternalAuthenticationNotNull() throws ServletException, IOException {
             UserDetailsService userDetailsService = mock(UserDetailsService.class);
@@ -93,14 +88,6 @@ class JWTAuthenticationFilterTest {
             verify(context, never()).setAuthentication(any(Authentication.class));
             verify(chain).doFilter(request, response);
         }
-
-        @Test
-        void authorizationHeaderIsNull() throws ServletException, IOException {
-            when(request.getHeader(AUTHORIZATION)).thenReturn("dasdasd");
-            jwtAuthenticationTokenFilter.doFilterInternal(request, response, chain);
-            verify(chain).doFilter(request, response);
-        }
-
 
         @Test
         void doFilterInternalAuthenticationSuccess() throws ServletException, IOException {
