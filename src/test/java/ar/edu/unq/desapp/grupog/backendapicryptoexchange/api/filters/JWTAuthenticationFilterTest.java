@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
 
@@ -26,6 +27,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @SpringBootTest
+@ActiveProfiles("test")
+
 class JWTAuthenticationFilterTest {
 
         @InjectMocks

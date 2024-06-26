@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
@@ -24,6 +25,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@ActiveProfiles("test")
+
 class AuthServiceTest {
     @Autowired
     private AuthService authService;
@@ -81,9 +84,7 @@ class AuthServiceTest {
 
         RegisterRequest request = new RegisterRequest("Test","User","test@example.com","address","cvu","walletAddress","password");
 
-        assertThrows(DuplicateEmail.class, () -> {
-            authService.registerUser(request);
-        });
+        assertThrows(DuplicateEmail.class, () -> authService.registerUser(request));
     }
 
     @Test
@@ -116,8 +117,6 @@ class AuthServiceTest {
 
         LoginRequest request = new LoginRequest("test@example.com","password");
 
-        assertThrows(InvalidCredentials.class, () -> {
-            authService.loginUser(request);
-        });
+        assertThrows(InvalidCredentials.class, () -> authService.loginUser(request));
     }
 }

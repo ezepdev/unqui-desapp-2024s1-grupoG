@@ -18,7 +18,6 @@ public class CryptoService implements ICryptoService {
     private final ICryptoRepository cryptoRepository;
     private final IBinanceService binanceService;
     private static final Double PRICE_VARIATION_MARGIN = 0.05;
-    private static final int UPDATE_INTERVAL = 60000;
 
     @Cacheable(value = "crypto")
     public List<CryptoCurrency> allCurrencies() {
@@ -41,10 +40,4 @@ public class CryptoService implements ICryptoService {
         var maxPriceVariation = currentCurrency.getPrice() + priceVariation;
         return aPrice > minPriceVariation && aPrice < maxPriceVariation;
     }
-
-
-    protected void registerCurrenciesPrice() {
-        cryptoRepository.saveAll(binanceService.getUpdatedCryptoPrices());
-    }
-
 }

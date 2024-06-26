@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
@@ -26,6 +27,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
+
 class TransactionServiceTest {
 
     @Autowired
@@ -111,9 +114,7 @@ class TransactionServiceTest {
         UpdateTransactionRequest request = new UpdateTransactionRequest("CONFIRM_TRANSFER", 1L);
         when(transactionRepository.findById(1)).thenReturn(Optional.empty());
 
-        assertThrows(TransactionNotFound.class, () -> {
-            transactionService.updateTransactionStatus(1, request);
-        });
+        assertThrows(TransactionNotFound.class, () -> transactionService.updateTransactionStatus(1, request));
 
         verify(transactionRepository, times(1)).findById(1);
     }
@@ -126,9 +127,7 @@ class TransactionServiceTest {
         when(transactionRepository.findById(transactionId)).thenReturn(Optional.of(transaction));
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
-        assertThrows(UserNotFound.class, () -> {
-            transactionService.updateTransactionStatus(1, request);
-        });
+        assertThrows(UserNotFound.class, () -> transactionService.updateTransactionStatus(1, request));
 
         verify(transactionRepository, times(1)).findById(1);
     }
@@ -153,9 +152,7 @@ class TransactionServiceTest {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.findById(3L)).thenReturn(Optional.of(user3));
 
-        assertThrows(UserNotAuthorized.class, () -> {
-            transactionService.updateTransactionStatus(1, request);
-        });
+        assertThrows(UserNotAuthorized.class, () -> transactionService.updateTransactionStatus(1, request));
 
         verify(transactionRepository, times(1)).findById(1);
     }
@@ -176,9 +173,7 @@ class TransactionServiceTest {
         when(userRepository.findById(3L)).thenReturn(Optional.of(user3));
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(cryptoService.isAllowedPrice(any(CryptoCurrencySymbol.class), anyDouble())).thenReturn(false);
-        assertThrows(PriceVariationMarginConflict.class, () -> {
-            transactionService.updateTransactionStatus(1, request);
-        });
+        assertThrows(PriceVariationMarginConflict.class, () -> transactionService.updateTransactionStatus(1, request));
 
         verify(transactionRepository, times(1)).findById(1);
     }
@@ -195,9 +190,7 @@ class TransactionServiceTest {
         when(userRepository.findById(any())).thenReturn(Optional.of(owner));
         when(transactionRepository.save(any())).thenReturn(new Transaction());
 
-        assertThrows(InvalidTransaction.class, () -> {
-            transactionService.startTransaction(request);
-        });
+        assertThrows(InvalidTransaction.class, () -> transactionService.startTransaction(request));
     }
 
     @Test
@@ -211,9 +204,7 @@ class TransactionServiceTest {
         when(userRepository.findById(any())).thenReturn(Optional.of(owner));
         when(transactionRepository.save(any())).thenReturn(new Transaction());
 
-        assertThrows(TransactionIntentionNotFound.class, () -> {
-            transactionService.startTransaction(request);
-        });
+        assertThrows(TransactionIntentionNotFound.class, () -> transactionService.startTransaction(request));
     }
 
     @Test
@@ -227,8 +218,6 @@ class TransactionServiceTest {
 
         when(transactionRepository.save(any())).thenReturn(new Transaction());
 
-        assertThrows(UserNotFound.class, () -> {
-            transactionService.startTransaction(request);
-        });
+        assertThrows(UserNotFound.class, () -> transactionService.startTransaction(request));
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -31,6 +32,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
+
 class TransactionIntentionServiceTest {
     @Autowired
     private ITransactionIntentionService transactionIntentionService;
@@ -80,9 +83,7 @@ class TransactionIntentionServiceTest {
         User user = User.builder().build();
         user.setId(2L);
 
-        assertThrows(UserNotFound.class, () -> {
-            transactionIntentionService.createTransactionIntention(request);
-        });
+        assertThrows(UserNotFound.class, () -> transactionIntentionService.createTransactionIntention(request));
     }
     @Test
     void testCreateTransactionIntentionWithBadPrice() {
@@ -92,9 +93,7 @@ class TransactionIntentionServiceTest {
         when(userRepository.findById(any())).thenReturn(Optional.of(user));
         when(cryptoService.isAllowedPrice(any(CryptoCurrencySymbol.class), anyDouble())).thenReturn(false);
 
-        assertThrows(PriceVariationMarginConflict.class, () -> {
-            transactionIntentionService.createTransactionIntention(request);
-        });
+        assertThrows(PriceVariationMarginConflict.class, () -> transactionIntentionService.createTransactionIntention(request));
     }
     @Test
     void testGetActiveIntentions() {

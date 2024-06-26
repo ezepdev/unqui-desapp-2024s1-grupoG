@@ -3,10 +3,12 @@ package ar.edu.unq.desapp.grupog.backendapicryptoexchange.architecture;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+@ActiveProfiles("test")
 
 class NamingConventionArchTest {
 
