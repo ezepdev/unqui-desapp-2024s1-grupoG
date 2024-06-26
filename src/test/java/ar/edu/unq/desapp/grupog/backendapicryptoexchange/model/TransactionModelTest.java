@@ -1,8 +1,5 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.model;
 
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.Transaction;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.TransactionStatus;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.InvalidTransactionOperation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

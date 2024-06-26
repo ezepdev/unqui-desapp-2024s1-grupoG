@@ -5,8 +5,6 @@ import ar.edu.unq.desapp.grupog.backendapicryptoexchange.api.contracts.authentic
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.User;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.DuplicateEmail;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.repositories.IUserRepository;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.AuthService;
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.ExchangeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

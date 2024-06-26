@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.model;
 
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.*;
 import ar.edu.unq.desapp.grupog.backendapicryptoexchange.model.errors.UpdateActionNotAllowed;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl;
 
-import ar.edu.unq.desapp.grupog.backendapicryptoexchange.service.impl.JWTServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
