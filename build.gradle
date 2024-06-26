@@ -108,10 +108,10 @@ tasks.withType(JavaCompile) {
 
 sonar {
     var exclusions = List.of(
-            "ar/edu/unq/desapp/grupog/backendapicryptoexchange/config/**",
-            "ar/edu/unq/desapp/grupog/backendapicryptoexchange/api/contracts/**",
+            "**/ar/edu/unq/desapp/grupog/backendapicryptoexchange/config/**/*",
+            "**/ar/edu/unq/desapp/grupog/backendapicryptoexchange/api/contracts/**/*",
             "**/config/*",
-            "ar/edu/unq/desapp/grupog/backendapicryptoexchange/api/controllers/APIExceptionController.class"
+            "**/ar/edu/unq/desapp/grupog/backendapicryptoexchange/api/controllers/APIExceptionController.class"
     )
 
     properties {
